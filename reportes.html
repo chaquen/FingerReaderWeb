@@ -58,13 +58,6 @@
                     </li>
                 </ul>
                 <ul class="identificacion">    
-                    <!--<li>
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="pri_apellido" >
-                            <label class="mdl-textfield__label" for="sample3">Nombre Participante</label>
-                        </div>
-                        
-                    </li>-->
                     <li></li>                
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
@@ -166,7 +159,7 @@
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-11">
                             <input value="0" name="genero" type="checkbox" id="checkbox-11" class="mdl-checkbox__input" checked>
-                            <span class="mdl-checkbox__label">Hombres y Mujeres</span>
+                            <span class="mdl-checkbox__label">Todos los generos</span>
                          </label>
                     </li>
                     <li>
@@ -359,8 +352,8 @@
                          </label>
                     </li>-->
                     <li>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-24">
-                            <input value="TipoTortas" name="tipo_reporte" type="checkbox" id="checkbox-24" class="mdl-checkbox__input" selected>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-26">
+                            <input value="TipoTortas" name="tipo_reporte" type="checkbox" id="checkbox-26" class="mdl-checkbox__input" selected>
                             <span class="mdl-checkbox__label">Grafico en Tortas</span>
                          </label>
                     </li>
@@ -425,6 +418,12 @@
                      <div id="barchart_material_gen" class="barraHor"></div>
                      <div id="piechart_material_gen"></div>
                 </div>
+                <!--Grafico Reporte de Genero-->
+                <div id="divSubGenero">
+                    <h5 class="tituloRepor">Reporte de Otros Generos</h5>
+                     <div id="barchart_material_sub_gen" class="barraHor"></div>
+                     <div id="piechart_material_sub_gen"></div>
+                </div>
 
                 <!--Grafico Reporte de Edades-->
                 <div id="divEdades">
@@ -446,7 +445,7 @@
 
                 
                 <div id="divCiuNac">
-                    <h5 class="tituloRepor">Reportes por Ubicacion de Nacimiento</h5>
+                    <h5 class="tituloRepor">Reportes por Ubicación de Nacimiento</h5>
                      <div id="barchart_material_ciu" class="barraHor"></div>
                      <div id="piechart_material_ciu" ></div>
                 </div>

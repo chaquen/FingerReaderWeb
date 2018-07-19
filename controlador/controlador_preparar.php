@@ -75,6 +75,7 @@ if($da!=NULL){
 				$dep_nacimiento=utf8_decode($dep_nacimiento);
 				$cap_dife=utf8_decode($cap_dife);
 				$etnia=utf8_decode($etnia);
+				$sub_etnia=utf8_decode($sub_etnia);
 				$municipio=utf8_decode($municipio);
 				$escolaridad=utf8_decode($escolaridad);
 				$titulo_obt=utf8_decode($titulo_obt);
@@ -104,8 +105,10 @@ if($da!=NULL){
 													fecha_nac,
 													edad,
 													genero,
+													sub_genero,
 													cap_dife,
 													etnia,
+													sub_etnia,
 													zona,
 													municipio,
 													celular,
@@ -133,8 +136,10 @@ if($da!=NULL){
 	                                  		  '$fecha_nac',
 	                                  		  '$edad',
 	                                  		  '$genero',
+	                                  		  '$sub_genero',
 	                                  		  '$cap_dife',
 	                                  		  '$etnia',
+	                                  		  '$sub_etnia',
 	                                  		  '$zona',
 	                                  		  '$municipio',
 	                                  		  '$celular',
@@ -144,7 +149,7 @@ if($da!=NULL){
 	                                  		  '$proceso',
 	                                  		  '$organizacion',
 	                                  		  '$state',
-	                                  		  'null',
+	                                  		  'antiguo',
 	                                  		  '$created_at',
 	                                  		  '$updated_at',
 	                                  		  'antiguo',

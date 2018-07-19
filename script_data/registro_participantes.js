@@ -26,6 +26,9 @@ function iniciar_evento_participantes(){
              if(datos.etnia=="Otro"){
                 datos.etnia=document.getElementById("txt_et_otro").value;
              }
+             if(datos.genero=="Otro"){
+                datos._sub_genero=document.getElementById("txtGenero").value;
+             }
 
              if(datos.tipo_doc=="0"){
                 mostrarMensaje("Selecciona el tipo documento");
@@ -160,6 +163,15 @@ function iniciar_evento_participantes(){
             document.getElementById("txt_et_otro").style.display="";
         }else{
             document.getElementById("txt_et_otro").style.display="none";
+        }
+    });
+    agregarEvento("selGenero","change",function(){
+        console.log(this.value);
+        console.log("Otro");
+        if(this.value==="Otro"){
+            document.getElementById("txtGenero").style.display="";
+        }else{
+            document.getElementById("txtGenero").style.display="none";
         }
     });
     cargar_archivos();
