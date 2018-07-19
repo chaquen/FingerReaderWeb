@@ -1,0 +1,284 @@
+<html>
+    <head>
+         <meta charset="utf-8">
+        <link href="estilos/menuDesplegable.css" rel="stylesheet" type="text/css"/>
+        <link href="mdl/material.css" rel="stylesheet" type="text/css"/>
+        <script src="mdl/material.js" type="text/javascript"></script>
+        <script src="js/jquery-2.1.3.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/acordeon.js" type="text/javascript"></script>
+         <!--script DATA-->
+            <script src="script_data/funciones/utilidades.js" type="text/javascript"></script>
+            <script src="script_data/funciones/formatos.js" type="text/javascript"></script>
+            <script src="script_data/funciones/peticiones_ajax.js" type="text/javascript"></script>
+            <script src="script_data/funciones/CrudBase.js" type="text/javascript"></script>
+            <script src="script_data/funciones/storage.js" type="text/javascript"></script>
+            <script src="script_data/prototipos/prototipos.js" type="text/javascript"></script>
+            <script src="script_data/globales.js" type="text/javascript"></script>
+            <script src="script_data/registro_participantes.js" type="text/javascript"></script>
+            
+        <!--fin script DATA-->
+    </head>
+  
+    <body>
+        <div class="encabezado">
+            <ul>
+                <li>
+                    <img src="images/logo.png">
+                </li>
+            </ul>            
+        </div>
+        <div id="menuAdmin" class="menuAdmin">
+            <ul>
+                <li>
+                     <img src="images/home.png">
+                    <a href="menuEventos.html"><h4>Inicio</h4></a>
+                </li>
+                
+                <li id="btnEventos">
+                    <img src="images/evento.png">
+                    <a href="eventos.html"><h4>Eventos</h4></a>
+                </li>    
+                           
+                
+                <li id="btnReportes">
+                    <img src="images/reporte.png">
+                    <a href="reportes.html"><h4>Reportes</h4></a>
+                </li>
+                <li id="btnSalir">
+                    <img src="images/salir.png">
+                    <a ><h4>Salir</h4></a>
+                </li>
+            </ul>
+        </div>
+        <div class="contenido">
+            <form id="formPobladores">
+                <ul class="identificacion">                    
+                    <li>
+                        <select name="tipo_doc" required>
+                            <option value="0">--Tipo de Documento--</option>
+                            <option value="CC">Cedula Ciudadania</option>
+                            <option value="CE">Cedula extranjera</option>
+                            <option value="PP">Passaporte</option>
+                        </select>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="txt_cc" name="documento" required>
+                            <label class="mdl-textfield__label" for="sample3">Numero de Documento</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input  class="mdl-textfield__input" type="text" name="lugar_exp" required>
+                            
+                            <label class="mdl-textfield__label" for="sample3">Lugar de Expedidion</label>
+                        </div>
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="pri_apellido" required>
+                            <label class="mdl-textfield__label" for="sample3">Primer Apellido</label>
+                        </div>
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="seg_apellido" required>
+                            <label class="mdl-textfield__label" for="sample3">Segundo Apellido</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="pri_nombre" required>
+                            <label class="mdl-textfield__label" for="sample3">Primer Nombre</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="seg_nombre" required>
+                            <label class="mdl-textfield__label" for="sample3">Segundo Nombre</label>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="datosPersonales">
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="txt_dep_nacimiento" list="lista_datos" name="dep_nacimiento" list="lista_datos"  required>
+                            <label class="mdl-textfield__label" for="sample3">Departamento Nacimiento</label>
+                            <datalist id="lista_datos"></datalist> 
+                        </div>                      
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="txt_ciud_nacimiento" list="lista_datos_2" name="ciud_nacimiento" required>
+                            <label class="mdl-textfield__label" for="sample3">Ciudad Nacimiento</label>
+                            <datalist id="lista_datos_2"></datalist> 
+                        </div>
+                        
+                    </li>
+                    
+                    <li>
+                        <h6>Fecha de Nacimiento</h6>
+                    </li>
+                    <li>
+                        <input name="fecha_nac" type="date" required>
+                    </li>
+                    <li>
+                        <select name="genero" required>
+                            <option>--Genero--</option>
+                            <option>Hombre</option>
+                            <option>Mujer</option>
+                            <option>Otro</option>
+                        </select>
+                        <input type="text" name="genero_otro" id="txtGenereo" style="display: none">
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="cap_dife" required>
+                            <label class="mdl-textfield__label" for="sample3">Capacidades Diferentes</label>
+                        </div>
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        
+                            <select id="selEtnia" name="etnia" required>
+                                
+                                    <option value="Indígena">Indígena</option>
+                                    <option value="Negro (Afro-colombiano)">Negro (Afro-colombiano)</>
+                                    <option value="Blanco">Blanco</option>
+                                    <option value="Mestizo">Mestizo</option>
+                                    <option value="Zambo">Zambo</option>
+                                    <option value="Otro">Otro </option>
+                                
+                            </select>
+                           <input id="txt_et_otro" class="mdl-textfield__input" type="text" style="display: none" > 
+                        </div>    
+                    </li>
+                </ul>
+                <ul class="ubicacion">
+                    <li>
+                         <h5>Zona</h5>
+                        <select name="zona">
+                            <option value="urbana">Urbana</option>
+                            <option value="rural">Rural</option>
+                        </select>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input id="txt_dep_2" class="mdl-textfield__input" type="text" list="lista_datos_dep_2" required>
+                            <datalist id="lista_datos_dep_2"></datalist> 
+                            <label class="mdl-textfield__label" for="sample3">Departamento</label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="municipio" list="lista_datos_mun_2" required>
+                            <datalist id="lista_datos_mun_2"></datalist> 
+                            <label class="mdl-textfield__label" for="sample3">Municipio</label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="celular" required>
+                            <label class="mdl-textfield__label" for="sample3">Celular</label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="email">
+                            <label class="mdl-textfield__label" for="sample3">Email</label>
+                        </div> 
+                        
+                    </li>
+                </ul>
+                <ul class="escolaridad">
+                    <li>
+                        <select name="escolaridad" required>
+                            <option value="0">--Nivel de Escolaridad--</option>
+                            <option>Primaria</option>
+                            <option>Bachillerato</option>
+                            <option>Tecnico</option>
+                            <option>Tecnologó</option>
+                            <option>Universitario</option>
+                            <option>Ninguno</option>
+                        </select>
+                        <input type="text" name="escolaridad_otro" id="txtEscolaridad" style="display: none">
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="titulo_obt" required>
+                            <label class="mdl-textfield__label" for="sample3">Titulo Obtenido</label>
+                        </div> 
+                    </li>
+                </ul>
+                <ul class="datosP">
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="organizacion" required>
+                            <label class="mdl-textfield__label" for="sample3">Organizacion "Proceso PDP"</label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="proceso" required>
+                            <label class="mdl-textfield__label" for="sample3">Proceso PDP</label>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="botones">
+                    <li>
+                       <input id="btnRegistrarParticiapantes" type="button"  value="Aceptar">
+                        <input id="btnCancelarParticiapantes" type="button" value="Cancelar">
+                    </li>
+                </ul>
+            </form>            
+        </div>
+         <script type="text/javascript">
+              if(navigator.onLine) {
+                //goOnline();
+                
+                    globales._URL=globales._URL_ONLINE;
+
+                } else {
+                   goOffline();
+                }
+
+                //window.addEventListener('offline', goOffline());
+                //window.addEventListener('online', goOnline(e));
+
+                function goOnline() {
+                    //document.body.classList.remove('offline');
+                    //document.body.classList.add('online');
+                    // Hacer algo más al ir online
+                    console.log("online");
+                    globales._URL=globales._URL_ONLINE;
+                    console.log(globales);
+
+                    document.getElementById("btnOff").style.display="none";
+                }
+
+                function goOffline(e) {
+                    //document.body.classList.remove('online');
+                    //document.body.classList.add('online');
+                    // Hacer algo más al ir offline
+                       console.log("offline");
+                        globales._URL=globales._URL_OFFLINE;
+                        console.log(globales);
+                       
+                            $('#btnPreparar').fadeOut();
+                            $('#btnInstalar').fadeOut();                            
+                            $('#btnSincronizar').fadeOut();
+                            $('#btnReportes').fadeOut();
+                            $('#btnOff').fadeIn();                           
+                           
+            }
+        </script>
+  </body>
+</html>

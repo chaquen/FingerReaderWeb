@@ -1,0 +1,253 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+li {
+    list-style: none;
+}
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-size: 100%;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.encabezado {
+    width: 82%;
+    float: right;
+    display: table;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    box-shadow: 0px 2px 4px gray;
+}
+
+.menuAdmin {
+    padding-top: 140px;
+    width: 18%;
+    height: 100%;
+    background-color: gray;
+    float: left;
+    top: 0;
+    text-align: center;
+}
+.menuAdmin ul {
+    width: 100%;
+    display: table;
+    color: white;
+}
+.menuAdmin ul li {
+    height: 30px;
+    cursor: pointer;
+    margin: 3px;
+    color: white;
+    list-style: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.menuAdmin ul li:hover {
+    background-color: #13F98D;
+    
+}
+.menuAdmin li a {
+    color: white;
+}
+.menuAdmin li img {
+    float: left;
+    width: 25px;
+    height: 25px;
+    margin-top: 8px;
+    margin-left: 50px;
+}
+.menuAdmin li h4 {
+    float: left;
+    margin-left: 10px;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.contenido {
+    width: 80%;
+    float: left;
+    height: 450px;
+    overflow-x: hidden;
+}
+.contenido form {
+    width: 95%;
+    display: table;
+    padding: 20px;
+    margin: auto;
+}
+.contenedor h1 {
+    text-align: center;    
+}
+.subContenido {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1,1,1,0.5);
+    display: none;
+}
+.subContenido h5 {
+    padding-top: 80px;
+    margin-top: 0;
+}
+select {
+    border-radius: 5px;
+    border: 1px solid #C82C0A;
+    width: 80%;
+    height: 30px;
+    color: #C82C0A;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.identificacion {
+    
+    display: table;
+}
+.identificacion li {
+    float: left;
+    width: 33%;
+    
+}
+.identificacion li:nth-child(4){
+    width: 49.5%;
+}
+.identificacion li:nth-child(5){
+    width: 49.5%;
+}
+.identificacion li:nth-child(6){
+    width: 49.5%;
+}
+.identificacion li:nth-child(7){
+    width: 49.5%;
+}
+
+.datosPersonales {
+    clear: both;
+}
+.datosPersonales li {
+    float: left;
+    width: 33%;
+}
+.datosPersonales li:nth-child(1){
+    width: 49%;
+}
+.datosPersonales li:nth-child(2){
+    width: 49%;
+}
+.datosPersonales li:nth-child(6){
+    width: 49%;
+}
+.datosPersonales li:nth-child(7){
+    width: 49%;
+}
+.datosPersonales li h6 {
+    margin-bottom: 10px;
+}
+
+.ubicacion {
+    clear: both;
+    width: 98%;
+}
+.ubicacion li {
+    float: left;
+    width: 25%;
+}
+.escolaridad {
+    clear: both;
+    width: 98%;
+}
+.escolaridad li {
+    float: left;
+    width: 20%;
+}
+.escolaridad li:nth-child(3){
+    width: 80%;
+}
+.datosP {
+    clear: both;
+    width: 98%;
+}
+.datosP li {
+    float: left;
+    width: 40%    
+}
+.botones {
+    clear: both;
+    width: 98%;
+    text-align: center;
+}
+input[type=text] {
+    width: 95%;
+    height: 25px;
+    border-radius: 5px;
+    margin-left: 2%;
+    margin-top: 5px;
+    color: #59B959;
+}
+input[type=date]{
+    border-radius: 5px;
+    border: 1px solid #C82C0A;
+    width: 80%;
+    height: 30px;
+    color: #C82C0A;
+    margin: auto;
+    margin-top: 20px;
+}
+input[type=number] {
+    width: 95%;
+    height: 25px;
+    border-radius: 5px;
+    margin-left: 2%;
+    margin-top: 5px;
+}
+input[type=button]{
+    padding: 8px 20px;
+    cursor: pointer;
+    background-color: #59B959;
+    color: white;
+}
+input[type=button]:hover {
+    background-color: #9DF69D;
+    color: #437843;
+}
+table {
+    width: 70%;
+    padding: 20px;
+    border: 1px solid black;
+    margin: auto;
+    text-align: center;
+}
+tbody tr td {
+    width: 20%;
+    padding: 10px;
+}
+#propia {
+    margin-top: 50px;
+    width: 100px;
+    height: 100px;
+}
+#p2 {
+    margin-top: 50px;
+    margin: auto;
+}
+.reporte {
+    border: 1px solid red;
+    width: 80%;
+    height: 100px;
+}
+@media print {
+    #menuAdmin, .contenido, #divExportar {
+        display: none;
+    }
+    
+}
+#mensaje {
+    margin-left: 40%;
+}

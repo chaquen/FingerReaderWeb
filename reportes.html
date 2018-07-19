@@ -1,0 +1,505 @@
+<html>
+    <head>
+         <meta charset="utf-8">
+        
+        <link href="mdl/material.css" rel="stylesheet" type="text/css"/>
+        <link href="estilos/nuevoReporte.css" rel="stylesheet" type="text/css"/>
+        <script src="mdl/material.js" type="text/javascript"></script>
+        <script src="js/jquery-2.1.3.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.js" type="text/javascript"></script>
+        <script src="js/acordeon.js" type="text/javascript"></script>
+         <!--Scripts DATA-->
+        <script src="script_data/funciones/utilidades.js" type="text/javascript"></script>
+        <script src="script_data/funciones/formatos.js" type="text/javascript"></script>
+        <script src="script_data/funciones/peticiones_ajax.js" type="text/javascript"></script>
+        <script src="script_data/funciones/CrudBase.js" type="text/javascript"></script>
+        <script src="script_data/funciones/storage.js" type="text/javascript"></script>
+        <script src="script_data/prototipos/prototipos.js" type="text/javascript"></script>
+        <script src="script_data/globales.js" type="text/javascript"></script>
+        <script src="script_data/reportes2.js" type="text/javascript"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <!--Scripts DATA-->
+    </head>
+  
+    <body>
+        <div class="encabezado">
+            <ul>
+                <li>
+                    <img src="images/logo.png">
+                </li>
+            </ul>            
+        </div>
+        <div id="menuAdmin" class="menuAdmin">
+            <ul>
+                <li>
+                   <img src="images/home.png">
+                    <a href="menuEventos.html"><h4>Inicio</h4></a>
+                </li>
+                <li id="btnEventos">
+                    <img src="images/evento.png">
+                    <a href="eventos.html"><h4>Eventos</h4></a>
+                </li>    
+                <li id="btnSalir">
+                    <img src="images/salir.png">
+                    <a ><h4>Salir</h4></a>
+                </li>
+            </ul>
+        </div>
+        <div class="contenido">
+            <form id="formReportes">
+                <ul>
+                    <li>
+                        <select id="selEventos" v>
+                            <option>--Todos los eventos o seleccione un evento--</option>
+                            <option value="CC">Evento 1</option>
+                            <option value="CE">Evento 2</option>
+                            <option value="PP">Evento 3</option>
+                        </select>
+                    </li>
+                </ul>
+                <ul class="identificacion">    
+                    <!--<li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="pri_apellido" >
+                            <label class="mdl-textfield__label" for="sample3">Nombre Participante</label>
+                        </div>
+                        
+                    </li>-->
+                    <li></li>                
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                            <input  value="0" type="checkbox" id="checkbox-1" class="mdl-checkbox__input" name="tipo_doc" checked>
+                            <span class="mdl-checkbox__label">Todos los documentos</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+                            <input  value="CC" type="checkbox" id="checkbox-2" class="mdl-checkbox__input" name="tipo_doc">
+                            <span class="mdl-checkbox__label">Cedula de ciudadania</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-3">
+                            <input value="CE" type="checkbox" id="checkbox-3" class="mdl-checkbox__input" name="tipo_doc">
+                            <span class="mdl-checkbox__label">Cedula Extranjeria</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-4">
+                            <input value="PP" type="checkbox" id="checkbox-4" class="mdl-checkbox__input" name="tipo_doc">
+                            <span class="mdl-checkbox__label">Passaporte</span>
+                         </label>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="txt_cc" name="documento" >
+                            <label class="mdl-textfield__label" for="sample3">Numero de Documento</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="pri_nombre" >
+                            <label class="mdl-textfield__label" for="sample3">Nombre</label>
+                        </div>
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="txt_dep_nacimiento" list="lista_datos_dep_nac" name="dep_nacimiento" >
+                            <label class="mdl-textfield__label" for="sample3">Departamento Nacimiento</label>
+                            <datalist id="lista_datos_dep_nac"></datalist> 
+                        </div>                      
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="txt_ciud_nacimiento" list="lista_datos_ciu_nacimiento" name="ciud_nacimiento" >
+                            <label class="mdl-textfield__label" for="sample3">Ciudad Nacimiento</label>
+                            <datalist id="lista_datos_ciu_nacimiento"></datalist> 
+                        </div>
+                        
+                    </li>
+                    
+                </ul>
+                <ul class="datosPersonales">
+                    <li>
+                        <b><h5>Rango de edad</h5></b>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-5">
+                            <input value="0" name="edad" type="checkbox" id="checkbox-5" class="mdl-checkbox__input" checked>
+                            <span class="mdl-checkbox__label">Todas las edades</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-6">
+                            <input value="18a28" name="edad" type="checkbox" id="checkbox-6" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">18 a 28</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-7">
+                            <input value="29a38" name="edad" type="checkbox" id="checkbox-7" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">29 a 38</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-8">
+                            <input value="39a48" name="edad" type="checkbox" id="checkbox-8" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">39 a 48</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-9">
+                            <input value="48a58" name="edad" type="checkbox" id="checkbox-9" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">49 a 58</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-10">
+                            <input value="59a110" name="edad" type="checkbox" id="checkbox-10" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">59 en adelante</span>
+                         </label>
+                    </li>
+                    <li>
+                        <b><h5>Genero</h5></b>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-11">
+                            <input value="0" name="genero" type="checkbox" id="checkbox-11" class="mdl-checkbox__input" checked>
+                            <span class="mdl-checkbox__label">Hombres y Mujeres</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-12">
+                            <input value="Hombre" name="genero" type="checkbox" id="checkbox-12" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Solo Hombres</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-23">
+                            <input value="Mujer" name="genero" type="checkbox" id="checkbox-23" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Solo Mujeres</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-14">
+                            <input value="Otro" name="genero" type="checkbox" id="checkbox-14" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Otro</span>
+                         </label>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="cap_dife" list="lista_datos_cap_dife">
+                            <label class="mdl-textfield__label" for="sample3">Capacidades Diferentes</label>
+                            <datalist id="lista_datos_cap_dife"></datalist>
+                        </div>
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            
+                            <select name="etnia" id="selEtnia">
+                                    <option value="0">Todas las etnias</option>
+                                    <option value="Indígena">Indígena</option>
+                                    <option value="Negro (Afro-colombiano)">Negro (Afro-colombiano)</option>
+                                    <option value="Blanco">Blanco</option>
+                                    <option value="Mestizo">Mestizo</option>
+                                    <option value="Zambo">Zambo</option>
+                                    <option value="Otro">Otro </option>
+                            </select>
+                            <input id="txt_et_otro" style="display:none; " class="mdl-textfield__input" type="text"  >
+                            
+                        </div> 
+                    </li>
+                </ul>
+              
+                <ul class="ubicacion">
+                    <li>
+                        <h6>Zona</h6>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-14">
+                            <input value="0" name="zonas" type="checkbox" id="checkbox-14" class="mdl-checkbox__input" checked>
+                            <span class="mdl-checkbox__label">Todas las zonas</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-15">
+                            <input value="rural" name="zonas" type="checkbox" id="checkbox-15" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Zona Rural</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-16">
+                            <input value="urbana" name="zonas" type="checkbox" id="checkbox-16" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Zona Urbana</span>
+                         </label>
+                    </li>
+                     <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input type="text" id="txt_dep_ubi" name="dep_nacimiento"  list="lista_datos_ubi" class="mdl-textfield__input"  list="lista_datos_ubi" >
+                        <datalist id="lista_datos_ubi"></datalist> 
+                            <label class="mdl-textfield__label" for="sample3">Departamento  </label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                             
+                            <input class="mdl-textfield__input" type="text" id="txt_mun_ubi" name="municipio" list="lista_datos_mun_ubi">
+                             <datalist id="lista_datos_mun_ubi"></datalist> 
+                            <label class="mdl-textfield__label" for="sample3">Municipio</label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="celular" >
+                            <label class="mdl-textfield__label" for="sample3">Celular</label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="email" >
+                            <label class="mdl-textfield__label" for="sample3">Email</label>
+                        </div> 
+                        
+                    </li>
+                </ul>
+                <ul class="escolaridad">
+                    <li>
+                        <b><h5>Escolaridad</h5></b>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-17">
+                            <input value="0" name="escolaridad" type="checkbox" id="checkbox-17" class="mdl-checkbox__input" checked="">
+                            <span class="mdl-checkbox__label">Todos los niveles</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-18">
+                            <input value="Primaria" name="escolaridad" type="checkbox" id="checkbox-18" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Primaria</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-19">
+                            <input value="Bachillerato" name="escolaridad" type="checkbox" id="checkbox-19" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Bachillerato</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-20">
+                            <input  value="Tecnico" name="escolaridad" type="checkbox" id="checkbox-20" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Tecnico</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-21">
+                            <input value="Tecnologó" name="escolaridad" type="checkbox" id="checkbox-21" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Tecnologó</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-22">
+                            <input value="Universitario" name="escolaridad" type="checkbox" id="checkbox-22" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Universitario</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-24">
+                            <input value="Ninguno" name="escolaridad" type="checkbox" id="checkbox-24" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Ninguno</span>
+                         </label>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input   name="titulo_obt" class="mdl-textfield__input" type="text" name="nombreTitulo" >
+                            <label class="mdl-textfield__label" for="sample3">Nombre del Titulo</label>
+                        </div> 
+                        
+                    </li>
+                     <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          
+                            <label class="mdl-textfield__label" for="sample3">                  </label>
+                        </div> 
+                        
+                    </li>
+                </ul>
+                <ul class="datosP">
+                    <li>
+                        <b><h5>Información Proceso PDP</h5></b>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="organizacion" list="lista_datos_orga" >
+                            <datalist id="lista_datos_orga"></datalist>
+                            <label class="mdl-textfield__label" for="sample3">Organizacion "Proceso PDP"</label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="proceso" list="lista_datos_proceso">
+                            <datalist id="lista_datos_proceso"></datalist>
+                            <label class="mdl-textfield__label" for="sample3">Proceso PDP</label>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="botones">
+                    <li>
+                        <b><h5>Tipo de Informe</h5></b>
+                    </li>
+                    <!--<li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-23">
+                            <input value="TipoTortasyBarras" name="tipo_reporte" type="checkbox" id="checkbox-23" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Grafico en Tortas y Barras</span>
+                         </label>
+                    </li>-->
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-24">
+                            <input value="TipoTortas" name="tipo_reporte" type="checkbox" id="checkbox-24" class="mdl-checkbox__input" selected>
+                            <span class="mdl-checkbox__label">Grafico en Tortas</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-25">
+                            <input value="TipoBarras" name="tipo_reporte" type="checkbox" id="checkbox-25" class="mdl-checkbox__input" selected>
+                            <span class="mdl-checkbox__label">Grafico en Barras</span>
+                         </label>
+                    </li>
+                </ul>
+                <ul class="accion">
+                    <li>
+                        <input type="button" value="Generar Informe" id="btnGeneraReporte">
+                        <input type="button" value="Cancelar">
+                    </li>
+                </ul>
+            </form>
+        </div>
+
+         <!--resultados-->
+         <div id="reporteGenerado">
+            
+            <!--Contenedor de Graficos-->
+            <div class="contenedorGraficos">
+                <div class="btnImpresionRepor">
+                    <input type="button" value="Cerrar Informe" class="salir">
+                    <input id="btnGenerarPdf"  type="button" value="Exportar PDF">
+                    <input id="btnGenerarExcel" type="button"  value="Exportar Excel">
+                    <a id="aExpor" target="_blank"></a>
+                </div>
+
+                <!--Grafico Reporte General-->
+                <div class="vistaReporte">
+                    <h5 class="tituloRepor">Reporte General</h5>
+                    <div id="divReporteGeneral">
+                        <table id="tblListaGeneral" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                        </table>
+                    </div>
+                </div>
+
+                <!--Grafico Reporte General-->
+                <div id="divListaAsis1" class="vistaReporte2">
+                    <h5 class="tituloRepor">Reporte Asistencia</h5>
+                    <div id="divReporteGeneralDoc">
+                        <table id="tblListaGeneralDoc" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                        </table>
+                    </div>
+                </div>
+                <div id="divListaAsis2" class="vistaReporte3">
+                    <h5 class="tituloRepor">Reporte Asistencia</h5>
+                    <div id="divReporteGeneralNom">
+                        <table id="tblListaGeneralNom" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <!--Grafico Reporte de Genero-->
+                <div id="divGenero">
+                    <h5 class="tituloRepor">Reporte de Genero</h5>
+                     <div id="barchart_material_gen" class="barraHor"></div>
+                     <div id="piechart_material_gen"></div>
+                </div>
+
+                <!--Grafico Reporte de Edades-->
+                <div id="divEdades">
+                    <h5 class="tituloRepor">Reporte de Edades</h5>
+                     <div id="barchart_material_eda" class="barraHor"></div>
+                     <div id="piechart_material_eda" ></div>
+                </div>
+
+                <!--Grafico Reporte Capacidades Especiales-->
+
+                
+                <div id="divCapDife">
+                    <h5 class="tituloRepor">Reporte por Capacidades Especiales</h5>
+                     <div id="barchart_material_cap_dif" class="barraHor"></div>
+                     <div id="piechart_material_cap_dif" ></div>
+                </div>
+
+                <!--Graficos de Ciudad y Departamento de nacimiento-->
+
+                
+                <div id="divCiuNac">
+                    <h5 class="tituloRepor">Reportes por Ubicacion de Nacimiento</h5>
+                     <div id="barchart_material_ciu" class="barraHor"></div>
+                     <div id="piechart_material_ciu" ></div>
+                </div>
+                 <div id="divDepNac">
+                    <h5 class="tituloRepor">Reportes por Departamento de Nacimiento</h5>   
+                     <div id="barchart_material_dep_nac" class="barraHor"></div>
+                     <div id="piechart_material_dep_nac" ></div>
+                </div>
+
+                <!--Graficos Reporte Proceso PDP-->
+
+                <div id="divOrga">
+                    <h5 class="tituloRepor">Reporte Organizacion</h5>
+                     <div id="barchart_material_orga" class="barraHor"></div>
+                    <div id="piechart_material_orga" ></div>
+                </div>
+
+                <!--Grafico por Escolaridad-->
+                <div id="divEsco">
+                    <h5 class="tituloRepor">Reporte Escolaridad</h5>
+                     <div id="barchart_material_esco" class="barraHor"></div>
+                     <div id="piechart_material_esco" ></div>
+                </div>
+
+                <!--Grafico Reporte Etinas-->
+                <div id="divEtnia">
+                    <h5 class="tituloRepor">Reporte Etnia</h5>
+                     <div id="barchart_material_etnia" class="barraHor"></div>
+                     <div id="piechart_material_etnia" ></div>
+                </div>
+                <!--Grafico Reporte Sub Etinas-->
+                <div id="divOtraEtnia">
+                    <h5 class="tituloRepor">Reporte Otras Etnias</h5>
+                     <div id="barchart_material_setnia" class="barraHor"></div>
+                     <div id="piechart_material_setnia" ></div>
+                </div>
+                <!--Reporte Organizaciones-->
+                <div id="divPro">
+                    <h5>Reporte Proceso PDP</h5>
+                     <div id="barchart_material_proceso" class="barraHor"></div>
+                     <div id="piechart_material_proceso" ></div>
+                </div>
+
+            </div>
+
+            
+            <!--Fin contenedor de graficos-->
+        </div>   
+        <!-- Fin resultados-->
+
+        
+
+
+
+  </body>
+</html>
