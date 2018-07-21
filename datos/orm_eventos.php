@@ -216,5 +216,76 @@ class Eventos extends ModeloBaseDeDatos{
             }   
 
     }
+    function obtener_registro_todas_las_lineas(){
+        $tbl=$this->TABLA;
+          $this->sentencia_sql="SELECT * FROM lineas" ;
+        
+        
+        if($this->consultar_registros()){
+            //var_dump($this->filas);
+            return array("mensaje"=>$this->mensajeDepuracion,
+                "respuesta"=>TRUE,
+                "valores_consultados"=>$this->filas);
+        }else{
+            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=> FALSE);
+        }
+        
+    }
+    function obtener_registro_todos_los_procesos($nom){
+        
+          $this->sentencia_sql="SELECT proceso.id,proceso.nombre_proceso FROM proceso INNER JOIN lineas ON proceso.fk_id_linea = lineas.id WHERE lineas.nombre_linea LIKE '$nom'";
+        
+        
+        if($this->consultar_registros()){
+            //var_dump($this->filas);
+            return array("mensaje"=>$this->mensajeDepuracion,
+                "respuesta"=>TRUE,
+                "valores_consultados"=>$this->filas);
+        }else{
+            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=> FALSE);
+        }
+        
+    }
+    function crear_registro_lineas($arr){
+            foreach ($arr as $key => $value) {
+            //var_dump($key);
+                $$key=$value;
+            }   
+            $this->sentencia_sql="SELECT * FROM lineas WHERE  id = $id";
+            if($this->consultar_registros()==false){
+                $this->sentencia_sql="INSERT INTO lineas (id,nombre_linea) VALUES('$id','$nombre_linea')";
+                if($this->insertar_registro()){
+                //var_dump($this->filas[0]);
+                    return array("mensaje"=> "linea registrada",
+                        "respuesta"=>TRUE);
+                }else{
+                    return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
+                }   
+            }
+            
+                
+        
+    }
+    function crear_registro_proceso($arr){
+            foreach ($arr as $key => $value) {
+            //var_dump($key);
+                $$key=$value;
+            }   
+
+            $this->sentencia_sql="SELECT * FROM proceso WHERE  id = $id";
+            if($this->consultar_registros()==false){
+                $this->sentencia_sql="INSERT INTO proceso (id,fk_id_linea,nombre_proceso) VALUES('$id','$fk_id_linea','$nombre_proceso')";
+                if($this->insertar_registro()){
+                //var_dump($this->filas[0]);
+                    return array("mensaje"=> "linea registrada",
+                        "respuesta"=>TRUE);
+                }else{
+                    return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
+                }    
+            }
+            
+                
+        
+    }  
     
 }

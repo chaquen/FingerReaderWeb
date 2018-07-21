@@ -356,4 +356,10 @@ h5 {
     .btnImpresionRepor {
         display: none;
     }    
+    #hRepo{
+        display: none;
+    }
+    #divListaAsis3{
+     display: none;   
+    }
 }

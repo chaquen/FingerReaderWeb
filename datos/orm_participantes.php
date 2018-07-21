@@ -230,7 +230,7 @@ class Participantes extends ModeloBaseDeDatos{
 
     function obtener_registro_por_valor_join($valores_a_retornar,$valor){
          
-         $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA)." INNER JOIN detalle_participantes ON ". trim($this->TABLA).".documento = detalle_participantes.user_id";
+        $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA)." INNER JOIN detalle_participantes ON ". trim($this->TABLA).".documento = detalle_participantes.user_id";
 
         if($valor!=""){
             $this->sentencia_sql.=" WHERE ".$valor;
@@ -251,7 +251,8 @@ class Participantes extends ModeloBaseDeDatos{
     }
     
     function eliminar_recurso($valor){
-        $this->sentencia_sql="DELETE FROM ".$this->TABLA."WHERE ".$valor;
+        $this->sentencia_sql="DELETE FROM ".$this->TABLA." WHERE ".$valor;
+        //echo $this->sentencia_sql;
         if($this->eliminar_registro()){
             return array("mensaje"=> $this->mensajeDepuracion,
                 "respuesta"=>TRUE);
@@ -291,9 +292,6 @@ class Participantes extends ModeloBaseDeDatos{
                                                         email = '$email',
                                                         escolaridad = '$escolaridad',
                                                         titulo_obt = '$titulo_obt',
-                                                        organizacion = '$organizacion',
-                                                        proceso = '$proceso',
-
                                                         estado_registro = 'registrado',
                                                         tipo_registro = 'nuevo',
                                                         state = '1',
@@ -302,8 +300,18 @@ class Participantes extends ModeloBaseDeDatos{
 
                                                         WHERE id = '$id'";
         if($this->actualizar_registro()){
-            return array("mensaje"=> $this->mensajeDepuracion,
-                "respuesta"=>TRUE);
+            //var_dump($procesos);
+            foreach ($procesos as $key => $value) {
+                $pp=$value;
+                $this->sentencia_sql="INSERT INTO  detalle_procesos (id_usuario,id_proceso,created_at) VALUES ('$documento','$pp','$created_at')";
+                $this->insertar_registro();
+                    
+                
+            }
+                
+             return array("mensaje"=> $this->mensajeDepuracion,
+                    "respuesta"=>TRUE);   
+            
         }else{
             return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
         }
@@ -320,6 +328,20 @@ class Participantes extends ModeloBaseDeDatos{
                 "respuesta"=>TRUE);
         }else{
             return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
+        }
+    }
+
+    function obtener_procesos_por_usuario(){
+        $this->sentencia_sql="SELECT * FROM detalle_procesos";
+
+       
+        if($this->consultar_registros()){
+            //var_dump($this->filas);
+            return array("mensaje"=>$this->mensajeDepuracion,
+                "respuesta"=>TRUE,
+                "valores_consultados"=>$this->filas);
+        }else{
+            return array("mensaje"=>  "No hay registros de procesos","respuesta"=> FALSE,"valores_consultados"=>NULL);
         }
     }
     

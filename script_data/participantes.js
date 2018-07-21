@@ -13,22 +13,23 @@ function iniciar_evento_participantes(){
     
     var d=recibirValorGet();
      pos=d[0].split("=")[1];
-    //console.log(d);
-    //onsole.log(d[0].split("=")[1]);
-
-    //globales._eventos=obtener_local_storage("lsEventos");
     
-   
-    console.log(globales._eventos[pos]);
+    agregarEvento("liInicio","click",function(){
+        location.href="menuEventos.html";
+    });
+    agregarEvento("btnEventos","click",function(){
+        location.href="eventos.html";
+    });
+    agregarEvento("btnReportes","click",function(){
+        location.href="reportes.html";
+    });
+    agregarEvento("btnSalir","click",function(){
 
-    /*consultarDatosOff("script_data/data/colombia.json","",{},function(rs){
-        console.log(rs);
-        globales._departamentos=rs;
-        crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
-        
-    });*/
-    //console.log(globales._URL);
-    //console.log(globales._URL+"controlador/controlador_participantes.php");
+        if(confirm("¿Estas seguro de salir de la aplicación?")){
+            eliminar_local_storage("ssUsuario");
+            location.href="index.html";     
+        }
+    });
     consultar_participantes();
    
     agregarEvento("btnRegistrarParticiapantes","click",function(){
@@ -184,12 +185,25 @@ function dibujar_registrados(){
         td.className="mdl-data-table__cell--non-numeric";
         td.innerHTML=datos[d].seg_apellido;
         tr.appendChild(td);
+        if(datos[d].actualizar_recurso==1){
+            var td=document.createElement("td");
+            td.className="mdl-data-table__cell--non-numeric";
+            var inp=document.createElement("input");
+            inp.setAttribute("type","button");
+            inp.setAttribute("value","Actualizar");
+            inp.setAttribute("onclick","actualizar_participante('"+datos[d].id+"')");
+            td.appendChild(inp);
+            tr.appendChild(td);
         
+        }
         
         
         div.appendChild(tr);
     
     }
+}
+function actualizar_participante(id){
+    window.open("actualizarParticipante.html?id="+id,"Actualizar datos ","width=1200,height=900");
 }
 function agregar_a_var_participantes(dato){
     console.log(dato);

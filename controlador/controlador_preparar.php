@@ -38,6 +38,30 @@ if($da!=NULL){
 //var_dump($res);
 
 	$i=0;
+	foreach ($da->lineas as $key => $value) {
+		//var_dump($value);
+		$evento=new Eventos();	
+		$evento->crear_registro_lineas($value);
+		//$i++;
+	}
+	foreach ($da->procesos as $key => $value) {
+		//var_dump($value);
+		$evento=new Eventos();	
+		//$resp[$i]=$evento->crear_registro_proceso($value);
+		$i++;
+	}
+
+	foreach ($da->eventos as $key => $value) {
+		//var_dump($value);
+		$evento=new Eventos();	
+		$res[$i]=$evento->crear_registro($value);
+		$i++;
+		
+
+		
+		
+	}
+
 
 	foreach ($da->eventos as $key => $value) {
 		//var_dump($value);
@@ -54,16 +78,8 @@ if($da!=NULL){
 		$down->descargar_archivo("http://pdpmagdalenacentro.org/assets/private/atachments/events/".$value->atachments,$dir."/".$value->atachments);
 	}	
 
-	
-	//foreach ($da->participantes as $key => $value) {
-		//var_dump($da->participantes[0]);
-
-		//$par=new Participantes();	
-		//$par->crear_registro($da->participantes[0]);
-		
-	//}
-		$objeto->eliminar_recurso("estado_registro = 'antiguo'");
-		foreach($da->participantes as $pp){
+	$objeto->eliminar_recurso("estado_registro = 'antiguo'");
+	 foreach($da->participantes as $pp){
 			foreach ($pp as $key => $value) {
                 $$key=$value;
          	}
@@ -115,8 +131,7 @@ if($da!=NULL){
 													email,
 													escolaridad,
 													titulo_obt,
-													proceso,
-													organizacion,
+													
 													state,
 													estado_registro,
 													created_at,
@@ -146,15 +161,14 @@ if($da!=NULL){
 	                                  		  '$email',
 	                                  		  '$escolaridad',
 	                                  		  '$titulo_obt',
-	                                  		  '$proceso',
-	                                  		  '$organizacion',
+	                                  		  
 	                                  		  '$state',
 	                                  		  'antiguo',
 	                                  		  '$created_at',
 	                                  		  '$updated_at',
 	                                  		  'antiguo',
 	                                  		  '".$huela."')";
-//echo $sql;
+
 	           
 		        if ($conn->query($sql) === TRUE) {
 					//echo "New record created successfully";
@@ -162,6 +176,22 @@ if($da!=NULL){
 					//echo "Error: " . $sql . "<br>" . $conn->error;
 				}	
 		}
+	 foreach($da->detalle_procesos as $pp){
+			foreach ($pp as $key => $value) {
+                $$key=$value;
+         	}
+
+         		
+	         	$sql = "INSERT INTO detalle_procesos (id,id_usuario,id_proceso,created_at) 
+	                                  VALUES ('$id','$id_usuario','$id_proceso','$created_at')";
+
+	           
+		        if ($conn->query($sql) === TRUE) {
+					//echo "New record created successfully";
+				} else {
+					//echo "Error: " . $sql . "<br>" . $conn->error;
+				}	
+		}	
 	
 	$eve->registro_sincronizar($us->datos->id,$us->hora_cliente,"'preparacion'");
         
@@ -174,7 +204,7 @@ if($da!=NULL){
 
 
 }else{
-	echo json_encode(["mensaje"=>"ha ocurrido un error por favor comunicate con el administrador"]);
+	echo json_encode(["mensaje"=>"ha ocurrido un error por favor comunicate con el administrador","respuesta"=>false]);
     //print_r($remote_server_output);
 }
 

@@ -1,5 +1,6 @@
-<html>
-    <head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
          <meta charset="utf-8">
         <link href="estilos/menuDesplegable.css" rel="stylesheet" type="text/css"/>
         <link href="mdl/material.css" rel="stylesheet" type="text/css"/>
@@ -15,43 +16,12 @@
             <script src="script_data/funciones/storage.js" type="text/javascript"></script>
             <script src="script_data/prototipos/prototipos.js" type="text/javascript"></script>
             <script src="script_data/globales.js" type="text/javascript"></script>
-            <script src="script_data/registro_participantes.js" type="text/javascript"></script>
+            <script src="script_data/actualizar_participantes.js" type="text/javascript"></script>
             
         <!--fin script DATA-->
     </head>
-  
-    <body>
-        <div class="encabezado">
-            <ul>
-                <li>
-                    <img src="images/logo.png">
-                </li>
-            </ul>            
-        </div>
-        <div id="menuAdmin" class="menuAdmin">
-            <ul>
-                <li id="liInicio">
-                     <img src="images/home.png">
-                    <a ><h4>Inicio</h4></a>
-                </li>
-                
-                <li id="btnEventos">
-                    <img src="images/evento.png">
-                    <a ><h4>Eventos</h4></a>
-                </li>    
-                           
-                
-                <li id="btnReportes">
-                    <img src="images/reporte.png">
-                    <a ><h4>Reportes</h4></a>
-                </li>
-                <li id="btnSalir">
-                    <img src="images/salir.png">
-                    <a ><h4>Salir</h4></a>
-                </li>
-            </ul>
-        </div>
-        <div class="contenido">
+<body class="contenido" >
+	 <div id="divFormParticipante" >
             <form id="formPobladores">
                 <ul class="identificacion">                    
                     <li>
@@ -199,7 +169,7 @@
                 </ul>
                 <ul class="escolaridad">
                     <li>
-                        <select  name="escolaridad" required>
+                        <select name="escolaridad" required>
                             <option value="0">--Nivel de Escolaridad--</option>
                             <option>Primaria</option>
                             <option>Bachillerato</option>
@@ -212,7 +182,7 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="titulo_obt" id="txtTitulo">
+                            <input class="mdl-textfield__input" type="text" name="titulo_obt" required>
                             <label class="mdl-textfield__label" for="sample3">Titulo Obtenido</label>
                         </div> 
                     </li>
@@ -220,79 +190,25 @@
                 <ul class="datosP">
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input id="txtLineas" class="mdl-textfield__input" type="text" name="organizacion" list="listaLineas" >
-                            <label class="mdl-textfield__label" for="sample3">Lineas "Proceso PDP"</label>
-                            <datalist id="listaLineas"></datalist>
+                            <input class="mdl-textfield__input" type="text" name="organizacion" required>
+                            <label class="mdl-textfield__label" for="sample3">Organizacion "Proceso PDP"</label>
                         </div> 
                         
                     </li>
-                    
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input id="txtProceso" class="mdl-textfield__input" type="text" name="proceso" list="listaProcesos" >
+                            <input class="mdl-textfield__input" type="text" name="proceso" required>
                             <label class="mdl-textfield__label" for="sample3">Proceso PDP</label>
-                            <datalist id="listaProcesos"></datalist>
-
                         </div>
-                        
                     </li>
-                    <li>
-                        <input type="button" value="Agregar proceso" id="btnAgregarProceso">
-                    </li>
-                    <li id="divProceso">
-                        <ul id="liProceso">
-                          
-                        </ul>
-                    </li>
-
                 </ul>
                 <ul class="botones">
                     <li>
-                       <input id="btnRegistrarParticiapantes" type="button"  value="Aceptar">
+                       <input id="btnActualizarParticiapantes" type="button"  value="Aceptar">
                         <input id="btnCancelarParticiapantes" type="button" value="Cancelar">
                     </li>
                 </ul>
             </form>            
         </div>
-         <script type="text/javascript">
-              if(navigator.onLine) {
-                //goOnline();
-                
-                    globales._URL=globales._URL_ONLINE;
-
-                } else {
-                   goOffline();
-                }
-
-                //window.addEventListener('offline', goOffline());
-                //window.addEventListener('online', goOnline(e));
-
-                function goOnline() {
-                    //document.body.classList.remove('offline');
-                    //document.body.classList.add('online');
-                    // Hacer algo más al ir online
-                    console.log("online");
-                    globales._URL=globales._URL_ONLINE;
-                    console.log(globales);
-
-                    document.getElementById("btnOff").style.display="none";
-                }
-
-                function goOffline(e) {
-                    //document.body.classList.remove('online');
-                    //document.body.classList.add('online');
-                    // Hacer algo más al ir offline
-                       console.log("offline");
-                        globales._URL=globales._URL_OFFLINE;
-                        console.log(globales);
-                       
-                            $('#btnPreparar').fadeOut();
-                            $('#btnInstalar').fadeOut();                            
-                            $('#btnSincronizar').fadeOut();
-                            $('#btnReportes').fadeOut();
-                            $('#btnOff').fadeIn();                           
-                           
-            }
-        </script>
-  </body>
+</body>
 </html>
