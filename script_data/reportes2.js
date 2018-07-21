@@ -36,11 +36,11 @@ function iniciar_reportes(){
 
 	var d=recibirValorGet();
 	/*consultarDatosOff("script_data/data/colombia.json","",{},function(rs){
-        console.log(rs);
-        globales._departamentos=rs;
-        crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
+		console.log(rs);
+		globales._departamentos=rs;
+		crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
         
-    });*/
+    	});*/
 
 
 
@@ -179,8 +179,7 @@ function iniciar_reportes(){
                                                                 console.log(cabza);   
 								todo_esco_pie=cabza;
 								
-							 	//google.charts.load('current', {'packages':['bar']});
-						      	//google.charts.setOnLoadCallback(drawChartes);
+							
 
 							      
 							}else{
@@ -1302,9 +1301,7 @@ function reporte_barras(rs){
 								}
 								todo_esco=[cabza,body2];
 								
-							 	//google.charts.load('current', {'packages':['bar']});
-						      	//google.charts.setOnLoadCallback(drawChartes);
-
+							 	
 							      
 							}else{
 								$('#piechart_material_esco').fadeOut();
@@ -1796,23 +1793,24 @@ function dibujar_tabla3(datos){
 function consultar_eventos(id){
 	if(id=="G"){
 		consultarDatos("repo_eventos/"+id,{},function(rs){
-											
+			globales._departamentos=rs.dep_nacimiento;									
 			crear_select_3("selEventos",rs.eventos,"id","name","Todos los eventos","G");
 			crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
 			crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");
 			crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
 			crear_data_list_dos("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  
-			//crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
+			crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
 			//crear_data_list_dos("lista_datos_etnia",rs.etnia,"etnia","cuantos_por_etnia");  
 			crear_data_list_dos("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
 			crear_data_list_dos("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  
 		},"");	
 	}else{
 		consultarDatos("repo_eventos/"+id,{},function(rs){
-											
+			globales._departamentos=rs.dep_nacimiento;								
 			crear_select_3("selEventos",rs.eventos,"id","name","Todos los eventos","G");
 			crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
 			crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");
+			crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
 			crear_data_list("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  
 			//crear_data_list("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
 			//crear_data_list_dos("lista_datos_etnia",rs.etnia,"etnia","cuantos_por_etnia");  
