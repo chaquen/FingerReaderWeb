@@ -110,6 +110,7 @@ function iniciar_reportes(){
 				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
 						reporte_tortas(rs);						
 						dibujar_tabla_eventos(rs.eventos);
+						document.getElementById("divListaAsis3").style.display="none";
 							
 										
 
@@ -125,6 +126,7 @@ function iniciar_reportes(){
 				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
 						reporte_barras(rs);
 						dibujar_tabla_eventos(rs.eventos);
+						document.getElementById("divListaAsis3").style.display="none";
 							
 						
 
@@ -137,12 +139,13 @@ function iniciar_reportes(){
 						if(!rs.respuesta){
 							mostrarMensaje(rs);
 						}
+						document.getElementById("divListaAsis3").style.display="none";
 						dibujar_tabla_eventos(rs.eventos);
 						console.log(rs);
 						console.log(document.getElementById("divReporteGeneral"));
 					    
 							document.getElementById("tblListaGeneral").style.display="";
-
+							document.getElementById("divReporteGeneralLista").style.display="";
 							if(Object.keys(rs.datos).length>0){
 								todos_los_datos_asistentes=rs.datos;
 								arr_gen=chunkArray(rs.datos,10);
@@ -152,6 +155,7 @@ function iniciar_reportes(){
 								crear_sel_paginas(arr_gen.length);
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
+								document.getElementById("divReporteGeneralLista").style.display="none";
 								
 
 							}
@@ -469,11 +473,12 @@ function iniciar_reportes(){
 						if(!rs.respuesta){
 							mostrarMensaje(rs);
 						}
+						document.getElementById("divListaAsis3").style.display="none";
 						dibujar_tabla_eventos(rs.eventos);
 						console.log(document.getElementById("divReporteGeneral"));
 						
 							document.getElementById("tblListaGeneral").style.display="";
-
+							document.getElementById("divReporteGeneralLista").style.display="";
 							if(Object.keys(rs.datos).length>0){
 								todos_los_datos_asistentes=rs.datos;
 								arr_gen=chunkArray(rs.datos,10);
@@ -482,7 +487,7 @@ function iniciar_reportes(){
 								crear_sel_paginas(arr_gen.length);	
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
-								
+								document.getElementById("divReporteGeneralLista").style.display="none";
 							}
 
 							
@@ -945,7 +950,7 @@ function reporte_tortas(rs){
 						console.log(document.getElementById("divReporteGeneral"));
 					    
 							document.getElementById("tblListaGeneral").style.display="";
-
+							document.getElementById("divReporteGeneralLista").style.display="";
 							if(Object.keys(rs.datos).length>0){
 								todos_los_datos_asistentes=rs.datos;
 								arr_gen=chunkArray(rs.datos,10);
@@ -954,7 +959,7 @@ function reporte_tortas(rs){
 								crear_sel_paginas(arr_gen.length);
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
-								
+								document.getElementById("divReporteGeneralLista").style.display="none";	
 							}
 
 							
@@ -1271,7 +1276,7 @@ function reporte_barras(rs){
 						console.log(document.getElementById("divReporteGeneral"));
 						
 							document.getElementById("tblListaGeneral").style.display="";
-
+							document.getElementById("divReporteGeneralLista").style.display="";
 							if(Object.keys(rs.datos).length>0){
 								todos_los_datos_asistentes=rs.datos;
 								arr_gen=chunkArray(rs.datos,10);
@@ -1280,7 +1285,7 @@ function reporte_barras(rs){
 								crear_sel_paginas(arr_gen.length);	
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
-								
+								document.getElementById("divReporteGeneralLista").style.display="none";
 							}
 
 							
