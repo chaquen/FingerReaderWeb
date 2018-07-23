@@ -13,6 +13,7 @@ function iniciar_evento_actualizar(){
 	  	console.log(data);
 	  	agregar_a_var_participantes(data);
 	  	
+	  	
 	  }
 	}, false);
 

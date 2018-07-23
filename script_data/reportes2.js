@@ -1,4 +1,6 @@
 agregarEventoLoad(iniciar_reportes);
+var arr_gen=[];//RRAY PARA LA PAGINACION
+var todos_los_datos_asistentes;
 var dep=[];
 var dep2=[];
 var fecha_evento="";
@@ -34,11 +36,11 @@ function iniciar_reportes(){
 
 	var d=recibirValorGet();
 	/*consultarDatosOff("script_data/data/colombia.json","",{},function(rs){
-        console.log(rs);
-        globales._departamentos=rs;
-        crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
+		console.log(rs);
+		globales._departamentos=rs;
+		crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
         
-    });*/
+    	});*/
 
 
 
@@ -48,6 +50,13 @@ function iniciar_reportes(){
     	var id_ev=d[0].split("=")[1];
     	consultar_eventos(id_ev);
     }
+    agregarEvento("liInicio","click",function(){
+		location.href="menuEventos.html";
+	});
+	agregarEvento("btnEventos","click",function(){
+		location.href="eventos.html";
+	});
+	
     agregarEvento("btnSalir","click",function(){
 
         if(confirm("¿Estas seguro de salir de la aplicación?")){
@@ -99,8 +108,9 @@ function iniciar_reportes(){
 		
 			
 				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
-						reporte_tortas(rs);
-
+						reporte_tortas(rs);						
+						dibujar_tabla_eventos(rs.eventos);
+						document.getElementById("divListaAsis3").style.display="none";
 							
 										
 
@@ -115,7 +125,8 @@ function iniciar_reportes(){
 			
 				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
 						reporte_barras(rs);
-
+						dibujar_tabla_eventos(rs.eventos);
+						document.getElementById("divListaAsis3").style.display="none";
 							
 						
 
@@ -128,16 +139,25 @@ function iniciar_reportes(){
 						if(!rs.respuesta){
 							mostrarMensaje(rs);
 						}
+						document.getElementById("divListaAsis3").style.display="none";
+						dibujar_tabla_eventos(rs.eventos);
 						console.log(rs);
 						console.log(document.getElementById("divReporteGeneral"));
 					    
 							document.getElementById("tblListaGeneral").style.display="";
-
+							document.getElementById("divReporteGeneralLista").style.display="";
 							if(Object.keys(rs.datos).length>0){
+								todos_los_datos_asistentes=rs.datos;
+								arr_gen=chunkArray(rs.datos,10);
+								
 								document.getElementById("divReporteGeneral").style.display="";
-								dibujar_tabla(rs.datos);	
+								dibujar_tabla(arr_gen[0]);	
+								crear_sel_paginas(arr_gen.length);
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
+								document.getElementById("divReporteGeneralLista").style.display="none";
+								
+
 							}
 
 							
@@ -163,8 +183,7 @@ function iniciar_reportes(){
                                                                 console.log(cabza);   
 								todo_esco_pie=cabza;
 								
-							 	//google.charts.load('current', {'packages':['bar']});
-						      	//google.charts.setOnLoadCallback(drawChartes);
+							
 
 							      
 							}else{
@@ -386,10 +405,10 @@ function iniciar_reportes(){
 								cabza.push(arr);
 
 								for(var v in rs.datos_organizacion){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_organizacion[v].organizacion);	
 									arr.push(Number(rs.datos_organizacion[v].cuantos_por_organizacion));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 								todo_orga_pie=cabza;
 								
@@ -403,7 +422,7 @@ function iniciar_reportes(){
                                 $('#piechart_material_proceso').fadeIn();
                                 $('#divPro').fadeIn();
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Proceso");
 								cabza.push(arr);
@@ -427,6 +446,7 @@ function iniciar_reportes(){
 							}else{
 								document.getElementById("tblListaGeneralDoc").style.display="none";
 								document.getElementById("divListaAsis1").style.display="none";
+								
 								//document.getElementById("divListaAsis2").style.display="none";
 							} 	
 
@@ -453,15 +473,21 @@ function iniciar_reportes(){
 						if(!rs.respuesta){
 							mostrarMensaje(rs);
 						}
+						document.getElementById("divListaAsis3").style.display="none";
+						dibujar_tabla_eventos(rs.eventos);
 						console.log(document.getElementById("divReporteGeneral"));
 						
 							document.getElementById("tblListaGeneral").style.display="";
-
+							document.getElementById("divReporteGeneralLista").style.display="";
 							if(Object.keys(rs.datos).length>0){
+								todos_los_datos_asistentes=rs.datos;
+								arr_gen=chunkArray(rs.datos,10);
 								document.getElementById("divReporteGeneral").style.display="";
-								dibujar_tabla(rs.datos);	
+								dibujar_tabla(arr_gen[0]);	
+								crear_sel_paginas(arr_gen.length);	
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
+								document.getElementById("divReporteGeneralLista").style.display="none";
 							}
 
 							
@@ -718,6 +744,7 @@ function iniciar_reportes(){
 								document.getElementById("tblListaGeneralDoc").style.display="none";
 								//document.getElementById("divListaAsis1").style.display="none";
 								document.getElementById("divListaAsis2").style.display="none";
+								
 							} 	
 
 							if(Object.keys(rs.nombre).length>0){
@@ -836,6 +863,7 @@ function iniciar_reportes(){
 
 
     agregarEvento("btnGenerarPdf","click",function(){
+    	dibujar_tabla(todos_los_datos_asistentes);
      	 window.print();
 
      });
@@ -889,6 +917,32 @@ function iniciar_reportes(){
 }
 
 
+
+
+function crear_sel_paginas(tam){
+		  var cta=document.getElementById("selPaginas");
+          cta.innerHTML="";
+          
+          cta.setAttribute("onchange","cargar_hoja()");
+        
+        for(var d=1; d<=tam;d++){
+	        if(arr_gen[(d-1)].length!=undefined){
+	        	var li=document.createElement("option");
+	        
+	            li.innerHTML="pagina "+(d);
+	          
+	            li.value=(d-1);
+	          
+	            cta.appendChild(li);	
+	        }	
+          
+
+        }
+}
+function cargar_hoja(){
+	dibujar_tabla(arr_gen[document.getElementById("selPaginas").selectedIndex]);
+}
+
 function reporte_tortas(rs){
 						if(!rs.respuesta){
 							mostrarMensaje(rs);
@@ -896,12 +950,16 @@ function reporte_tortas(rs){
 						console.log(document.getElementById("divReporteGeneral"));
 					    
 							document.getElementById("tblListaGeneral").style.display="";
-
+							document.getElementById("divReporteGeneralLista").style.display="";
 							if(Object.keys(rs.datos).length>0){
+								todos_los_datos_asistentes=rs.datos;
+								arr_gen=chunkArray(rs.datos,10);
 								document.getElementById("divReporteGeneral").style.display="";
-								dibujar_tabla(rs.datos);	
+								dibujar_tabla(arr_gen[0]);	
+								crear_sel_paginas(arr_gen.length);
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
+								document.getElementById("divReporteGeneralLista").style.display="none";	
 							}
 
 							
@@ -1194,6 +1252,7 @@ function reporte_tortas(rs){
 							}else{
 								document.getElementById("tblListaGeneralDoc").style.display="none";
 								document.getElementById("divListaAsis1").style.display="none";
+								
 								//document.getElementById("divListaAsis2").style.display="none";
 							} 	
 
@@ -1217,12 +1276,16 @@ function reporte_barras(rs){
 						console.log(document.getElementById("divReporteGeneral"));
 						
 							document.getElementById("tblListaGeneral").style.display="";
-
+							document.getElementById("divReporteGeneralLista").style.display="";
 							if(Object.keys(rs.datos).length>0){
+								todos_los_datos_asistentes=rs.datos;
+								arr_gen=chunkArray(rs.datos,10);
 								document.getElementById("divReporteGeneral").style.display="";
-								dibujar_tabla(rs.datos);	
+								dibujar_tabla(arr_gen[0]);	
+								crear_sel_paginas(arr_gen.length);	
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
+								document.getElementById("divReporteGeneralLista").style.display="none";
 							}
 
 							
@@ -1243,9 +1306,7 @@ function reporte_barras(rs){
 								}
 								todo_esco=[cabza,body2];
 								
-							 	//google.charts.load('current', {'packages':['bar']});
-						      	//google.charts.setOnLoadCallback(drawChartes);
-
+							 	
 							      
 							}else{
 								$('#piechart_material_esco').fadeOut();
@@ -1478,6 +1539,7 @@ function reporte_barras(rs){
 								document.getElementById("tblListaGeneralDoc").style.display="none";
 								//document.getElementById("divListaAsis1").style.display="none";
 								document.getElementById("divListaAsis2").style.display="none";
+								
 							} 	
 
 							if(Object.keys(rs.nombre).length>0){
@@ -1611,6 +1673,7 @@ function dibujar_tabla2(datos){
 		tbl.appendChild(tr);		
 
 	}
+	
 }
 function dibujar_tabla3(datos){
 		document.getElementById("divListaAsis1").style.display="none";
@@ -1735,23 +1798,24 @@ function dibujar_tabla3(datos){
 function consultar_eventos(id){
 	if(id=="G"){
 		consultarDatos("repo_eventos/"+id,{},function(rs){
-											
+			globales._departamentos=rs.dep_nacimiento;									
 			crear_select_3("selEventos",rs.eventos,"id","name","Todos los eventos","G");
 			crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
 			crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");
 			crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
 			crear_data_list_dos("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  
-			//crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
+			crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
 			//crear_data_list_dos("lista_datos_etnia",rs.etnia,"etnia","cuantos_por_etnia");  
 			crear_data_list_dos("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
 			crear_data_list_dos("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  
 		},"");	
 	}else{
 		consultarDatos("repo_eventos/"+id,{},function(rs){
-											
+			globales._departamentos=rs.dep_nacimiento;								
 			crear_select_3("selEventos",rs.eventos,"id","name","Todos los eventos","G");
 			crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
 			crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");
+			crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
 			crear_data_list("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  
 			//crear_data_list("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
 			//crear_data_list_dos("lista_datos_etnia",rs.etnia,"etnia","cuantos_por_etnia");  
@@ -1766,6 +1830,7 @@ function consultar_eventos(id){
 
 
 function dibujar_tabla(datos){
+		console.log(datos);
 		var tbl=document.getElementById("tblListaGeneral");
 		tbl.innerHTML="";
 		var tr=document.createElement("tr");
@@ -1814,6 +1879,7 @@ function dibujar_tabla(datos){
 	for(var f in datos){
 		console.log(datos[f]);
 		var tr=document.createElement("tr");
+		tr.setAttribute("onclick","ver_asistencia_individual('"+datos[f].documento+"')");
 		
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].pri_nombre;
@@ -1859,43 +1925,60 @@ function dibujar_tabla(datos){
 		tbl.appendChild(tr);		
 
 	}
+
+
+}
+
+function ver_asistencia_individual(documento){
+	consultarDatos("reportes_por_id/"+documento,{},function(rs){
+										
+						dibujar_tabla_eventos_individual(rs.datos);
+							
+										
+
+				},"");	
 }
 
 function dibujar_grafico_reporte(){
- console.log("......");
+ 
 	//escolariodad
-	var data_esco = google.visualization.arrayToDataTable(
+	if(todo_esco!=undefined){
+		var data_esco = google.visualization.arrayToDataTable(
 							          todo_esco
 							         );
 
-	var options_esoc = {
-                    
-		     chart: {
-		        title: nom_reporte+" Escolaridad" ,
-		        subtitle: lugar_evento+" "+fecha_evento
-		        },
-		     bars: 'horizontal' // Required for Material Bar Charts.
-		    };
+		var options_esoc = {
+	                    
+			     chart: {
+			        title: nom_reporte+" Escolaridad" ,
+			        subtitle: lugar_evento+" "+fecha_evento
+			        },
+			     bars: 'horizontal' // Required for Material Bar Charts.
+			    };
 
 
-	 
-							        	    
-	var chartesco = new google.charts.Bar(document.getElementById('barchart_material_esco'));
-    chartesco.draw(data_esco, google.charts.Bar.convertOptions(options_esoc));
-    //genero
-    var data_genero = google.visualization.arrayToDataTable(
+		 
+								        	    
+		var chartesco = new google.charts.Bar(document.getElementById('barchart_material_esco'));
+	    chartesco.draw(data_esco, google.charts.Bar.convertOptions(options_esoc));	
+	}
+	if(todo_genero!=undefined){
+			var data_genero = google.visualization.arrayToDataTable(
 							          todo_genero
 							         );
-    var options_genero = {
-		     chart: {
-		        title: nom_reporte+" Genero" ,
-		        subtitle: lugar_evento+" "+fecha_evento
-		        },
-		     bars: 'horizontal' // Required for Material Bar Charts.
-		    };
+		    var options_genero = {
+				     chart: {
+				        title: nom_reporte+" Genero" ,
+				        subtitle: lugar_evento+" "+fecha_evento
+				        },
+				     bars: 'horizontal' // Required for Material Bar Charts.
+				    };
 
-    var chartgen = new google.charts.Bar(document.getElementById('barchart_material_gen'));
-	chartgen.draw(data_genero, google.charts.Bar.convertOptions(options_genero));
+		    var chartgen = new google.charts.Bar(document.getElementById('barchart_material_gen'));
+			chartgen.draw(data_genero, google.charts.Bar.convertOptions(options_genero));
+	}
+    //genero
+    
 	//sub/genero
     if(Object.keys(todo_sub_genero[0]).length>1){
     	var data_sgenero = google.visualization.arrayToDataTable(
@@ -1917,7 +2000,8 @@ function dibujar_grafico_reporte(){
     	$("#divSubGenero").fadeOut();
     }
     //proceso
-	var data_pro = google.visualization.arrayToDataTable(
+    if(todo_proceso!=undefined){
+		var data_pro = google.visualization.arrayToDataTable(
 							          todo_proceso
 							         );
 
@@ -1932,8 +2016,11 @@ function dibujar_grafico_reporte(){
 							        var chart_pro = new google.charts.Bar(document.getElementById('barchart_material_proceso'));
 
 							        chart_pro.draw(data_pro, google.charts.Bar.convertOptions(options_pro));
-	//organizacion
-	var data_org = google.visualization.arrayToDataTable(
+	}
+    
+	if(todo_orga_pie!=undefined){
+		//organizacion
+					var data_org = google.visualization.arrayToDataTable(
 							          todo_orga
 							         );
 
@@ -1947,9 +2034,11 @@ function dibujar_grafico_reporte(){
 
 							        var chart_org = new google.charts.Bar(document.getElementById('barchart_material_orga'));
 
-							        chart_org.draw(data_org, google.charts.Bar.convertOptions(options_org));		
+							        chart_org.draw(data_org, google.charts.Bar.convertOptions(options_org));
+	}
 	//etnia
-	 var data_etnia = google.visualization.arrayToDataTable(
+	if(todo_etnia!=undefined){
+			var data_etnia = google.visualization.arrayToDataTable(
 							          todo_etnia
 							         );
 
@@ -1964,6 +2053,9 @@ function dibujar_grafico_reporte(){
 							        var chart_et = new google.charts.Bar(document.getElementById('barchart_material_etnia'));
 
 							        chart_et.draw(data_etnia, google.charts.Bar.convertOptions(options_etnia));		
+	}		
+	
+	 
 	//subetnia
 	if(Object.keys(todo_sub_etnia[0]).length>=2){
 		var data_setnia = google.visualization.arrayToDataTable(
@@ -1987,7 +2079,8 @@ function dibujar_grafico_reporte(){
 		$('#divOtraEtnia').fadeOut();
 	}
 	//edad
-	  var data_ed = google.visualization.arrayToDataTable(
+	if(todo_edad!=undefined){
+		var data_ed = google.visualization.arrayToDataTable(
 							          todo_edad
 							         );
 
@@ -2001,9 +2094,11 @@ function dibujar_grafico_reporte(){
 
 							        var chart_ed = new google.charts.Bar(document.getElementById('barchart_material_eda'));
 
-							        chart_ed.draw(data_ed, google.charts.Bar.convertOptions(options_ed));						        
+							        chart_ed.draw(data_ed, google.charts.Bar.convertOptions(options_ed));			
+	}
 	//departamento nacimiento
-	var data_dep_nac = google.visualization.arrayToDataTable(
+	if(todo_dep_nac!=undefined){
+		var data_dep_nac = google.visualization.arrayToDataTable(
 							          todo_dep_nac
 							         );
 
@@ -2017,10 +2112,11 @@ function dibujar_grafico_reporte(){
 
 							        var chart_dep_nac = new google.charts.Bar(document.getElementById('barchart_material_dep_nac'));
 
-							        chart_dep_nac.draw(data_dep_nac, google.charts.Bar.convertOptions(options_dep_nac));						        
-
+							        chart_dep_nac.draw(data_dep_nac, google.charts.Bar.convertOptions(options_dep_nac));	
+	}
 	//ciudad nacimeinto
-	        var data_ciu_nac = google.visualization.arrayToDataTable(
+	if(todo_ciu_nac!=undefined){
+		        var data_ciu_nac = google.visualization.arrayToDataTable(
 							          todo_ciu_nac
 							         );
 
@@ -2035,8 +2131,14 @@ function dibujar_grafico_reporte(){
 							        var chart_ciu_nac = new google.charts.Bar(document.getElementById('barchart_material_ciu'));
 
 							        chart_ciu_nac.draw(data_ciu_nac, google.charts.Bar.convertOptions(options_ciu_nac));						        
-	//capacidad diferecias
-	var data_cap_dif = google.visualization.arrayToDataTable(
+		
+	}  			        
+	
+						        
+
+	if(todo_cap_dife!=undefined){
+		//capacidad diferecias
+		var data_cap_dif = google.visualization.arrayToDataTable(
 							          todo_cap_dife
 							         );
 
@@ -2050,7 +2152,9 @@ function dibujar_grafico_reporte(){
 
 							        var chart_cap_dif = new google.charts.Bar(document.getElementById('barchart_material_cap_dif'));
 
-							        chart_cap_dif.draw(data_cap_dif, google.charts.Bar.convertOptions(options_cap_dif));						        
+							        chart_cap_dif.draw(data_cap_dif, google.charts.Bar.convertOptions(options_cap_dif));
+	}
+							        
 
 
 							   
@@ -2058,27 +2162,33 @@ function dibujar_grafico_reporte(){
 }
 function dibujar_reporte_torta(){
 	//escolariodad
-	var data_esco = google.visualization.arrayToDataTable( todo_esco_pie     );
+	if(todo_esco_pie!=undefined){
+		var data_esco = google.visualization.arrayToDataTable( todo_esco_pie     );
         console.log(data_esco);
         console.log(todo_esco_pie);
-	var options_esoc = {
-		     
-		         title: nom_reporte+" Escolaridad",
-          		 is3D: true,
-		         };
-			        	    
-	var chartesco = new google.visualization.PieChart(document.getElementById('piechart_material_esco'));
-        chartesco.draw(data_esco,options_esoc);
-    //genero
-    var data_genero = google.visualization.arrayToDataTable(todo_genero_pie);
-       console.log(data_genero);
-         var options_genero = {
-		     title: nom_reporte,
-          	     is3D: true,
-		    };
+		var options_esoc = {
+			     
+			         title: nom_reporte+" Escolaridad",
+	          		 is3D: true,
+			         };
+				        	    
+		var chartesco = new google.visualization.PieChart(document.getElementById('piechart_material_esco'));
+	        chartesco.draw(data_esco,options_esoc);
+	}
+	//genero
+	if(todo_genero_pie!=undefined){
+			var data_genero = google.visualization.arrayToDataTable(todo_genero_pie);
+	       console.log(data_genero);
+	         var options_genero = {
+			     title: nom_reporte,
+	          	     is3D: true,
+			    };
 
-     var chartgen = new google.visualization.PieChart(document.getElementById('piechart_material_gen'));
-	chartgen.draw(data_genero, options_genero);
+	     var chartgen = new google.visualization.PieChart(document.getElementById('piechart_material_gen'));
+		chartgen.draw(data_genero, options_genero);
+	}
+    
+    
 	//sub_genero
 	if(todo_sub_genero_pie[1]!=undefined){
 		 var data_sub_genero = google.visualization.arrayToDataTable(todo_sub_genero_pie);
@@ -2095,7 +2205,8 @@ function dibujar_reporte_torta(){
 	}
     
 	//proceso
-	var data_pro = google.visualization.arrayToDataTable( todo_proceso_pie );
+	if(todo_proceso_pie!=undefined){
+		var data_pro = google.visualization.arrayToDataTable( todo_proceso_pie );
 
 							        var options_pro = {
 							          title: nom_reporte+" Genero",
@@ -2105,8 +2216,11 @@ function dibujar_reporte_torta(){
 							        var chart_pro = new google.visualization.PieChart(document.getElementById('piechart_material_proceso'));
 
 							        chart_pro.draw(data_pro, options_pro);
+	}
+	
 	//organizacion
-	var data_org = google.visualization.arrayToDataTable(todo_orga_pie);
+	if(todo_orga_pie!=undefined){
+			var data_org = google.visualization.arrayToDataTable(todo_orga_pie);
 
 							        var options_org = {
 							          title: nom_reporte+" Organizaciones",
@@ -2116,8 +2230,11 @@ function dibujar_reporte_torta(){
 							        var chart_org = new google.visualization.PieChart(document.getElementById('piechart_material_orga'));
 
 							        chart_org.draw(data_org, options_org);		
+	}
+	
 	//etnia
-	 var data_etnia = google.visualization.arrayToDataTable( todo_etnia_pie);
+	if(todo_etnia_pie!=undefined){
+		var data_etnia = google.visualization.arrayToDataTable( todo_etnia_pie);
 
 							        var options_etnia = {
 							           title: nom_reporte+" Etnias",
@@ -2127,6 +2244,8 @@ function dibujar_reporte_torta(){
 							        var chart_et = new google.visualization.PieChart(document.getElementById('piechart_material_etnia'));
 
 							        chart_et.draw(data_etnia, options_etnia);	
+	}
+	 
 	//subetnia
 	if(todo_sub_etnia_pie[1]!=undefined){
 		var data_setnia = google.visualization.arrayToDataTable( todo_sub_etnia_pie);
@@ -2144,7 +2263,8 @@ function dibujar_reporte_torta(){
 	}
 	 						        					        				      
 	//edad
-	  var data_ed = google.visualization.arrayToDataTable(  todo_edad_pie );
+	if(todo_edad_pie!=undefined){
+		var data_ed = google.visualization.arrayToDataTable(  todo_edad_pie );
 
 							        var options_ed = {
 							          title: nom_reporte+" Edades",
@@ -2154,8 +2274,11 @@ function dibujar_reporte_torta(){
 							        var chart_ed = new google.visualization.PieChart(document.getElementById('piechart_material_eda'));
 
 							        chart_ed.draw(data_ed,options_ed);						        
+	}
+	  
 	//departamento nacimiento
-	var data_dep_nac = google.visualization.arrayToDataTable(todo_dep_nac_pie   );
+	if(todo_dep_nac_pie!=undefined){
+			var data_dep_nac = google.visualization.arrayToDataTable(todo_dep_nac_pie   );
 
 							        var options_dep_nac = {
 							           title: nom_reporte+" Departamentos de nacimiento",
@@ -2164,10 +2287,13 @@ function dibujar_reporte_torta(){
 
 							        var chart_dep_nac = new google.visualization.PieChart(document.getElementById('piechart_material_dep_nac'));
 
-							        chart_dep_nac.draw(data_dep_nac, options_dep_nac);						        
+							        chart_dep_nac.draw(data_dep_nac, options_dep_nac);			
+	}
+				        
 
 	//ciudad nacimeinto
-	        var data_ciu_nac = google.visualization.arrayToDataTable( todo_ciu_nac_pie );
+	if(todo_ciu_nac_pie!=undefined){
+		var data_ciu_nac = google.visualization.arrayToDataTable( todo_ciu_nac_pie );
 
 							        var options_ciu_nac = {
 							           title: nom_reporte+" Ciudad de nacimeinto",
@@ -2176,9 +2302,10 @@ function dibujar_reporte_torta(){
 
 							        var chart_ciu_nac = new google.visualization.PieChart(document.getElementById('piechart_material_ciu'));
 
-							        chart_ciu_nac.draw(data_ciu_nac, options_ciu_nac );						        
-	//capacidad diferecias
-	var data_cap_dif = google.visualization.arrayToDataTable( todo_cap_dife_pie );
+							        chart_ciu_nac.draw(data_ciu_nac, options_ciu_nac );						
+	}
+	if(todo_cap_dife_pie!=undefined){
+		var data_cap_dif = google.visualization.arrayToDataTable( todo_cap_dife_pie );
 
 							        var options_cap_dif = {
 							           title: nom_reporte+" Capacidades",
@@ -2187,12 +2314,127 @@ function dibujar_reporte_torta(){
 
 							        var chart_cap_dif = new google.visualization.PieChart(document.getElementById('piechart_material_cap_dif'));
 
-							        chart_cap_dif.draw(data_cap_dif, options_cap_dif);						        
+							        chart_cap_dif.draw(data_cap_dif, options_cap_dif);	
+	}               
+	//capacidad diferecias
+						        
 
-
-							   
+}
+function dibujar_tabla_eventos(datos){
+		var tbl=document.getElementById("tblListaEventosGeneral");
+		tbl.innerHTML="";
+	
+		var tr=document.createElement("tr");
 		
+		var td=document.createElement("td");
+		td.innerHTML="Nombre Evento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML="Fecha Evento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+		
+		var td=document.createElement("td");
+		td.innerHTML="Ciudad Evento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML="Asistentes Evento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		tbl.appendChild(tr);		
+	for(var f in datos){
+		console.log(datos[f]);
+		var tr=document.createElement("tr");
+		
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].name;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].date;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].city;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
 
 
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].cuantos_por_eventos;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		tbl.appendChild(tr);		
+
+	}
+
+}
+function dibujar_tabla_eventos_individual(datos){
+		document.getElementById("divListaAsis3").style.display="";
+		document.getElementById("tldRepoInd").innerHTML="Reporte Asistencia Individual de </br>"+datos[0].nombre;
+		var tbl=document.getElementById("tblListaGeneralIndi");
+		tbl.innerHTML="";
+	
+		var tr=document.createElement("tr");
+		
+		var td=document.createElement("td");
+		td.innerHTML="Nombre Evento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML="Fecha Evento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+		
+		var td=document.createElement("td");
+		td.innerHTML="Ciudad Evento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML="Asistencia Evento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		tbl.appendChild(tr);		
+	for(var f in datos){
+		console.log(datos[f]);
+		var tr=document.createElement("tr");
+		
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].name;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].date;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].city;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].updated_at;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		tbl.appendChild(tr);		
+
+	}
 
 }

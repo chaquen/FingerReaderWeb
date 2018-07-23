@@ -196,7 +196,7 @@ abstract class ModeloBaseDeDatos{
     }
     public function eliminar_registro(){
         if($this->sentencia_sql!=""){
-            if($this->ejecutar_funcion_sql()){
+            if($this->ejecutar_sentencia_sql()){
                 $this->mensajeDepuracion="se ha eliminado un nuevo registro en la Base de datos";
                 return TRUE;
             }else{

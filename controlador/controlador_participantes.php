@@ -53,7 +53,30 @@ if(isset($_REQUEST['datos'])){
                        "registrados"=>$d2
                         )
                     );
-
+             break;
+         case "consultarParticipantePorId":
+            $id=$post->datos->id;
+            $res=$objeto->obtener_registro_por_valor("id,tipo_doc,documento,lugar_exp,pri_apellido,seg_apellido,pri_nombre,seg_nombre,ciud_nacimiento,dep_nacimiento,fecha_nac,edad,genero,sub_genero,cap_dife,etnia,sub_etnia,zona,municipio,celular,email,escolaridad,titulo_obt","id = '$id'");
+            
+            //var_dump($res);
+            //echo "================"; 
+            //var_dump($res2);
+            if($res["respuesta"]){
+                //var_dump($res["valores_consultados"]);
+                $d1=$res["valores_consultados"];
+            }else{
+                $d1=NULL;
+            }
+            
+            
+             echo json_encode(
+                    array("respuesta"=>TRUE,
+                        "mensaje"=>"REGISTRO ENCONTRADO",
+                        "datos"=>$d1
+                       
+                        )
+                    );
+             break;    
          case "crearParticipanteSinEvento":
             
                  echo  json_encode($objeto->actualizar_recurso($post->datos->datos,$post->datos->id));
@@ -61,25 +84,34 @@ if(isset($_REQUEST['datos'])){
        
             break;      
         case "consultarParticipantePendientes":
-                
+            $hoy=strftime( "%Y-%m-%d", time() );    
             $id_evento=$post->datos->id;
-            echo  json_encode($objeto->obtener_registro_por_valor_join("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'participando' AND detalle_participantes.event_id = '$id_evento' "));
+            $d=$objeto->obtener_registro_por_valor_join("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido,participantes.updated_at","participantes.estado_registro = 'participando' AND detalle_participantes.event_id = '$id_evento' ");
+            $obj=[];
+            //var_dump($d);
+            if($d["respuesta"]){
+                foreach ($d["valores_consultados"] as $key => $value) {
+                 //var_dump($value);
+
+                     $date1=date_create(explode(" ", $value["updated_at"])[0]);
+                     $date2=date_create($hoy);
+                     $diff=date_diff($date1,$date2);              
+                     $diferencia=$diff->format("%y%");
+                     //var_dump($diferencia);
+                     if($diferencia>=2){
+                        $value["actualizar_recurso"]=1;
+                     }else{
+                        $value["actualizar_recurso"]=0;
+                     }
+                     $obj[$key]=$value;
+                }
+                echo  json_encode(["respuesta"=>true,"valores_consultados"=>$obj]);    
+            }else{
+                echo  json_encode(["respuesta"=>false,"mensaje"=>"No hay participantes"]);    
+            }
+            
 
         break;     
-        case "guardar_asistentes":
-                //var_dump($post);
-                $dd=$objeto->obtener_registro_por_valor("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'verificado' OR participantes.estado_registro = 'registrado'");
-
-                foreach ($dd["valores_consultados"] as $key => $value) {
-                    $evento= new Eventos();
-                    //var_dump($value);
-                    $evento->crear_detalle_evento(array("user_id"=>$value["id"],"event_id"=>$post->datos->id_evento
-                        ,"created_at"=>$post->hora_cliente,"updated_at"=>$post->hora_cliente));
-             
-                }
-                
-                echo json_encode(array("mensaje"=>"Usuarios asociados","respuesta"=>true));    
-            break;
         case "valida_registro":
 
             echo json_encode($objeto->obtener_registro_por_valor("id","estado_registro = 'por_registrar' "));

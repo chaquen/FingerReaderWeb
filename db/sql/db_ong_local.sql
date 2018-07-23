@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2018 at 07:58 AM
+-- Generation Time: Jul 21, 2018 at 06:07 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -39,6 +39,19 @@ CREATE TABLE `detalle_participantes` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `detalle_procesos`
+--
+
+CREATE TABLE `detalle_procesos` (
+  `id` int(11) NOT NULL,
+  `id_usuario` int(11) UNSIGNED DEFAULT NULL,
+  `id_proceso` int(11) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `eventos`
 --
 
@@ -61,6 +74,17 @@ CREATE TABLE `eventos` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `lineas`
+--
+
+CREATE TABLE `lineas` (
+  `id` int(11) NOT NULL,
+  `nombre_linea` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `participantes`
 --
 
@@ -78,7 +102,7 @@ CREATE TABLE `participantes` (
   `fecha_nac` varchar(255) DEFAULT NULL,
   `edad` int(11) DEFAULT NULL,
   `genero` varchar(255) DEFAULT NULL,
-  `sub_genero` varchar(255) DEFAULT NULL,  
+  `sub_genero` varchar(255) DEFAULT NULL,
   `cap_dife` varchar(255) DEFAULT NULL,
   `etnia` varchar(255) DEFAULT NULL,
   `sub_etnia` varchar(255) DEFAULT NULL,
@@ -113,6 +137,18 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `proceso`
+--
+
+CREATE TABLE `proceso` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `fk_id_linea` int(10) UNSIGNED NOT NULL,
+  `nombre_proceso` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sincronizaciones`
 --
 
@@ -140,23 +176,10 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
--- --------------------------------------------------------
-
---
--- Table structure for table `detalle_procesos`
---
-
-CREATE TABLE `detalle_procesos` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) UNSIGNED DEFAULT NULL,
-  `id_proceso` varchar(256) DEFAULT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
 --
-
 
 --
 -- Indexes for table `detalle_participantes`
@@ -167,11 +190,25 @@ ALTER TABLE `detalle_participantes`
   ADD KEY `detalle_participantes_event_id_foreign` (`event_id`);
 
 --
+-- Indexes for table `detalle_procesos`
+--
+ALTER TABLE `detalle_procesos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_participante` (`id_usuario`),
+  ADD KEY `fk_id_proceso` (`id_proceso`);
+
+--
 -- Indexes for table `eventos`
 --
 ALTER TABLE `eventos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `eventos_id_ref_foreign` (`id_ref`);
+
+--
+-- Indexes for table `lineas`
+--
+ALTER TABLE `lineas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `participantes`
@@ -186,6 +223,13 @@ ALTER TABLE `participantes`
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`),
   ADD KEY `password_resets_token_index` (`token`);
+
+--
+-- Indexes for table `proceso`
+--
+ALTER TABLE `proceso`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_linea` (`fk_id_linea`);
 
 --
 -- Indexes for table `sincronizaciones`
@@ -210,16 +254,34 @@ ALTER TABLE `detalle_participantes`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `detalle_procesos`
+--
+ALTER TABLE `detalle_procesos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `eventos`
 --
 ALTER TABLE `eventos`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `lineas`
+--
+ALTER TABLE `lineas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `participantes`
 --
 ALTER TABLE `participantes`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `proceso`
+--
+ALTER TABLE `proceso`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sincronizaciones`
@@ -241,8 +303,15 @@ ALTER TABLE `users`
 -- Constraints for table `detalle_participantes`
 --
 ALTER TABLE `detalle_participantes`
-  ADD CONSTRAINT `detalle_participantes_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `eventos` (`id`),
-  ADD CONSTRAINT `detalle_participantes_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`);
+  ADD CONSTRAINT `detalle_participantes_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_participantes_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detalle_procesos`
+--
+ALTER TABLE `detalle_procesos`
+  ADD CONSTRAINT `fk_id_participante` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_id_proceso` FOREIGN KEY (`id_proceso`) REFERENCES `proceso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `eventos`
@@ -250,36 +319,6 @@ ALTER TABLE `detalle_participantes`
 ALTER TABLE `eventos`
   ADD CONSTRAINT `eventos_id_ref_foreign` FOREIGN KEY (`id_ref`) REFERENCES `users` (`id`);
 COMMIT;
---
--- Indexes for table `detalle_procesos`
---
-ALTER TABLE `detalle_procesos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_id_participante` (`id_usuario`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `detalle_procesos`
---
-ALTER TABLE `detalle_procesos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `detalle_procesos`
---
-ALTER TABLE `detalle_procesos`
-  ADD CONSTRAINT `fk_id_participante` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`);
-COMMIT;
---
--- Indexes for dumped tables
---
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

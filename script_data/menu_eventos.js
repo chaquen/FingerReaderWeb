@@ -41,7 +41,16 @@ function iniciar_menu_eventos(){
 			location.href="index.html";		
 		}
 	});
-
+	agregarEvento("liInicio","click",function(){
+		location.href="menuEventos.html";
+	});
+	agregarEvento("btnEventos","click",function(){
+		location.href="eventos.html";
+	});
+	agregarEvento("btnReportes","click",function(){
+		location.href="reportes.html";
+	});
+	
 	consultar_db();
 
 }

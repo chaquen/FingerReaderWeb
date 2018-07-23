@@ -1,31 +1,22 @@
 var pos;
-var procesos=[];
-function iniciar_evento_participantes(){
+function iniciar_evento_actualizar_participantes(){
     var d=recibirValorGet();
     pos=d[0].split("=")[1];
-
+    buscar_participante(pos);
     globales._usuario=obtener_local_storage("ssUsuario");
     if(globales._usuario==false){
         location.href="index.html";
     }
     globales._URL=globales._URL_BE;
     
-    agregarEvento("liInicio","click",function(){
-        location.href="menuEventos.html";
-    });
-    agregarEvento("btnEventos","click",function(){
-        location.href="eventos.html";
-    });
-    agregarEvento("btnReportes","click",function(){
-        location.href="reportes.html";
-    });
+    
    
-    agregarEvento("btnRegistrarParticiapantes","click",function(){
+    agregarEvento("btnActualizarParticiapantes","click",function(){
         var datos = $("#formPobladores").serializarFormulario();
        
         
         if(false!=datos){
-             datos.estado_registro="registrado";
+             
              console.log(datos);
              console.log(pos);
              datos.created_at=horaCliente();
@@ -35,41 +26,14 @@ function iniciar_evento_participantes(){
              if(datos.etnia=="Otro"){
                 datos.etnia=document.getElementById("txt_et_otro").value;
              }
-             if(datos.genero!="--Genero--"){
-                if(datos.genero=="Otro"){
-                    datos._sub_genero=document.getElementById("txtGenero").value;
-                 }   
-             }else{
-                mostrarMensaje("Debes seleccionarun genero");
-                return false; 
+             if(datos.genero=="Otro"){
+                datos._sub_genero=document.getElementById("txtGenero").value;
              }
-             
 
              if(datos.tipo_doc=="0"){
                 mostrarMensaje("Selecciona el tipo documento");
                 return false;
              }
-             if(procesos.length==0){
-                mostrarMensaje("Selecciona al menos un proceso");
-                return false;  
-             }else{
-                for(var p in procesos){
-                    procesos[p]=procesos[p].split("-")[0];
-                }
-                datos.procesos=procesos;
-             }
-             if(datos.escolaridad!="0"){
-                if(datos.escolaridad!="Ninguno"){
-                    if(document.getElementById("txtTitulo").value==""){
-                         mostrarMensaje("Ingresa el titulo obtenido");
-                        return false;  
-                    }
-                 }   
-             }else{
-                mostrarMensaje("Selecciona la escolaridad");
-                return false; 
-             }
-             
                 //registrarDato("participantes",{datos:datos,id:data.id},function(rs){
                 registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
@@ -176,16 +140,7 @@ function iniciar_evento_participantes(){
                 }
         });
     });
- 
-
-    agregarEvento("btnSalir","click",function(){
-
-        if(confirm("¿Estas seguro de salir de la aplicación?")){
-            eliminar_local_storage("ssUsuario");
-            location.href="index.html";     
-        }
-    });
-
+   
     agregarEvento("selEtnia","change",function(){
         console.log(this.value);
         console.log("Otro");
@@ -204,52 +159,9 @@ function iniciar_evento_participantes(){
             document.getElementById("txtGenero").style.display="none";
         }
     });
-
-    agregarEvento("txtLineas","change",function(){
-        consultarDatosOff(globales._URL_BE+"controlador/controlador_eventos.php","consultarProceso",{nombre:document.getElementById("txtLineas").value.split("-")[1]},function(rs){
-            console.log(rs);
-            
-            crear_data_list_tres("listaProcesos",rs.datos,"id","nombre_proceso");
-            
-        });
-    });
-    agregarEvento("btnAgregarProceso","click",function(){
-        if(document.getElementById("txtProceso").value!=""){
-            var reg=true;
-            for(var p in procesos){
-                if(procesos[p]==document.getElementById("txtProceso").value){
-                    reg=false;
-                    break;
-                }
-            }
-
-            if(reg){
-                procesos.push(document.getElementById("txtProceso").value);  
-                dibujar_procesos();  
-            }else{
-                mostrarMensaje("Este proceso ya se registro");
-            }
-            
-           //document.getElementById("txtLineas").value="";
-            //document.getElementById("txtProceso").value="";
-        }else{
-            mostrarMensaje("Debes seleccionar una linea y un proceso");
-        }
-        
-    });
-
-
     cargar_archivos();
 
-}
-function dibujar_procesos(){
-    var lista=document.getElementById("liProceso");
-    lista.innerHTML="";
-    for(var f in procesos){
-        var li=document.createElement("li");
-        li.innerHTML=procesos[f];
-        lista.appendChild(li);
-    }
+
 }
 
 function cargar_archivos(){
@@ -260,16 +172,18 @@ function cargar_archivos(){
         
     });
 
-    consultarDatosOff(globales._URL_BE+"controlador/controlador_eventos.php","consultarLineas",{},function(rs){
-        console.log(rs);
-        
-        crear_data_list_tres("listaLineas",rs.datos,"id","nombre_linea");
-        
-    });
-
 
    
 }
 
+function buscar_participante(id){
+	consultarDatosOff(globales._URL_BE+"controlador/controlador_participantes.php","consultarParticipantePorId",{id:id},function(rs){
+        console.log(rs);
+        globales._departamentos=rs;
+        crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
+        
+    });
+}
 
-agregarEventoLoad(iniciar_evento_participantes);
+
+agregarEventoLoad(iniciar_evento_actualizar_participantes);
