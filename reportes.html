@@ -228,20 +228,20 @@
                             <span class="mdl-checkbox__label">Zona Urbana</span>
                          </label>
                     </li>
-                     <li>
+                     <!--<li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input type="text" id="txt_dep_ubi" name="dep_nacimiento"  list="lista_datos_ubi" class="mdl-textfield__input"  list="lista_datos_ubi" >
                         <datalist id="lista_datos_ubi"></datalist> 
                             <label class="mdl-textfield__label" for="sample3">Departamento  </label>
                         </div> 
                         
-                    </li>
+                    </li>-->
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                              
                             <input class="mdl-textfield__input" type="text" id="txt_mun_ubi" name="municipio" list="lista_datos_mun_ubi">
                              <datalist id="lista_datos_mun_ubi"></datalist> 
-                            <label class="mdl-textfield__label" for="sample3">Municipio</label>
+                            <label class="mdl-textfield__label" for="sample3">Municipio ubicación</label>
                         </div> 
                         
                     </li>
@@ -353,13 +353,13 @@
                     </li>-->
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-26">
-                            <input value="TipoTortas" name="tipo_reporte" type="checkbox" id="checkbox-26" class="mdl-checkbox__input" selected>
+                            <input value="TipoTortas" name="tipo_reporte" type="checkbox" id="checkbox-26" class="mdl-checkbox__input" checked>
                             <span class="mdl-checkbox__label">Grafico en Tortas</span>
                          </label>
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-25">
-                            <input value="TipoBarras" name="tipo_reporte" type="checkbox" id="checkbox-25" class="mdl-checkbox__input" selected>
+                            <input value="TipoBarras" name="tipo_reporte" type="checkbox" id="checkbox-25" class="mdl-checkbox__input" checked>
                             <span class="mdl-checkbox__label">Grafico en Barras</span>
                          </label>
                     </li>
@@ -392,21 +392,21 @@
                 </div>
                
                 <!--Grafico Reporte General-->
-                <div class="vistaReporte">
+                <div id="divReporteGeneral" class="vistaReporte">
                     <h5 class="tituloRepor">Reporte General Eventos</h5>
               
                     
-                    <div id="divReporteGeneral">
+                    <div >
                         <table id="tblListaEventosGeneral" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
                         </table>
                     </div>
                 </div>
                 <!--Grafico Reporte General-->
-                <div class="vistaReporte">
+                <div id="divReporteGeneralLista" class="vistaReporte">
                     <h5 class="tituloRepor">Reporte General</h5>
               
                     
-                    <div id="divReporteGeneralLista">
+                    <div >
                         <table id="tblListaGeneral" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
                         </table>
                     </div>

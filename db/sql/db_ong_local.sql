@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2018 at 06:07 AM
+-- Generation Time: Jul 23, 2018 at 02:30 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -107,31 +107,18 @@ CREATE TABLE `participantes` (
   `etnia` varchar(255) DEFAULT NULL,
   `sub_etnia` varchar(255) DEFAULT NULL,
   `zona` varchar(255) DEFAULT NULL,
+  `departamento_ubi` varchar(256) DEFAULT NULL,
   `municipio` varchar(255) DEFAULT NULL,
   `celular` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `escolaridad` varchar(255) DEFAULT NULL,
   `titulo_obt` varchar(255) DEFAULT NULL,
-  `proceso` varchar(256) DEFAULT NULL,
-  `organizacion` varchar(255) DEFAULT NULL,
   `huella_binaria` blob,
   `state` tinyint(1) DEFAULT NULL,
   `estado_registro` varchar(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `tipo_registro` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -218,18 +205,10 @@ ALTER TABLE `participantes`
   ADD KEY `documento` (`documento`);
 
 --
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`),
-  ADD KEY `password_resets_token_index` (`token`);
-
---
 -- Indexes for table `proceso`
 --
 ALTER TABLE `proceso`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_id_linea` (`fk_id_linea`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `sincronizaciones`
@@ -303,21 +282,14 @@ ALTER TABLE `users`
 -- Constraints for table `detalle_participantes`
 --
 ALTER TABLE `detalle_participantes`
-  ADD CONSTRAINT `detalle_participantes_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalle_participantes_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_id_participante` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `detalle_procesos`
 --
 ALTER TABLE `detalle_procesos`
-  ADD CONSTRAINT `fk_id_participante` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_id_participante_doc` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_id_proceso` FOREIGN KEY (`id_proceso`) REFERENCES `proceso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `eventos`
---
-ALTER TABLE `eventos`
-  ADD CONSTRAINT `eventos_id_ref_foreign` FOREIGN KEY (`id_ref`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

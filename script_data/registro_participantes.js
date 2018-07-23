@@ -64,17 +64,26 @@ function iniciar_evento_participantes(){
                          mostrarMensaje("Ingresa el titulo obtenido");
                         return false;  
                     }
+                 }else{
+                    document.getElementById("txtTitulo").value="Ninguno";
                  }   
+
+
              }else{
                 mostrarMensaje("Selecciona la escolaridad");
                 return false; 
              }
+
+             datos.dep_nacimiento=datos.dep_nacimiento.split("-")[1];
+             datos.departamento_ubi=datos.departamento_ubi.split("-")[1];
              
                 //registrarDato("participantes",{datos:datos,id:data.id},function(rs){
                 registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
-                            window.close();
+                            //  window.open('','_parent',''); 
+                            //window.close(); 
+                            location.href="menuEventos.html";
                             
                         }
                         
@@ -206,12 +215,16 @@ function iniciar_evento_participantes(){
     });
 
     agregarEvento("txtLineas","change",function(){
-        consultarDatosOff(globales._URL_BE+"controlador/controlador_eventos.php","consultarProceso",{nombre:document.getElementById("txtLineas").value.split("-")[1]},function(rs){
-            console.log(rs);
-            
-            crear_data_list_tres("listaProcesos",rs.datos,"id","nombre_proceso");
-            
-        });
+        //console.log(document.getElementById("txtLineas").value.split("-")[0]);
+        if(document.getElementById("txtLineas").value!=""){
+            consultarDatosOff(globales._URL_BE+"controlador/controlador_eventos.php","consultarProceso",{nombre:document.getElementById("txtLineas").value.split("-")[0]},function(rs){
+                console.log(rs);
+                
+                crear_data_list_tres("listaProcesos",rs.datos,"id","nombre_proceso");
+                
+            });
+        }
+        
     });
     agregarEvento("btnAgregarProceso","click",function(){
         if(document.getElementById("txtProceso").value!=""){
@@ -226,6 +239,8 @@ function iniciar_evento_participantes(){
             if(reg){
                 procesos.push(document.getElementById("txtProceso").value);  
                 dibujar_procesos();  
+                document.getElementById("txtLineas").value="";
+                document.getElementById("txtProceso").value="";
             }else{
                 mostrarMensaje("Este proceso ya se registro");
             }
@@ -256,7 +271,8 @@ function cargar_archivos(){
      consultarDatosOff("script_data/data/colombia.json","",{},function(rs){
         console.log(rs);
         globales._departamentos=rs;
-        crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
+        crear_data_list("lista_datos",rs,"id","departamento");
+        crear_data_list("lista_datos_dep_2",rs,"id","departamento");
         
     });
 

@@ -233,7 +233,7 @@ class Eventos extends ModeloBaseDeDatos{
     }
     function obtener_registro_todos_los_procesos($nom){
         
-          $this->sentencia_sql="SELECT proceso.id,proceso.nombre_proceso FROM proceso INNER JOIN lineas ON proceso.fk_id_linea = lineas.id WHERE lineas.nombre_linea LIKE '$nom'";
+           $this->sentencia_sql="SELECT proceso.id,proceso.nombre_proceso FROM proceso INNER JOIN lineas ON proceso.fk_id_linea = lineas.id WHERE lineas.id = '$nom'";
         
         
         if($this->consultar_registros()){

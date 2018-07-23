@@ -47,7 +47,7 @@ if($da!=NULL){
 	foreach ($da->procesos as $key => $value) {
 		//var_dump($value);
 		$evento=new Eventos();	
-		//$resp[$i]=$evento->crear_registro_proceso($value);
+		$evento->crear_registro_proceso($value);
 		$i++;
 	}
 
@@ -92,10 +92,10 @@ if($da!=NULL){
 				$cap_dife=utf8_decode($cap_dife);
 				$etnia=utf8_decode($etnia);
 				$sub_etnia=utf8_decode($sub_etnia);
+				$departamento_ubi=utf8_decode($departamento_ubi);
 				$municipio=utf8_decode($municipio);
 				$escolaridad=utf8_decode($escolaridad);
 				$titulo_obt=utf8_decode($titulo_obt);
-				$organizacion=utf8_decode($organizacion);
 				$ciud_nacimiento=utf8_decode($ciud_nacimiento);
 				$pri_apellido=utf8_decode($pri_apellido);
 				$seg_apellido=utf8_decode($seg_apellido);
@@ -126,6 +126,7 @@ if($da!=NULL){
 													etnia,
 													sub_etnia,
 													zona,
+													departamento_ubi,
 													municipio,
 													celular,
 													email,
@@ -156,6 +157,7 @@ if($da!=NULL){
 	                                  		  '$etnia',
 	                                  		  '$sub_etnia',
 	                                  		  '$zona',
+	                                  		  '$departamento_ubi',
 	                                  		  '$municipio',
 	                                  		  '$celular',
 	                                  		  '$email',

@@ -35,11 +35,11 @@ function iniciar_reportes(){
 	
 
 	var d=recibirValorGet();
-	/*consultarDatosOff("script_data/data/colombia.json","",{},function(rs){
+	 	/*consultarDatosOff("script_data/data/colombia.json","",{},function(rs){
 		console.log(rs);
 		globales._departamentos=rs;
-		crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
-        
+		
+        crear_data_list("lista_datos_ubi",rs,"id","departamento");
     	});*/
 
 
@@ -96,6 +96,15 @@ function iniciar_reportes(){
 				va=["Indígena","Negro (Afro-colombiano)","Blanco","Mestizo","Zambo",'Otro'];					
 			}
 			datos.etnia=va;
+		}
+		if(datos.ciud_nacimiento!=""){
+			datos.ciud_nacimiento = datos.ciud_nacimiento.split("-")[0];
+		}
+		if(datos.dep_nacimiento!=""){
+			datos.dep_nacimiento = datos.dep_nacimiento.split("-")[0]+"-"+datos.dep_nacimiento.split("-")[1];
+		}
+		if(datos.municipio!=""){
+			datos.municipio = datos.municipio.split("-")[0];
 		}
 					
 		nom_reporte=document.getElementById("selEventos").options[document.getElementById("selEventos").selectedIndex].innerHTML;	
@@ -156,7 +165,7 @@ function iniciar_reportes(){
 							}else{
 								document.getElementById("divReporteGeneral").style.display="none";
 								document.getElementById("divReporteGeneralLista").style.display="none";
-								
+								todos_los_datos_asistentes=[];
 
 							}
 
@@ -168,17 +177,17 @@ function iniciar_reportes(){
                                 $('#divEsco').fadeIn();
                                 
 								var arr=[];
-                                                                arr.push("Participantes");
-                                                                arr.push("Tipo");
+                                arr.push("Participantes");
+                                arr.push("Tipo");
 								var cabza=[];
 								
 								cabza.push(arr);
 
 								for(var v in rs.datos_escolaridad){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_escolaridad[v].escolaridad);	
 									arr.push(Number(rs.datos_escolaridad[v].cuantos_por_escolaridad));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
                                                                 console.log(cabza);   
 								todo_esco_pie=cabza;
@@ -188,7 +197,8 @@ function iniciar_reportes(){
 							      
 							}else{
 								$('#piechart_material_esco').fadeOut();
-								 $('#divEsco').fadeOut();
+								$('#divEsco').fadeOut();
+								todo_esco_pie=[];
                                
 							}
 
@@ -204,10 +214,10 @@ function iniciar_reportes(){
 								cabza.push(arr);
 
 								for(var v in rs.datos_cap_dife){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_cap_dife[v].cap_dife);	
 									arr.push(Number(rs.datos_cap_dife[v].cuantos_por_cap_dife));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 								todo_cap_dife_pie=cabza;
 								
@@ -216,6 +226,7 @@ function iniciar_reportes(){
 								$('#piechart_material_cap_dif').fadeOut();
                                 
                                 $('#divCapDife').fadeOut();
+                                todo_cap_dife_pie=[];
 							}
 
 							if(Object.keys(rs.datos_ciu_nac).length>0){
@@ -224,16 +235,16 @@ function iniciar_reportes(){
 								$('#divCiuNac').fadeIn();
                                 
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Ciudad Nacimiento");
 								cabza.push(arr);
 
 								for(v in rs.datos_ciu_nac){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_ciu_nac[v].ciud_nacimiento);	
 									arr.push(Number(rs.datos_ciu_nac[v].cuantos_por_ciud_nacimiento));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 								todo_ciu_nac_pie=cabza;
 								
@@ -242,6 +253,7 @@ function iniciar_reportes(){
 								$('#piechart_material_ciu').fadeOut();
 								
 								$('#divCiuNac').fadeOut();
+								todo_ciu_nac_pie=[];
 								
 							}
 							if(Object.keys(rs.datos_dep_nac).length>0){
@@ -255,10 +267,10 @@ function iniciar_reportes(){
 								cabza.push(arr);
 
 								for(var v in rs.datos_dep_nac){
-                                                                        var arr=[];
+									var arr=[];
 									arr.push( rs.datos_dep_nac[v].dep_nacimiento);	
 									arr.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 							    todo_dep_nac_pie=cabza;
 							
@@ -266,6 +278,7 @@ function iniciar_reportes(){
 								
                                 $('#piechart_material_dep_nac').fadeOut();
                                 $('#divDepNac').fadeOut();
+                                todo_dep_nac_pie=[];
 
 							}
 
@@ -281,7 +294,7 @@ function iniciar_reportes(){
 
 								for(var v in rs.datos_edaddes){
                                     var arr=[];
-									arr.push( rs.datos_edaddes[v].edad);	
+									arr.push( rs.datos_edaddes[v].edad +" años");	
 									arr.push(Number(rs.datos_edaddes[v].cuentos_por_edad));	
                                      cabza.push(arr);
 								}
@@ -291,6 +304,7 @@ function iniciar_reportes(){
 								
 								$('#piechart_material_eda').fadeOut();
 								$('#divEdades').fadeOut();
+								todo_edad_pie=[];
 							}
 							if(Object.keys(rs.datos_genero).length>0){
 								
@@ -314,14 +328,15 @@ function iniciar_reportes(){
 								
                                 $('#piechart_material_gen').fadeOut();
                                 $('#divGenero').fadeOut();
+                                todo_genero_pie=[];
 							}
 
 							if(Object.keys(rs.datos_sub_genero).length>0){
-								$('#barchart_material_sub_gen').fadeOut();
+								
                                 $('#piechart_material_sub_gen').fadeIn();
                                 $('#divSubGenero').fadeIn();
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Genero");
 								cabza.push(arr);
@@ -341,6 +356,7 @@ function iniciar_reportes(){
 							}else{
 								$('#piechart_material_sub_sgen').fadeOut();
                                 $('#divSubGenero').fadeOut();
+                                todo_sub_genero_pie=[];
 							}
 
 							if(Object.keys(rs.datos_etnia).length>0){
@@ -348,16 +364,16 @@ function iniciar_reportes(){
                                 $('#piechart_material_etnia').fadeIn();
                                 $('#divEtnia').fadeIn();
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Etnia");
 								cabza.push(arr);
 
 								for(v in rs.datos_etnia){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_etnia[v].etnia);	
 									arr.push(Number(rs.datos_etnia[v].cuantos_por_etnia));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 								todo_etnia_pie=cabza;
 								
@@ -365,13 +381,14 @@ function iniciar_reportes(){
 								
                                 $('#piechart_material_etnia').fadeOut();
                                 $('#divEtnia').fadeOut();
+                                todo_etnia_pie=[];
 							}
 							if(Object.keys(rs.datos_sub_etnia).length>0){
 								
                                 $('#piechart_material_setnia').fadeIn();
                                 $('#divOtraEtnia').fadeIn();
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Etnia");
 								cabza.push(arr);
@@ -391,6 +408,7 @@ function iniciar_reportes(){
 								
                                 $('#piechart_material_setnia').fadeOut();
                                 $('#divOtraEtnia').fadeOut();
+                                todo_sub_etnia_pie=[];
 							}
 							
 
@@ -416,6 +434,7 @@ function iniciar_reportes(){
 								
                                 $('#piechart_material_orga').fadeOut();
                                 $('#divOrga').fadeOut();
+                                todo_orga_pie=[];
 							}
 							if(Object.keys(rs.datos_proceso).length>0){
 								
@@ -439,6 +458,7 @@ function iniciar_reportes(){
 								
                                 $('#piechart_material_proceso').fadeOut();
                                 $('#divPro').fadeOut();
+                                todo_proceso_pie=[];
 							}	
 							if(Object.keys(rs.documento).length>0){
 								document.getElementById("tblListaGeneralDoc").style.display="";
@@ -461,10 +481,7 @@ function iniciar_reportes(){
 
 							google.charts.load('current', {'packages':['corechart']});
                             google.charts.setOnLoadCallback(dibujar_reporte_torta);
-
-							
-										
-
+					
 				},"");	
 
 				//BRARRAS	
@@ -516,6 +533,7 @@ function iniciar_reportes(){
 								
                                 $('#barchart_material_esco').fadeOut();
                                 $('#divEsco').fadeOut();
+                                todo_esco=[];
 							}
 
 							if(Object.keys(rs.datos_cap_dife).length>0){
@@ -538,6 +556,7 @@ function iniciar_reportes(){
 								
                                 $('#barchart_material_cap_dif').fadeOut();
                                 $('#divCapDife').fadeOut();
+                                todo_cap_dife=[];
 							}
 
 							if(Object.keys(rs.datos_ciu_nac).length>0){
@@ -561,6 +580,7 @@ function iniciar_reportes(){
 								
 								$('#barchart_material_ciu').fadeOut();
 								$('#divCiuNac').fadeOut();
+								todo_ciu_nac=[];
 							}
 							if(Object.keys(rs.datos_dep_nac).length>0){
 								
@@ -581,6 +601,7 @@ function iniciar_reportes(){
 								
                                 $('#barchart_material_dep_nac').fadeOut();
                                 $('#divDepNac').fadeOut();
+                                todo_dep_nac=[];
 							}
 
 							if(Object.keys(rs.datos_edaddes).length>0){
@@ -593,7 +614,7 @@ function iniciar_reportes(){
 								//cabza.push("participantes");
 
 								for(v in rs.datos_edaddes){
-									cabza.push( rs.datos_edaddes[v].edad);	
+									cabza.push( rs.datos_edaddes[v].edad+" años");	
 									body.push(Number(rs.datos_edaddes[v].cuentos_por_edad));	
 								}
 								todo_edad=[cabza,body];
@@ -602,6 +623,7 @@ function iniciar_reportes(){
 								
                                 $('#barchart_material_eda').fadeOut();
                                 $('#divEdades').fadeOut();
+                                todo_edad=[];
 							}
 							if(Object.keys(rs.datos_genero).length>0){
 								
@@ -622,6 +644,7 @@ function iniciar_reportes(){
 								
                                 $('#barchart_material_gen').fadeOut();
                                 $('#divGenero').fadeOut();
+                                todo_genero=[];
 								
 							}
 
@@ -642,14 +665,23 @@ function iniciar_reportes(){
 									}
 									
 								}
-								todo_sub_genero=[cabza,body];
+
+								if(cabza.length>1){
+									todo_sub_genero=[cabza,body];	
+								}else{
+									todo_sub_genero=[];	
+								}
 							
 							}else{
 							
                                 $('#barchart_material_sub_gen').fadeOut();
                                 $('#divSubGenero').fadeOut();
+                            	todo_sub_genero=[];    
 								
 							}
+
+
+
 
 							if(Object.keys(rs.datos_etnia).length>0){
 								
@@ -671,6 +703,7 @@ function iniciar_reportes(){
 								
                                 $('#barchart_material_etnia').fadeOut();
                                 $('#divEtnia').fadeOut();
+                                todo_etnia=[];
 							}
 							if(Object.keys(rs.datos_sub_etnia).length>0){
 								
@@ -694,7 +727,7 @@ function iniciar_reportes(){
 							}else{
 								$('#barchart_material_setnia').fadeOut();
 								$('#divOtraEtnia').fadeOut();
-                               
+                                todo_sub_etnia=[];
 							}
 							
 
@@ -717,6 +750,7 @@ function iniciar_reportes(){
 								
                                 $('#barchart_material_orga').fadeOut();
                                 $('#divOrga').fadeOut();
+                                todo_orga=[];
 							}
 							if(Object.keys(rs.datos_proceso).length>0){
 								
@@ -736,6 +770,7 @@ function iniciar_reportes(){
 								
                                 $('#barchart_material_proceso').fadeOut();
                                 $('#divPro').fadeOut();
+                                todo_proceso=[];
 							}	
 							if(Object.keys(rs.documento).length>0){
 								document.getElementById("tblListaGeneralDoc").style.display="";
@@ -758,10 +793,7 @@ function iniciar_reportes(){
 
 							google.charts.load('current', {'packages':['bar']});
                             google.charts.setOnLoadCallback(dibujar_grafico_reporte);
-
-							
-						
-
+	
 				},"");
 		
 				break;			
@@ -805,7 +837,7 @@ function iniciar_reportes(){
 
             crear_data_list_dos("lista_datos_2",dep);
     });
-    agregarEvento("txt_dep_ubi","keypress",function(e){        
+    /*agregarEvento("txt_dep_ubi","keypress",function(e){        
         console.log(e);
         console.log(e.key);
         dep2=[];
@@ -838,7 +870,7 @@ function iniciar_reportes(){
             }
 
             crear_data_list_dos("lista_datos_mun_ubi",dep2);
-    });
+    });*/
 
     agregarEvento("selEventos","change",function(e){
      	
@@ -970,29 +1002,29 @@ function reporte_tortas(rs){
                                 $('#divEsco').fadeIn();
                                 
 								var arr=[];
-                                                                arr.push("Participantes");
-                                                                arr.push("Tipo");
+                                arr.push("Participantes");
+                                arr.push("Tipo");
 								var cabza=[];
 								
 								cabza.push(arr);
 
 								for(var v in rs.datos_escolaridad){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_escolaridad[v].escolaridad);	
 									arr.push(Number(rs.datos_escolaridad[v].cuantos_por_escolaridad));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
-                                                                console.log(cabza);   
+                                console.log(cabza);   
 								todo_esco_pie=cabza;
 								
-							 	//google.charts.load('current', {'packages':['bar']});
-						      	//google.charts.setOnLoadCallback(drawChartes);
+							 	
 
 							      
 							}else{
 								$('#piechart_material_esco').fadeOut();
                                 $('#barchart_material_esco').fadeOut();
                                 $('#divEsco').fadeIn();
+                                todo_esco_pie=[];
 							}
 
 							if(Object.keys(rs.datos_cap_dife).length>0){
@@ -1001,7 +1033,7 @@ function reporte_tortas(rs){
                                  $('#divCapDife').fadeIn();
                                  
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Capacidades Diferentes");
 								cabza.push(arr);
@@ -1019,6 +1051,7 @@ function reporte_tortas(rs){
 								$('#piechart_material_cap_dif').fadeOut();
                                 $('#barchart_material_cap_dif').fadeOut();
                                 $('#divCapDife').fadeOut();
+                                todo_cap_dife_pie=[];
 							}
 
 							if(Object.keys(rs.datos_ciu_nac).length>0){
@@ -1027,16 +1060,16 @@ function reporte_tortas(rs){
 								$('#divCiuNac').fadeIn();
                                 
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Ciudad Nacimiento");
 								cabza.push(arr);
 
 								for(v in rs.datos_ciu_nac){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_ciu_nac[v].ciud_nacimiento);	
 									arr.push(Number(rs.datos_ciu_nac[v].cuantos_por_ciud_nacimiento));	
-                                                                        cabza.push(arr);
+                                   cabza.push(arr);
 								}
 								todo_ciu_nac_pie=cabza;
 								
@@ -1045,7 +1078,7 @@ function reporte_tortas(rs){
 								$('#piechart_material_ciu').fadeOut();
 								$('#barchart_material_ciu').fadeOut();
 								$('#divCiuNac').fadeOut();
-								
+								todo_ciu_nac_pie=[];
 							}
 							if(Object.keys(rs.datos_dep_nac).length>0){
 								$('#barchart_material_dep_nac').fadeOut();
@@ -1058,10 +1091,10 @@ function reporte_tortas(rs){
 								cabza.push(arr);
 
 								for(var v in rs.datos_dep_nac){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_dep_nac[v].dep_nacimiento);	
 									arr.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 							    todo_dep_nac_pie=cabza;
 							
@@ -1069,7 +1102,7 @@ function reporte_tortas(rs){
 								$('#barchart_material_dep_nac').fadeOut();
                                 $('#piechart_material_dep_nac').fadeOut();
                                 $('#divDepNac').fadeOut();
-
+                                todo_dep_nac_pie=[];
 							}
 
 							if(Object.keys(rs.datos_edaddes).length>0){
@@ -1077,16 +1110,16 @@ function reporte_tortas(rs){
 								$('#piechart_material_eda').fadeIn();
 								$('#divEdades').fadeIn();
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Edad");
 								cabza.push(arr);
 
 								for(var v in rs.datos_edaddes){
-                                                                        var arr=[];
-									arr.push( rs.datos_edaddes[v].edad);	
+									var arr=[];
+									arr.push( rs.datos_edaddes[v].edad+" años");	
 									arr.push(Number(rs.datos_edaddes[v].cuentos_por_edad));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 								todo_edad_pie=cabza;
 								
@@ -1094,29 +1127,31 @@ function reporte_tortas(rs){
 								$('#barchart_material_eda').fadeOut();
 								$('#piechart_material_eda').fadeOut();
 								$('#divEdades').fadeOut();
+								todo_edad_pie=[];
 							}
 							if(Object.keys(rs.datos_genero).length>0){
 								$('#barchart_material_gen').fadeOut();
                                 $('#piechart_material_gen').fadeIn();
                                 $('#divGenero').fadeIn();
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Genero");
 								cabza.push(arr);
 
 								for(var v in rs.datos_genero){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_genero[v].genero);	
 									arr.push(Number(rs.datos_genero[v].cuentos_por_genero));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 								todo_genero_pie=cabza;
-                                                                console.log(todo_genero_pie);
+                                console.log(todo_genero_pie);
 							}else{
 								$('#barchart_material_gen').fadeOut();
                                 $('#piechart_material_gen').fadeOut();
                                 $('#divGenero').fadeOut();
+                                todo_genero_pie=[];
 							}
 
 							if(Object.keys(rs.datos_sub_genero).length>0){
@@ -1140,12 +1175,18 @@ function reporte_tortas(rs){
                                     }
                                     
 								}
-								todo_sub_genero_pie=cabza;
+								if(cabza.length>2){
+									todo_sub_genero_pie=cabza;	
+								}else{
+									todo_sub_genero_pie=[];
+								}
+								
 								console.log(todo_sub_genero_pie);
 							}else{
 								$('#barchart_material_sub_gen').fadeOut();
                                 $('#piechart_material_sub_gen').fadeOut();
                                 $('#divSubGenero').fadeOut();
+                                todo_sub_genero_pie=[];
 							}
 
 							
@@ -1160,10 +1201,10 @@ function reporte_tortas(rs){
 								cabza.push(arr);
 
 								for(v in rs.datos_etnia){
-                                                                        var arr=[];
+                                    var arr=[];
 									arr.push( rs.datos_etnia[v].etnia);	
 									arr.push(Number(rs.datos_etnia[v].cuantos_por_etnia));	
-                                                                        cabza.push(arr);
+                                    cabza.push(arr);
 								}
 								todo_etnia_pie=cabza;
 								
@@ -1171,13 +1212,14 @@ function reporte_tortas(rs){
 								$('#barchart_material_etnia').fadeOut();
                                 $('#piechart_material_etnia').fadeOut();
                                 $('#divEtnia').fadeOut();
+                                todo_etnia_pie=[];
 							}
 							if(Object.keys(rs.datos_sub_etnia).length>0){
 								$('#barchart_material_setnia').fadeOut();
                                 $('#piechart_material_setnia').fadeIn();
                                 $('#divOtraEtnia').fadeIn();
 								var cabza=[];
-                                                                var arr=[];
+                                var arr=[];
 								arr.push("Participantes");
 								arr.push("Etnia");
 								cabza.push(arr);
@@ -1197,6 +1239,7 @@ function reporte_tortas(rs){
 								$('#barchart_material_setnia').fadeOut();
                                 $('#piechart_material_setnia').fadeOut();
                                 $('#divOtraEtnia').fadeOut();
+                                todo_sub_etnia_pie=[];
 							}
 							
 
@@ -1222,6 +1265,7 @@ function reporte_tortas(rs){
 								$('#barchart_material_orga').fadeOut();
                                 $('#piechart_material_orga').fadeOut();
                                 $('#divOrga').fadeOut();
+                                todo_orga_pie=[];
 							}
 							if(Object.keys(rs.datos_proceso).length>0){
 								$('#barchart_material_proceso').fadeOut();
@@ -1245,6 +1289,7 @@ function reporte_tortas(rs){
 								$('#barchart_material_proceso').fadeOut();
                                 $('#piechart_material_proceso').fadeOut();
                                 $('#divPro').fadeOut();
+                                todo_proceso_pie=[];
 							}	
 							if(Object.keys(rs.documento).length>0){
 								document.getElementById("tblListaGeneralDoc").style.display="";
@@ -1312,6 +1357,7 @@ function reporte_barras(rs){
 								$('#piechart_material_esco').fadeOut();
                                 $('#barchart_material_esco').fadeOut();
                                 $('#divEsco').fadeOut();
+                                todo_esco=[];
 							}
 
 							if(Object.keys(rs.datos_cap_dife).length>0){
@@ -1334,6 +1380,7 @@ function reporte_barras(rs){
 								$('#piechart_material_cap_dif').fadeOut();
                                 $('#barchart_material_cap_dif').fadeOut();
                                 $('#divCapDife').fadeOut();
+                                todo_cap_dife=[];
 							}
 
 							if(Object.keys(rs.datos_ciu_nac).length>0){
@@ -1357,6 +1404,7 @@ function reporte_barras(rs){
 								$('#piechart_material_ciu').fadeOut();
 								$('#barchart_material_ciu').fadeOut();
 								$('#divCiuNac').fadeOut();
+								todo_ciu_nac=[];
 							}
 							if(Object.keys(rs.datos_dep_nac).length>0){
 								$('#piechart_material_dep_nac').fadeOut();
@@ -1377,6 +1425,7 @@ function reporte_barras(rs){
 								$('#piechart_material_dep_nac').fadeOut();
                                 $('#barchart_material_dep_nac').fadeOut();
                                 $('#divDepNac').fadeOut();
+                                todo_dep_nac=[];
 							}
 
 							if(Object.keys(rs.datos_edaddes).length>0){
@@ -1389,7 +1438,7 @@ function reporte_barras(rs){
 								//cabza.push("participantes");
 
 								for(v in rs.datos_edaddes){
-									cabza.push( rs.datos_edaddes[v].edad);	
+									cabza.push( rs.datos_edaddes[v].edad+" años");	
 									body.push(Number(rs.datos_edaddes[v].cuentos_por_edad));	
 								}
 								todo_edad=[cabza,body];
@@ -1398,6 +1447,7 @@ function reporte_barras(rs){
 								$('#piechart_material_eda').fadeOut();
                                 $('#barchart_material_eda').fadeOut();
                                 $('#divEdades').fadeOut();
+                                todo_edad=[];
 							}
 							if(Object.keys(rs.datos_genero).length>0){
 								$('#piechart_material_gen').fadeOut();
@@ -1418,7 +1468,7 @@ function reporte_barras(rs){
 								$('#piechart_material_gen').fadeOut();
                                 $('#barchart_material_gen').fadeOut();
                                 $('#divGenero').fadeOut();
-								
+								todo_genero=[];	
 							}
 
 							if(Object.keys(rs.datos_sub_genero).length>0){
@@ -1437,13 +1487,18 @@ function reporte_barras(rs){
 									}
 									
 								}
-								todo_sub_genero=[cabza,body];
+								if(cabza.length>1){
+									todo_sub_genero=[cabza,body];	
+								}else{
+									todo_sub_genero=[];	
+								}
+								
 							
 							}else{
 								$('#piechart_material_sub_gen').fadeOut();
                                 $('#barchart_material_sub_gen').fadeOut();
                                 $('#divSubGenero').fadeOut();
-								
+								todo_sub_genero=[];	
 							}
 							
 							if(Object.keys(rs.datos_etnia).length>0){
@@ -1466,6 +1521,7 @@ function reporte_barras(rs){
 								$('#piechart_material_etnia').fadeOut();
                                 $('#barchart_material_etnia').fadeOut();
                                 $('#divEtnia').fadeOut();
+                                todo_etnia=[];
 							}
 							if(Object.keys(rs.datos_sub_etnia).length>0){
 								$('#piechart_material_setnia').fadeOut();
@@ -1490,6 +1546,7 @@ function reporte_barras(rs){
 								$('#piechart_material_setnia').fadeOut();
                                 $('#barchart_material_setnia').fadeOut();
                                 $('#divOtraEtnia').fadeOut();
+                                todo_sub_etnia=[];
 							}
 							
 
@@ -1512,6 +1569,7 @@ function reporte_barras(rs){
 								$('#piechart_material_orga').fadeOut();
                                 $('#barchart_material_orga').fadeOut();
                                 $('#divOrga').fadeOut();
+                                todo_orga=[];
 							}
 							if(Object.keys(rs.datos_proceso).length>0){
 								$('#piechart_material_proceso').fadeOut();
@@ -1531,6 +1589,7 @@ function reporte_barras(rs){
 								$('#piechart_material_proceso').fadeOut();
                                 $('#barchart_material_proceso').fadeOut();
                                 $('#divPro').fadeOut();
+                                todo_proceso=[];
 							}	
 							if(Object.keys(rs.documento).length>0){
 								document.getElementById("tblListaGeneralDoc").style.display="";
@@ -1798,27 +1857,26 @@ function dibujar_tabla3(datos){
 function consultar_eventos(id){
 	if(id=="G"){
 		consultarDatos("repo_eventos/"+id,{},function(rs){
-			globales._departamentos=rs.dep_nacimiento;									
+			//globales._departamentos=rs.dep_nacimiento;	
+
 			crear_select_3("selEventos",rs.eventos,"id","name","Todos los eventos","G");
 			crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
 			crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");
-			crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
-			crear_data_list_dos("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  
-			crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
-			//crear_data_list_dos("lista_datos_etnia",rs.etnia,"etnia","cuantos_por_etnia");  
-			crear_data_list_dos("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
-			crear_data_list_dos("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  
+			crear_data_list("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
+			crear_data_list("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_ciud_nacimiento");  
+			crear_data_list("lista_datos_mun_ubi",rs.municipio,"municipio","cuantos_por_municipio");  
+			crear_data_list("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
+			crear_data_list("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  
 		},"");	
 	}else{
 		consultarDatos("repo_eventos/"+id,{},function(rs){
-			globales._departamentos=rs.dep_nacimiento;								
+			//globales._departamentos=rs.dep_nacimiento;								
 			crear_select_3("selEventos",rs.eventos,"id","name","Todos los eventos","G");
 			crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
 			crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");
-			crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
-			crear_data_list("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  
-			//crear_data_list("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
-			//crear_data_list_dos("lista_datos_etnia",rs.etnia,"etnia","cuantos_por_etnia");  
+			crear_data_list("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
+			crear_data_list("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_ciud_nacimiento");  
+			crear_data_list("lista_datos_mun_ubi",rs.municipio,"municipio","cuantos_por_municipio");  
 			crear_data_list("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
 			crear_data_list("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso"); 
 			fecha_evento=rs.datos[0].date;
@@ -1835,6 +1893,11 @@ function dibujar_tabla(datos){
 		tbl.innerHTML="";
 		var tr=document.createElement("tr");
 		
+		var td=document.createElement("td");
+		td.innerHTML="#";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
 		var td=document.createElement("td");
 		td.innerHTML="Primer Nombre";
 		td.className="mdl-data-table__cell--non-numeric";
@@ -1881,6 +1944,13 @@ function dibujar_tabla(datos){
 		var tr=document.createElement("tr");
 		tr.setAttribute("onclick","ver_asistencia_individual('"+datos[f].documento+"')");
 		
+
+		var td=document.createElement("td");
+		td.innerHTML=Number(f)+1;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].pri_nombre;
 		td.className="mdl-data-table__cell--non-numeric";
@@ -1938,7 +2008,7 @@ function ver_asistencia_individual(documento){
 
 				},"");	
 }
-
+//barras
 function dibujar_grafico_reporte(){
  
 	//escolariodad
@@ -1980,21 +2050,26 @@ function dibujar_grafico_reporte(){
     //genero
     
 	//sub/genero
-    if(Object.keys(todo_sub_genero[0]).length>1){
-    	var data_sgenero = google.visualization.arrayToDataTable(
+    if(todo_sub_genero!=undefined){
+    	if(Object.keys(todo_sub_genero).length>1){
+    		var data_sgenero = google.visualization.arrayToDataTable(
 							          todo_sub_genero
 							         );
-	    var options_sgenero = {
-			     chart: {
-			        title: nom_reporte+" Otros Generos" ,
-			        subtitle: lugar_evento+" "+fecha_evento
-			        },
-			     bars: 'horizontal' // Required for Material Bar Charts.
-			    };
+		    var options_sgenero = {
+				     chart: {
+				        title: nom_reporte+" Otros Generos" ,
+				        subtitle: lugar_evento+" "+fecha_evento
+				        },
+				     bars: 'horizontal' // Required for Material Bar Charts.
+				    };
 
-		
-	    var chartsgen = new google.charts.Bar(document.getElementById('barchart_material_sub_gen'));
-		chartsgen.draw(data_sgenero, google.charts.Bar.convertOptions(options_sgenero));
+			
+		    var chartsgen = new google.charts.Bar(document.getElementById('barchart_material_sub_gen'));
+			chartsgen.draw(data_sgenero, google.charts.Bar.convertOptions(options_sgenero));
+    	}else{
+    		$("#divSubGenero").fadeOut();	
+    	}
+    	
 			
     }else{
     	$("#divSubGenero").fadeOut();
@@ -2057,8 +2132,9 @@ function dibujar_grafico_reporte(){
 	
 	 
 	//subetnia
-	if(Object.keys(todo_sub_etnia[0]).length>=2){
-		var data_setnia = google.visualization.arrayToDataTable(
+	if(todo_sub_etnia!=undefined ){
+		if(Object.keys(todo_sub_etnia).length>1){
+			var data_setnia = google.visualization.arrayToDataTable(
 							          todo_sub_etnia
 							         );
 
@@ -2073,7 +2149,9 @@ function dibujar_grafico_reporte(){
 							        var chart_ets = new google.charts.Bar(document.getElementById('barchart_material_setnia'));
 
 							        chart_ets.draw(data_setnia, google.charts.Bar.convertOptions(options_setnia));							        				        				      	
-	
+		
+		}
+		
 	 
 	}else{
 		$('#divOtraEtnia').fadeOut();
@@ -2191,6 +2269,7 @@ function dibujar_reporte_torta(){
     
 	//sub_genero
 	if(todo_sub_genero_pie[1]!=undefined){
+		
 		 var data_sub_genero = google.visualization.arrayToDataTable(todo_sub_genero_pie);
      	 console.log(data_sub_genero);
          var options_sub_genero = {
@@ -2201,7 +2280,7 @@ function dibujar_reporte_torta(){
      	 var chartsgen = new google.visualization.PieChart(document.getElementById('piechart_material_sub_gen'));
 		 chartsgen.draw(data_sub_genero, options_sub_genero);
 	}else{
-		$("divSubGenero").fadeOut();
+		$("#divSubGenero").fadeOut();
 	}
     
 	//proceso

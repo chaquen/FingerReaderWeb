@@ -25,7 +25,7 @@
             <form id="formPobladores">
                 <ul class="identificacion">                    
                     <li>
-                        <select name="tipo_doc" required>
+                        <select id="selTipoDoc" name="tipo_doc" required>
                             <option value="0">--Tipo de Documento--</option>
                             <option value="CC">Cedula Ciudadania</option>
                             <option value="CE">Cedula extranjera</option>
@@ -34,40 +34,40 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="txt_cc" name="documento" required>
+                            <input class="mdl-textfield__input" type="text" id="txt_cc" name="documento" readonly>
                             <label class="mdl-textfield__label" for="sample3">Numero de Documento</label>
                         </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input  class="mdl-textfield__input" type="text" name="lugar_exp" required>
+                            <input id="txtLugExo" class="mdl-textfield__input" type="text" name="lugar_exp" required>
                             
-                            <label class="mdl-textfield__label" for="sample3">Lugar de Expedidion</label>
+                            <label  class="mdl-textfield__label" for="sample3">Lugar de Expedidion</label>
                         </div>
                         
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="pri_apellido" required>
+                            <input id="txtPriApe" class="mdl-textfield__input" type="text" name="pri_apellido" required>
                             <label class="mdl-textfield__label" for="sample3">Primer Apellido</label>
                         </div>
                         
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="seg_apellido" required>
+                            <input id="txtSegApe" class="mdl-textfield__input" type="text" name="seg_apellido" required>
                             <label class="mdl-textfield__label" for="sample3">Segundo Apellido</label>
                         </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="pri_nombre" required>
+                            <input id="txtPriNom" class="mdl-textfield__input" type="text" name="pri_nombre" required>
                             <label class="mdl-textfield__label" for="sample3">Primer Nombre</label>
                         </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="seg_nombre" required>
+                            <input id="txtSegNom" class="mdl-textfield__input" type="text" name="seg_nombre" required>
                             <label class="mdl-textfield__label" for="sample3">Segundo Nombre</label>
                         </div>
                     </li>
@@ -93,7 +93,7 @@
                         <h6>Fecha de Nacimiento</h6>
                     </li>
                     <li>
-                        <input name="fecha_nac" type="date" required>
+                        <input id="fecNac" name="fecha_nac" type="date" required>
                     </li>
                     <li>
                         <select id="selGenero" name="genero" required>
@@ -106,7 +106,7 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="cap_dife" required>
+                            <input id="txtCapDif" class="mdl-textfield__input" type="text" name="cap_dife" required>
                             <label class="mdl-textfield__label" for="sample3">Capacidades Diferentes</label>
                         </div>
                         
@@ -131,14 +131,14 @@
                 <ul class="ubicacion">
                     <li>
                          <h5>Zona</h5>
-                        <select name="zona">
+                        <select id="selZona" name="zona">
                             <option value="urbana">Urbana</option>
                             <option value="rural">Rural</option>
                         </select>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input id="txt_dep_2" class="mdl-textfield__input" type="text" list="lista_datos_dep_2" required>
+                            <input id="txt_dep_2" class="mdl-textfield__input" name="departamento_ubi" type="text" list="lista_datos_dep_2" required>
                             <datalist id="lista_datos_dep_2"></datalist> 
                             <label class="mdl-textfield__label" for="sample3">Departamento</label>
                         </div> 
@@ -146,7 +146,7 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="municipio" list="lista_datos_mun_2" required>
+                            <input id="txtMunUbi" class="mdl-textfield__input" type="text" name="municipio" list="lista_datos_mun_2" required>
                             <datalist id="lista_datos_mun_2"></datalist> 
                             <label class="mdl-textfield__label" for="sample3">Municipio</label>
                         </div> 
@@ -154,14 +154,14 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="celular" required>
+                            <input id="txtCel" class="mdl-textfield__input" type="text" name="celular" required>
                             <label class="mdl-textfield__label" for="sample3">Celular</label>
                         </div> 
                         
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="email">
+                            <input id="txtEmail" class="mdl-textfield__input" type="text" name="email">
                             <label class="mdl-textfield__label" for="sample3">Email</label>
                         </div> 
                         
@@ -169,8 +169,8 @@
                 </ul>
                 <ul class="escolaridad">
                     <li>
-                        <select name="escolaridad" required>
-                            <option value="0">--Nivel de Escolaridad--</option>
+                        <select id="selEscolaridad" name="escolaridad" required>
+                            <option  value="0">--Nivel de Escolaridad--</option>
                             <option>Primaria</option>
                             <option>Bachillerato</option>
                             <option>Tecnico</option>
@@ -182,7 +182,7 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="titulo_obt" required>
+                            <input id="txtTitulo" class="mdl-textfield__input" type="text" name="titulo_obt" required>
                             <label class="mdl-textfield__label" for="sample3">Titulo Obtenido</label>
                         </div> 
                     </li>
@@ -190,16 +190,29 @@
                 <ul class="datosP">
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="organizacion" required>
-                            <label class="mdl-textfield__label" for="sample3">Organizacion "Proceso PDP"</label>
+                            <input id="txtLineas" class="mdl-textfield__input" type="text" name="organizacion" list="listaLineas" >
+                            <label class="mdl-textfield__label" for="sample3">Lineas "Proceso PDP"</label>
+                            <datalist id="listaLineas"></datalist>
                         </div> 
                         
                     </li>
+                    
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="proceso" required>
+                            <input id="txtProceso" class="mdl-textfield__input" type="text" name="proceso" list="listaProcesos" >
                             <label class="mdl-textfield__label" for="sample3">Proceso PDP</label>
+                            <datalist id="listaProcesos"></datalist>
+
                         </div>
+                        
+                    </li>
+                    <li>
+                        <input type="button" value="Agregar proceso" id="btnAgregarProceso">
+                    </li>
+                    <li id="divProceso">
+                        <ul id="liProceso">
+                          
+                        </ul>
                     </li>
                 </ul>
                 <ul class="botones">

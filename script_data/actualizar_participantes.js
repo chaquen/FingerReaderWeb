@@ -1,4 +1,5 @@
 var pos;
+var procesos=[];
 function iniciar_evento_actualizar_participantes(){
     var d=recibirValorGet();
     pos=d[0].split("=")[1];
@@ -14,9 +15,10 @@ function iniciar_evento_actualizar_participantes(){
     agregarEvento("btnActualizarParticiapantes","click",function(){
         var datos = $("#formPobladores").serializarFormulario();
        
-        
-        if(false!=datos){
-             
+     
+       
+      if(false!=datos){
+             datos.estado_registro="registrado";
              console.log(datos);
              console.log(pos);
              datos.created_at=horaCliente();
@@ -26,19 +28,63 @@ function iniciar_evento_actualizar_participantes(){
              if(datos.etnia=="Otro"){
                 datos.etnia=document.getElementById("txt_et_otro").value;
              }
-             if(datos.genero=="Otro"){
-                datos._sub_genero=document.getElementById("txtGenero").value;
+             if(datos.genero!="--Genero--"){
+                if(datos.genero=="Otro"){
+                    datos._sub_genero=document.getElementById("txtGenero").value;
+                 }   
+             }else{
+                mostrarMensaje("Debes seleccionarun genero");
+                return false; 
              }
+             
 
              if(datos.tipo_doc=="0"){
                 mostrarMensaje("Selecciona el tipo documento");
                 return false;
              }
+             if(procesos.length==0){
+                mostrarMensaje("Selecciona al menos un proceso");
+                return false;  
+             }else{
+                for(var p in procesos){
+                    procesos[p]=procesos[p].split("-")[0];
+                }
+                datos.procesos=procesos;
+             }
+             if(datos.escolaridad!="0"){
+                if(datos.escolaridad!="Ninguno"){
+                    if(document.getElementById("txtTitulo").value==""){
+                         mostrarMensaje("Ingresa el titulo obtenido");
+                        return false;  
+                    }
+                 }else{
+                    document.getElementById("txtTitulo").value="Ninguno";
+                 }   
+
+
+             }else{
+                mostrarMensaje("Selecciona la escolaridad");
+                return false; 
+             }
+             var dn=datos.dep_nacimiento.split("-");
+             if(dn[1]!=undefined){
+                datos.dep_nacimiento=dn[1];
+             }
+             var du=datos.departamento_ubi.split("-");
+             if(du[1]!=undefined){
+                datos.departamento_ubi=du[1];
+             }
+             
+             
+             
+             
                 //registrarDato("participantes",{datos:datos,id:data.id},function(rs){
-                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
+                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteConEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
-                            window.close();
+                            //  window.open('','_parent',''); 
+                            window.close(); 
+                            //location.href="menuEventos.html";
                             
                         }
                         
@@ -159,6 +205,45 @@ function iniciar_evento_actualizar_participantes(){
             document.getElementById("txtGenero").style.display="none";
         }
     });
+    agregarEvento("txtLineas","change",function(){
+        //console.log(document.getElementById("txtLineas").value.split("-")[0]);
+        if(document.getElementById("txtLineas").value!=""){
+            consultarDatosOff(globales._URL_BE+"controlador/controlador_eventos.php","consultarProceso",{nombre:document.getElementById("txtLineas").value.split("-")[0]},function(rs){
+                console.log(rs);
+                
+                crear_data_list_tres("listaProcesos",rs.datos,"id","nombre_proceso");
+                
+            });
+        }
+        
+    });
+    agregarEvento("btnAgregarProceso","click",function(){
+        if(document.getElementById("txtProceso").value!=""){
+            var reg=true;
+            for(var p in procesos){
+                if(procesos[p]==document.getElementById("txtProceso").value){
+                    reg=false;
+                    break;
+                }
+            }
+
+            if(reg){
+                console.log(document.getElementById("txtProceso").value);
+                procesos.push(document.getElementById("txtProceso").value);  
+                dibujar_procesos();  
+                document.getElementById("txtLineas").value="";
+                document.getElementById("txtProceso").value="";
+            }else{
+                mostrarMensaje("Este proceso ya se registro");
+            }
+            
+           //document.getElementById("txtLineas").value="";
+            //document.getElementById("txtProceso").value="";
+        }else{
+            mostrarMensaje("Debes seleccionar una linea y un proceso");
+        }
+        
+    });
     cargar_archivos();
 
 
@@ -168,10 +253,17 @@ function cargar_archivos(){
      consultarDatosOff("script_data/data/colombia.json","",{},function(rs){
         console.log(rs);
         globales._departamentos=rs;
-        crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
+       crear_data_list("lista_datos",rs,"id","departamento");
+        crear_data_list("lista_datos_dep_2",rs,"id","departamento");
         
     });
 
+    consultarDatosOff(globales._URL_BE+"controlador/controlador_eventos.php","consultarLineas",{},function(rs){
+        console.log(rs);
+        
+        crear_data_list_tres("listaLineas",rs.datos,"id","nombre_linea");
+        
+    });
 
    
 }
@@ -179,11 +271,73 @@ function cargar_archivos(){
 function buscar_participante(id){
 	consultarDatosOff(globales._URL_BE+"controlador/controlador_participantes.php","consultarParticipantePorId",{id:id},function(rs){
         console.log(rs);
-        globales._departamentos=rs;
-        crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
+        mostrar_datos_usuario(rs.datos[0]);
         
     });
 }
 
+function mostrar_datos_usuario(datos){
+    agregar_valor_txt("txt_cc",datos.documento);
+    agregar_valor_txt("txtLugExo",datos.lugar_exp);
+    agregar_valor_txt("txtPriApe",datos.pri_apellido);
+    agregar_valor_txt("txtSegApe",datos.seg_apellido);
+    agregar_valor_txt("txtPriNom",datos.pri_nombre);
+    agregar_valor_txt("txtSegNom",datos.seg_nombre);
+    agregar_valor_txt("txt_dep_nacimiento",datos.dep_nacimiento);
+    agregar_valor_txt("txt_ciud_nacimiento",datos.ciud_nacimiento);
+    agregar_valor_txt("fecNac",datos.fecha_nac);
+    agregar_valor_txt("txtGenero",datos.sub_genero);
+    agregar_valor_txt("txtCapDif",datos.cap_dife);
+    agregar_valor_txt("txt_et_otro",datos.sub_etnia);
+    agregar_valor_txt("txtMunUbi",datos.municipio);
+    agregar_valor_txt("txt_dep_2",datos.departamento_ubi);    
+    agregar_valor_txt("txtCel",datos.celular);   
+    agregar_valor_txt("txtEmail",datos.email);
+    agregar_valor_txt("txtEscolaridad",datos.escolaridad);   
+    agregar_valor_txt("txtTitulo",datos.titulo_obt);   
+    agregar_valor_select("selTipoDoc",datos.tipo_doc);
+    agregar_valor_select("selGenero",datos.genero);
+    agregar_valor_select("selEtnia",datos.etnia);
+    agregar_valor_select("selEscolaridad",datos.escolaridad);
+    agregar_valor_select("selZona",datos.zona);
+    dibujar_procesos_db(datos.procesos);
+    
+}
+function agregar_valor_txt(id,value){
+    document.getElementById(id).value=value;
+}
+function agregar_valor_select(id,value){
 
+    for(var f in document.getElementById(id).options){
+        if(document.getElementById(id).options[f]!=undefined){
+            if(document.getElementById(id).options[f].innerHTML==value || document.getElementById(id).options[f].value==value){
+                document.getElementById(id).options[f].selected=true;
+            }
+        }
+        
+    }
+}
+
+function dibujar_procesos_db(proc){
+    var lista=document.getElementById("liProceso");
+    //lista.innerHTML="";
+    for(var f in proc){
+        procesos.push(proc[f].id+"-"+proc[f].nombre_proceso);
+
+        var li=document.createElement("li");
+        li.innerHTML=proc[f].id+"-"+proc[f].nombre_proceso;
+        lista.appendChild(li);
+    }
+}
+function dibujar_procesos(){
+    var lista=document.getElementById("liProceso");
+    lista.innerHTML="";
+    for(var f in procesos){
+        
+
+        var li=document.createElement("li");
+        li.innerHTML=procesos[f];
+        lista.appendChild(li);
+    }
+}
 agregarEventoLoad(iniciar_evento_actualizar_participantes);

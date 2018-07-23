@@ -40,7 +40,7 @@ if(isset($_REQUEST['datos'])){
             echo json_encode(array("respuesta"=>true,"mensaje"=>"lineas","datos"=>$arr));
         break;  
         case "consultarProceso":
-            $li=$objeto->obtener_registro_todos_los_procesos($post->datos->nombre);
+            $li=$objeto->obtener_registro_todos_los_procesos(utf8_decode($post->datos->nombre));
             //$pro=$objeto->obtener_registro_todos_los_procesos();
             //var_dump($li);
             //var_dump($li);

@@ -56,7 +56,8 @@ if(isset($_REQUEST['datos'])){
              break;
          case "consultarParticipantePorId":
             $id=$post->datos->id;
-            $res=$objeto->obtener_registro_por_valor("id,tipo_doc,documento,lugar_exp,pri_apellido,seg_apellido,pri_nombre,seg_nombre,ciud_nacimiento,dep_nacimiento,fecha_nac,edad,genero,sub_genero,cap_dife,etnia,sub_etnia,zona,municipio,celular,email,escolaridad,titulo_obt","id = '$id'");
+            $res=$objeto->obtener_registro_por_valor("id,tipo_doc,documento,lugar_exp,pri_apellido,seg_apellido,pri_nombre,seg_nombre,ciud_nacimiento,dep_nacimiento,fecha_nac,edad,genero,sub_genero,cap_dife,etnia,sub_etnia,zona,departamento_ubi,municipio,celular,email,escolaridad,titulo_obt","id = '$id'");
+
             
             //var_dump($res);
             //echo "================"; 
@@ -64,6 +65,14 @@ if(isset($_REQUEST['datos'])){
             if($res["respuesta"]){
                 //var_dump($res["valores_consultados"]);
                 $d1=$res["valores_consultados"];
+                $vv=$objeto2->obtener_procesos_por_usuario($d1[0]["documento"]);
+                if($vv["respuesta"]){
+                    $d1[0]["procesos"]=$vv["valores_consultados"];
+
+                }else{
+                    $d1[0]["procesos"]=[];                    
+                }
+                
             }else{
                 $d1=NULL;
             }
@@ -82,7 +91,13 @@ if(isset($_REQUEST['datos'])){
                  echo  json_encode($objeto->actualizar_recurso($post->datos->datos,$post->datos->id));
             
        
-            break;      
+            break;     
+         case "crearParticipanteConEvento":
+            
+                 echo  json_encode($objeto->actualizar_recurso_en_evento($post->datos->datos,$post->datos->id));
+            
+       
+            break;         
         case "consultarParticipantePendientes":
             $hoy=strftime( "%Y-%m-%d", time() );    
             $id_evento=$post->datos->id;

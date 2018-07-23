@@ -13,70 +13,8 @@ class Participantes extends ModeloBaseDeDatos{
     function crear_registro($arr){
          foreach ($arr as $key => $value) {
                 $$key=$value;
-            }   
-        //var_dump($estado_registro);  
-        //echo "=======================";  
-        //$this->sentencia_sql="SELECT * FROM participantes WHERE documento = $documento";
-        //if($this->consultar_registros()==false){
-    
-           /* echo $this->sentencia_sql="INSERT INTO participantes (tipo_doc ,
-                                                        documento ,
-                                                        lugar_exp ,
-                                                        pri_apellido ,
-                                                        seg_apellido,
-                                                        pri_nombre ,
-                                                        seg_nombre ,
-                                                        dep_nacimiento ,
-                                                        ciud_nacimiento ,
-                                                        fecha_nac ,
-                                                        genero ,
-                                                        cap_dife ,
-                                                        etnia ,
-                                                        zona ,
-                                                        municipio ,
-                                                        celular ,
-                                                        email ,
-                                                        escolaridad ,
-                                                        titulo_obt ,
-                                                        organizacion ,
-                                                        proceso ,
-                                                        estado_registro,
-                                                        tipo_registro,
-                                                        id_server,
-                                                        state,
-                                                        created_at,
-                                                        updated_at,
-                                                        huella_binaria) 
-                                                        VALUES ( '$tipo_doc',
-                                                        '$documento',
-                                                        '$lugar_exp',
-                                                        '$pri_apellido',
-                                                        '$seg_apellido',
-                                                        '$pri_nombre',
-                                                        '$seg_nombre',
-                                                        '$dep_nacimiento',
-                                                        '$ciud_nacimiento',
-                                                        '$fecha_nac',
-                                                        '$genero',
-                                                        '$cap_dife',
-                                                        '$etnia',
-                                                        '$zona',
-                                                        '$municipio',
-                                                        '$celular',
-                                                        '$email',
-                                                        '$escolaridad',
-                                                        '$titulo_obt',
-                                                        '$organizacion',
-                                                        '$proceso',
-                                                        'registrado',
-                                                        'antiguo',
-                                                        '$id',
-                                                        '1',
-                                                        '$created_at',
-                                                        '$updated_at',
-                                                        '$huella_binaria')";*/
-
-                                                        $this->sentencia_sql="INSERT INTO participantes (
+         }   
+            $this->sentencia_sql="INSERT INTO participantes (
                                                         huella_binaria) 
                                                         VALUES ( 
                                                         '$huella_binaria')";
@@ -89,11 +27,7 @@ class Participantes extends ModeloBaseDeDatos{
                     "respuesta"=>TRUE);
             }else{
                 return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
-            }   
-        //}else{
-            //actualizar horario
-        //}
-                
+            }                   
         
     }    
 
@@ -118,13 +52,12 @@ class Participantes extends ModeloBaseDeDatos{
                             `cap_dife`, 
                             `etnia`, 
                             `zona`, 
+                            `departamento_ubi`, 
                             `municipio`, 
                             `celular`, 
                             `email`, 
                             `escolaridad`, 
-                            `titulo_obt`, 
-                            `proceso`, 
-                            `organizacion`, 
+                            `titulo_obt`,                              
                             `huella_binaria`, 
                             `state`, 
                             `estado_registro`, 
@@ -146,7 +79,7 @@ class Participantes extends ModeloBaseDeDatos{
     }
     function obtener_registro_todos_los_registros_para_sync($WHERE){
         
-            $this->sentencia_sql="SELECT 
+             $this->sentencia_sql="SELECT 
                             `participantes`.`id`, 
                             `tipo_doc`,
                             `documento`,
@@ -165,12 +98,11 @@ class Participantes extends ModeloBaseDeDatos{
                             `etnia`, 
                             `zona`, 
                             `municipio`, 
+                            `departamento_ubi`, 
                             `celular`, 
                             `email`, 
                             `escolaridad`, 
                             `titulo_obt`, 
-                            `proceso`, 
-                            `organizacion`, 
                             `huella_binaria`, 
                             `state`, 
                             `estado_registro`, 
@@ -287,6 +219,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         cap_dife = '$cap_dife',
                                                         etnia = '$etnia',
                                                         zona = '$zona',
+                                                        departamento_ubi = '$departamento_ubi',
                                                         municipio = '$municipio',
                                                         celular = '$celular',
                                                         email = '$email',
@@ -317,6 +250,74 @@ class Participantes extends ModeloBaseDeDatos{
         }
     }
 
+     function actualizar_recurso_en_evento($arr,$id){
+        foreach ($arr as $key => $value) {
+                $$key=$value;
+            }   
+
+
+            $cumpleanos = new DateTime($fecha_nac);
+            $hoy = new DateTime();
+            $annos = $hoy->diff($cumpleanos);
+            $edad=$annos->y;
+           $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
+                                                        tipo_doc = '$tipo_doc',
+                                                        documento = '$documento',
+                                                        lugar_exp = '$lugar_exp',
+                                                        pri_apellido = '$pri_apellido',
+                                                        seg_apellido = '$seg_apellido',
+                                                        pri_nombre = '$pri_nombre',
+                                                        seg_nombre = '$seg_nombre',
+                                                        dep_nacimiento = '$dep_nacimiento',
+                                                        ciud_nacimiento = '$ciud_nacimiento',
+                                                        fecha_nac = '$fecha_nac',
+                                                        edad = '$edad',
+                                                        genero = '$genero',
+                                                        sub_genero = 'sub_$genero',
+                                                        cap_dife = '$cap_dife',
+                                                        etnia = '$etnia',
+                                                        zona = '$zona',
+                                                        departamento_ubi = '$departamento_ubi',
+                                                        municipio = '$municipio',
+                                                        celular = '$celular',
+                                                        email = '$email',
+                                                        escolaridad = '$escolaridad',
+                                                        titulo_obt = '$titulo_obt',
+                                                        state = '1',
+                                                        created_at = '$created_at',
+                                                        updated_at = '$created_at'
+
+                                                        WHERE id = '$id'";
+        $RR=$this->actualizar_registro();                                                        
+                                                              
+        if($RR){
+            //var_dump($procesos);  
+            foreach ($procesos as $key => $value) {
+                $pp=$value;
+                 $this->sentencia_sql="SELECT * FROM detalle_procesos WHERE id_usuario = '$documento' AND id_proceso = '$pp' ";
+                
+                $re=$this->consultar_registros();
+                //var_dump(count($this->filas));
+                //echo "<br>";
+                //var_dump($this->filas);    
+                //echo "<br>";
+                if(count($this->filas)>0){
+                     $this->sentencia_sql="INSERT INTO  detalle_procesos (id_usuario,id_proceso,created_at) VALUES ('$documento','$pp','$created_at')";
+                    $this->insertar_registro();
+                }
+                
+                    
+                
+            }
+                
+             return array("mensaje"=> $this->mensajeDepuracion,
+                    "respuesta"=>TRUE);   
+            
+        }else{
+            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
+        }
+    }
+
     function actualizar_recurso_estado($id,$estado){
       
           $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
@@ -331,8 +332,22 @@ class Participantes extends ModeloBaseDeDatos{
         }
     }
 
-    function obtener_procesos_por_usuario(){
+    function obtener_todos_procesos(){
         $this->sentencia_sql="SELECT * FROM detalle_procesos";
+
+       
+        if($this->consultar_registros()){
+            //var_dump($this->filas);
+            return array("mensaje"=>$this->mensajeDepuracion,
+                "respuesta"=>TRUE,
+                "valores_consultados"=>$this->filas);
+        }else{
+            return array("mensaje"=>  "No hay registros de procesos","respuesta"=> FALSE,"valores_consultados"=>NULL);
+        }
+    }
+    function obtener_procesos_por_usuario($doc){
+        $this->sentencia_sql="SELECT * FROM detalle_procesos INNER JOIN proceso ON proceso.id = detalle_procesos.id_proceso
+                              WHERE id_usuario = '$doc' ";
 
        
         if($this->consultar_registros()){

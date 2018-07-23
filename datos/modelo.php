@@ -80,7 +80,8 @@ abstract class ModeloBaseDeDatos{
             if($resultado=  $this->conexion->query($this->sentencia_sql)){
                 //var_dump($resultado->fetch_assoc());
                 while($arregloRespuesta[]=$resultado->fetch_assoc());
-                //var_dump($arregloRespuesta);
+                //var_dump(count($arregloRespuesta));
+                
                 $resultado->close();                    
                 $this->cerrar_conexion();
                 $i=0;
@@ -90,14 +91,15 @@ abstract class ModeloBaseDeDatos{
                     if($value!=null){
                         //var_dump($value);
                         //$this->filas[$i++]=  array_map('utf8_encode', $value);
-                        $this->filas[$i++]=  $value;
+                        $this->filas[$i++]=$value;
                         //var_dump($this->filas[$i]);
                     }
 
 
                 }
                 
-            
+                //var_dump(count($this->filas));
+                //echo "string";
                 
                 if(count($this->filas)>0){
                     //var_dump($this->filas);
@@ -105,6 +107,7 @@ abstract class ModeloBaseDeDatos{
                     //var_dump($this->filas_json);
                     return TRUE;
                 }else{
+                    //echo "--";
                     //echo count($this->filas);
                     $log=new Log();
                     $this->mensajeDepuracion="No existen registros con la especificacion que busca";
