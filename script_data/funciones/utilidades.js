@@ -1062,3 +1062,12 @@ function chunkArray(myArray, chunk_size){
 
     return tempArray;
 }
+function dibujar_anio(id_sel){
+    var anio=Number(horaCliente().split("-")[0]);
+    sel=document.getElementById(id_sel);
+    for(var a=2005 ; a <= anio;a++){
+        var opt=document.createElement("option");
+        opt.innerHTML=a;
+        sel.appendChild(opt);
+    }
+}

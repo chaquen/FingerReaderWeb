@@ -15,9 +15,8 @@ function iniciar_evento_actualizar_participantes(){
     agregarEvento("btnActualizarParticiapantes","click",function(){
         var datos = $("#formPobladores").serializarFormulario();
        
-     
-       
-      if(false!=datos){
+         
+        if(false!=datos){
              datos.estado_registro="registrado";
              console.log(datos);
              console.log(pos);
@@ -33,9 +32,19 @@ function iniciar_evento_actualizar_participantes(){
                     datos._sub_genero=document.getElementById("txtGenero").value;
                  }   
              }else{
-                mostrarMensaje("Debes seleccionarun genero");
+                mostrarMensaje("Debes seleccionar un genero");
                 return false; 
              }
+
+             if(datos.zona=="0"){
+                
+                mostrarMensaje("Debes seleccionar una zona");
+                return false; 
+                    
+             }
+             if(datos.cargo_pobrador==""){
+                datos.cargo_pobrador="Ninguno";
+             }  
              
 
              if(datos.tipo_doc=="0"){
@@ -66,25 +75,22 @@ function iniciar_evento_actualizar_participantes(){
                 mostrarMensaje("Selecciona la escolaridad");
                 return false; 
              }
-             var dn=datos.dep_nacimiento.split("-");
-             if(dn[1]!=undefined){
-                datos.dep_nacimiento=dn[1];
+
+             if(datos.anio_ingreso_pdp=="0"){
+                mostrarMensaje("Selecciona el año de ingreso al pdp");
+                return false; 
              }
-             var du=datos.departamento_ubi.split("-");
-             if(du[1]!=undefined){
-                datos.departamento_ubi=du[1];
-             }
-             
-             
-             
+
+             datos.dep_nacimiento=datos.dep_nacimiento.split("-")[1];
+             datos.departamento_ubi=datos.departamento_ubi.split("-")[1];
              
                 //registrarDato("participantes",{datos:datos,id:data.id},function(rs){
-                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteConEvento",{datos:datos,id:pos},function(rs){
+                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
                             //  window.open('','_parent',''); 
-                            window.close(); 
-                            //location.href="menuEventos.html";
+                            //window.close(); 
+                            location.href="menuEventos.html";
                             
                         }
                         
@@ -92,7 +98,9 @@ function iniciar_evento_actualizar_participantes(){
                 },"formPobladores");
         }else{
                 mostrarMensaje("Por favor ingresa los campos requeridos");
+        
         }
+     
     });
     
     agregarEvento("btnCancelarParticiapantes","click",function(){
@@ -245,6 +253,7 @@ function iniciar_evento_actualizar_participantes(){
         
     });
     cargar_archivos();
+    dibujar_anio("selAnioDeingreso");
 
 
 }
@@ -295,11 +304,13 @@ function mostrar_datos_usuario(datos){
     agregar_valor_txt("txtEmail",datos.email);
     agregar_valor_txt("txtEscolaridad",datos.escolaridad);   
     agregar_valor_txt("txtTitulo",datos.titulo_obt);   
+    agregar_valor_txt("txtCargo",datos.cargo_poblador);   
     agregar_valor_select("selTipoDoc",datos.tipo_doc);
     agregar_valor_select("selGenero",datos.genero);
     agregar_valor_select("selEtnia",datos.etnia);
     agregar_valor_select("selEscolaridad",datos.escolaridad);
     agregar_valor_select("selZona",datos.zona);
+    agregar_valor_select("selAnioDeingreso",datos.anio_ingreso_pdp);
     dibujar_procesos_db(datos.procesos);
     
 }

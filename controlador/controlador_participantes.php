@@ -56,7 +56,7 @@ if(isset($_REQUEST['datos'])){
              break;
          case "consultarParticipantePorId":
             $id=$post->datos->id;
-            $res=$objeto->obtener_registro_por_valor("id,tipo_doc,documento,lugar_exp,pri_apellido,seg_apellido,pri_nombre,seg_nombre,ciud_nacimiento,dep_nacimiento,fecha_nac,edad,genero,sub_genero,cap_dife,etnia,sub_etnia,zona,departamento_ubi,municipio,celular,email,escolaridad,titulo_obt","id = '$id'");
+            $res=$objeto->obtener_registro_por_valor("id,tipo_doc,documento,lugar_exp,pri_apellido,seg_apellido,pri_nombre,seg_nombre,ciud_nacimiento,dep_nacimiento,fecha_nac,edad,genero,sub_genero,cap_dife,etnia,sub_etnia,zona,departamento_ubi,municipio,celular,email,escolaridad,titulo_obt,anio_ingreso_pdp,cargo_poblador","id = '$id'");
 
             
             //var_dump($res);

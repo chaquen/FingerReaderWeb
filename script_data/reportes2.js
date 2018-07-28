@@ -41,7 +41,7 @@ function iniciar_reportes(){
 		
         crear_data_list("lista_datos_ubi",rs,"id","departamento");
     	});*/
-
+    dibujar_anio("selAnioDeingreso");		
 
 
     if(d==false){
@@ -64,6 +64,7 @@ function iniciar_reportes(){
             location.href="index.html";     
         }
     });
+
 
   
 	agregarEvento("btnGeneraReporte","click",function(){
@@ -107,16 +108,32 @@ function iniciar_reportes(){
 			datos.municipio = datos.municipio.split("-")[0];
 		}
 					
-		nom_reporte=document.getElementById("selEventos").options[document.getElementById("selEventos").selectedIndex].innerHTML;	
-		
+		//nom_reporte=document.getElementById("selEventos").options[document.getElementById("selEventos").selectedIndex].innerHTML;	
+		nom_reporte="";
+		var opt=document.getElementById("selEventos").options;
+		var eventos=[];
+		var i=0;
+		for(var f in opt){
+			if(opt[f].selected==true && opt[f].value=="G"){
+				eventos=opt[f].value;
+				break;
+			}
+			if(opt[f].selected==true){
+				eventos[i++]=opt[f].value;
+			}
+		}
 
+		if(datos.anio_ingreso_pdp==0){
+			delete datos.anio_ingreso_pdp;
+		}
+		console.log(datos);
 		switch(datos.tipo_reporte){
 				
 			case "TipoTortas":
 			
 		
 			
-				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
+				registrarDato("reportes_general",{datos,id_evento:eventos},function(rs){
 						reporte_tortas(rs);						
 						dibujar_tabla_eventos(rs.eventos);
 						document.getElementById("divListaAsis3").style.display="none";
@@ -132,7 +149,7 @@ function iniciar_reportes(){
 			
 		
 			
-				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
+				registrarDato("reportes_general",{datos,id_evento:eventos},function(rs){
 						reporte_barras(rs);
 						dibujar_tabla_eventos(rs.eventos);
 						document.getElementById("divListaAsis3").style.display="none";
@@ -144,7 +161,7 @@ function iniciar_reportes(){
 				break;	
 			default:
 				//TORTAS
-				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
+				registrarDato("reportes_general",{datos,id_evento:eventos},function(rs){
 						if(!rs.respuesta){
 							mostrarMensaje(rs);
 						}
@@ -485,7 +502,7 @@ function iniciar_reportes(){
 				},"");	
 
 				//BRARRAS	
-				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
+				registrarDato("reportes_general",{datos,id_evento:eventos},function(rs){
 						
 						if(!rs.respuesta){
 							mostrarMensaje(rs);
@@ -837,40 +854,7 @@ function iniciar_reportes(){
 
             crear_data_list_dos("lista_datos_2",dep);
     });
-    /*agregarEvento("txt_dep_ubi","keypress",function(e){        
-        console.log(e);
-        console.log(e.key);
-        dep2=[];
-         if (e.keyCode != 13 && e.key!=undefined) {
-            for(var el in globales._departamentos){
-                console.log(globales._departamentos[el].departamento.toUpperCase());
-                console.log(e.key);
-                console.log(globales._departamentos[el].departamento.indexOf(e.key));
-                if(globales._departamentos[el].departamento.toUpperCase().indexOf(e.key.toUpperCase()) >= 0){
-                    
-                    //console.log(globales._departamentos[el].departamento);
-                    dep2.push(globales._departamentos[el]);
-                }
-            }
-            console.log(dep2)
-            crear_data_list("lista_datos_ubi",dep2,"id","departamento");  
-         }
-            
-    });
-    agregarEvento("txt_dep_ubi","change",function(e){
-        console.log(e);
-        dep2=[];
-        for(var el in globales._departamentos){
-              
-                if(globales._departamentos[el].id == e.srcElement.value.split("-")[0]  ){
-                    
-                    console.log(globales._departamentos[el].ciudades);
-                    dep2.push(globales._departamentos[el].ciudades);
-                }
-            }
-
-            crear_data_list_dos("lista_datos_mun_ubi",dep2);
-    });*/
+   
 
     agregarEvento("selEventos","change",function(e){
      	
@@ -931,6 +915,24 @@ function iniciar_reportes(){
 			}
 			datos.etnia=va;
 		}
+		nom_reporte="";
+		var opt=document.getElementById("selEventos").options;
+		var eventos=[];
+		var i=0;
+		for(var f in opt){
+			if(opt[f].selected==true && opt[f].value=="G"){
+				eventos=opt[f].value;
+				break;
+			}
+			if(opt[f].selected==true){
+				eventos[i++]=opt[f].value;
+			}
+		}
+
+		if(datos.anio_ingreso_pdp==0){
+			delete datos.anio_ingreso_pdp;
+		}
+		
 			//registrarDato(globales._URL_ONLINE+"exportar_reporte_lista",{datos},function(rs){
 			registrarDato("exportar_reporte_lista",{id_evento:document.getElementById("selEventos").value,datos:datos},function(rs){	
 				if(rs.respuesta==true){
@@ -1624,6 +1626,17 @@ function dibujar_tabla2(datos){
 		var tr=document.createElement("tr");
 		
 		var td=document.createElement("td");
+		td.innerHTML="#";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+
+		var td=document.createElement("td");
+		td.innerHTML="Documento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
 		td.innerHTML="Primer Nombre";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
@@ -1649,17 +1662,27 @@ function dibujar_tabla2(datos){
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
+		td.innerHTML="Edad";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
 		td.innerHTML="Ciudad de Nacimiento";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML="Capacidades";
+		td.innerHTML="Departamento";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML="Etnia";
+		td.innerHTML="Télefono";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML="Activo desde";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
@@ -1678,6 +1701,16 @@ function dibujar_tabla2(datos){
 		console.log(datos[f]);
 		var tr=document.createElement("tr");
 		
+		var td=document.createElement("td");
+		td.innerHTML=(f+1);
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].documento;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].pri_nombre;
 		td.className="mdl-data-table__cell--non-numeric";
@@ -1703,6 +1736,10 @@ function dibujar_tabla2(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].edad+" años";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
 
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].ciud_nacimiento;
@@ -1710,12 +1747,17 @@ function dibujar_tabla2(datos){
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML=datos[f].cap_dife;
+		td.innerHTML=datos[f].departamento_ubi;
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML=datos[f].etnia;
+		td.innerHTML=datos[f].celular;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].anio_ingreso_pdp;
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
@@ -1743,6 +1785,16 @@ function dibujar_tabla3(datos){
 		var tr=document.createElement("tr");
 		
 		var td=document.createElement("td");
+		td.innerHTML="#";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+		
+		var td=document.createElement("td");
+		td.innerHTML="Documento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
 		td.innerHTML="Primer Nombre";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
@@ -1768,19 +1820,29 @@ function dibujar_tabla3(datos){
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
+		td.innerHTML="Edad";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
 		td.innerHTML="Ciudad de Nacimiento";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML="Capacidades";
+		td.innerHTML="Departamento";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML="Etnia";
+		td.innerHTML="Télefono";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML="Activo desde";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);	
 
 		var td=document.createElement("td");
 		td.innerHTML="Evento";
@@ -1797,6 +1859,16 @@ function dibujar_tabla3(datos){
 		console.log(datos[f]);
 		var tr=document.createElement("tr");
 		
+		var td=document.createElement("td");
+		td.innerHTML=(f+1);
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].documento;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].pri_nombre;
 		td.className="mdl-data-table__cell--non-numeric";
@@ -1822,6 +1894,10 @@ function dibujar_tabla3(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].edad+" años";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
 
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].ciud_nacimiento;
@@ -1829,12 +1905,17 @@ function dibujar_tabla3(datos){
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML=datos[f].cap_dife;
+		td.innerHTML=datos[f].departamento_ubi;
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML=datos[f].etnia;
+		td.innerHTML=datos[f].celular;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].anio_ingreso_pdp;
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
@@ -1899,6 +1980,11 @@ function dibujar_tabla(datos){
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
+		td.innerHTML="Documento";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
 		td.innerHTML="Primer Nombre";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
@@ -1924,17 +2010,27 @@ function dibujar_tabla(datos){
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
+		td.innerHTML="Edad";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
 		td.innerHTML="Ciudad de Nacimiento";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML="Capacidades";
+		td.innerHTML="Departamento";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML="Etnia";
+		td.innerHTML="Télefono";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML="Activo desde";
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
@@ -1950,6 +2046,10 @@ function dibujar_tabla(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].documento;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
 
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].pri_nombre;
@@ -1976,6 +2076,10 @@ function dibujar_tabla(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].edad+" años";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
 
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].ciud_nacimiento;
@@ -1983,12 +2087,17 @@ function dibujar_tabla(datos){
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML=datos[f].cap_dife;
+		td.innerHTML=datos[f].departamento_ubi;
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
 		var td=document.createElement("td");
-		td.innerHTML=datos[f].etnia;
+		td.innerHTML=datos[f].celular;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].anio_ingreso_pdp;
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 

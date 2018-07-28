@@ -126,6 +126,7 @@
                         <input name="fecha_nac" type="date" required>
                     </li>
                     <li>
+
                         <select id="selGenero" name="genero" required>
                             <option>--Genero--</option>
                             <option>Hombre</option>
@@ -143,9 +144,9 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        
+                            
                             <select id="selEtnia" name="etnia" required>
-                                
+                                    <option value="0">--Seleccione etnia--</option>
                                     <option value="Indígena">Indígena</option>
                                     <option value="Negro (Afro-colombiano)">Negro (Afro-colombiano)</>
                                     <option value="Blanco">Blanco</option>
@@ -160,8 +161,9 @@
                 </ul>
                 <ul class="ubicacion">
                     <li>
-                         <h5>Zona</h5>
+                         
                         <select name="zona">
+                            <option value="0">--Seleccione zona--</option>
                             <option value="urbana">Urbana</option>
                             <option value="rural">Rural</option>
                         </select>
@@ -217,6 +219,14 @@
                         </div> 
                     </li>
                 </ul>
+                <ul>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="cargo_pobrador" id="txtCargo">
+                            <label class="mdl-textfield__label" for="sample3">Cargo del poblador</label>
+                        </div> 
+                    </li>
+                </ul>
                 <ul class="datosP">
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -235,6 +245,11 @@
 
                         </div>
                         
+                    </li>
+                    <li>
+                        <select id="selAnioDeingreso"  name="anio_ingreso_pdp" required>
+                            <option value="0">--Seleccione año de ingreso--</option>                            
+                        </select>
                     </li>
                     <li>
                         <input type="button" value="Agregar proceso" id="btnAgregarProceso">

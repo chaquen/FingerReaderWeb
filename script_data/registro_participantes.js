@@ -40,9 +40,19 @@ function iniciar_evento_participantes(){
                     datos._sub_genero=document.getElementById("txtGenero").value;
                  }   
              }else{
-                mostrarMensaje("Debes seleccionarun genero");
+                mostrarMensaje("Debes seleccionar un genero");
                 return false; 
              }
+
+             if(datos.zona=="0"){
+                
+                mostrarMensaje("Debes seleccionar una zona");
+                return false; 
+                    
+             }
+             if(datos.cargo_pobrador==""){
+                datos.cargo_pobrador="Ninguno";
+             }  
              
 
              if(datos.tipo_doc=="0"){
@@ -71,6 +81,11 @@ function iniciar_evento_participantes(){
 
              }else{
                 mostrarMensaje("Selecciona la escolaridad");
+                return false; 
+             }
+
+             if(datos.anio_ingreso_pdp=="0"){
+                mostrarMensaje("Selecciona el año de ingreso al pdp");
                 return false; 
              }
 
@@ -255,6 +270,9 @@ function iniciar_evento_participantes(){
 
 
     cargar_archivos();
+    dibujar_anio("selAnioDeingreso");
+}
+
 
 }
 function dibujar_procesos(){
