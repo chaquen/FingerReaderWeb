@@ -50,6 +50,9 @@ if(isset($_REQUEST['datos'])){
             }
             echo json_encode(array("respuesta"=>true,"mensaje"=>"procesos","datos"=>$arr));
         break;
+        case 'eliminarDetalleProceso':
+            echo json_encode($objeto->eliminar_detalle_proceso($post->datos->id));
+            break;
         default :
             echo json_encode(array("respuesta"=>FALSE,"mensaje"=>"Por favor defina una operacion o agrege una opcion en el swicth"));
             break;

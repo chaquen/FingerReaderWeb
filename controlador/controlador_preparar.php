@@ -91,6 +91,7 @@ if($da!=NULL){
 				$dep_nacimiento=utf8_decode($dep_nacimiento);
 				$cap_dife=utf8_decode($cap_dife);
 				$etnia=utf8_decode($etnia);
+				$cargo_poblador=utf8_decode($cargo_poblador);
 				$sub_etnia=utf8_decode($sub_etnia);
 				$departamento_ubi=utf8_decode($departamento_ubi);
 				$municipio=utf8_decode($municipio);
@@ -132,7 +133,8 @@ if($da!=NULL){
 													email,
 													escolaridad,
 													titulo_obt,
-													
+													anio_ingreso_pdp,
+													cargo_poblador,
 													state,
 													estado_registro,
 													created_at,
@@ -163,7 +165,8 @@ if($da!=NULL){
 	                                  		  '$email',
 	                                  		  '$escolaridad',
 	                                  		  '$titulo_obt',
-	                                  		  
+	                                  		  '$anio_ingreso_pdp',
+	                                  		  '$cargo_poblador',
 	                                  		  '$state',
 	                                  		  'antiguo',
 	                                  		  '$created_at',

@@ -287,5 +287,20 @@ class Eventos extends ModeloBaseDeDatos{
                 
         
     }  
-    
+    function eliminar_detalle_proceso($id){
+            
+
+            $this->sentencia_sql="DELETE FROM detalle_procesos WHERE id = '$id'";
+            if($this->eliminar_registro()){
+            
+                return array("mensaje"=> "registro eliminado",
+                        "respuesta"=>TRUE);
+                
+            }else{
+                    return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
+            }
+            
+                
+        
+    } 
 }

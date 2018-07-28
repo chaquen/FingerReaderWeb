@@ -274,7 +274,7 @@ function iniciar_evento_participantes(){
 }
 
 
-}
+
 function dibujar_procesos(){
     var lista=document.getElementById("liProceso");
     lista.innerHTML="";

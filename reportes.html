@@ -16,7 +16,7 @@
         <script src="script_data/funciones/storage.js" type="text/javascript"></script>
         <script src="script_data/prototipos/prototipos.js" type="text/javascript"></script>
         <script src="script_data/globales.js" type="text/javascript"></script>
-        <script src="script_data/reportes2.js" type="text/javascript"></script>
+        <script src="script_data/reportes.js" type="text/javascript"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!--Scripts DATA-->
     </head>
@@ -50,10 +50,7 @@
                 <ul>
                     <li>
                         <select style="height: 150px" id="selEventos" multiple>
-                            <option>--Todos los eventos o seleccione un evento--</option>
-                            <option value="CC">Evento 1</option>
-                            <option value="CE">Evento 2</option>
-                            <option value="PP">Evento 3</option>
+                            
                         </select>
                     </li>                    
                 </ul>
@@ -349,12 +346,6 @@
                     <li>
                         <b><h5>Tipo de Informe</h5></b>
                     </li>
-                    <!--<li>
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-23">
-                            <input value="TipoTortasyBarras" name="tipo_reporte" type="checkbox" id="checkbox-23" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">Grafico en Tortas y Barras</span>
-                         </label>
-                    </li>-->
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-26">
                             <input value="TipoTortas" name="tipo_reporte" type="checkbox" id="checkbox-26" class="mdl-checkbox__input" checked>
@@ -496,14 +487,32 @@
                      <div id="barchart_material_proceso" class="barraHor"></div>
                      <div id="piechart_material_proceso" ></div>
                 </div>
+                <!--Reporte Año ingreso-->
+                <div id="divAnioIng">
+                    <h5>Reporte Año ingreso PDP</h5>
+                     <div id="barchart_material_anio" class="barraHor"></div>
+                     <div id="piechart_material_anio" ></div>
+                </div>
                 <!--Grafico por Escolaridad-->
                 <div id="divEsco">
                     <h5 class="tituloRepor">Reporte Escolaridad</h5>
                      <div id="barchart_material_esco" class="barraHor"></div>
                      <div id="piechart_material_esco" ></div>
                 </div>
+                 <!--Grafico por Cargo Poblador-->
+                <div id="divCargo">
+                    <h5 class="tituloRepor">Reporte Cargo del poblador</h5>
+                     <div id="barchart_material_cargo" class="barraHor"></div>
+                     <div id="piechart_material_cargo" ></div>
+                </div>
 
-                <!--Grafico Reporte Etinas-->
+                <!--Grafico Reporte Zonas-->
+                <div id="divZona">
+                    <h5 class="tituloRepor">Reporte Zonas</h5>
+                     <div id="barchart_material_zona" class="barraHor"></div>
+                     <div id="piechart_material_zona" ></div>
+                </div>
+                 <!--Grafico Reporte Etinas-->
                 <div id="divEtnia">
                     <h5 class="tituloRepor">Reporte Etnia</h5>
                      <div id="barchart_material_etnia" class="barraHor"></div>

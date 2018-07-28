@@ -218,6 +218,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         sub_genero = 'sub_$genero',
                                                         cap_dife = '$cap_dife',
                                                         etnia = '$etnia',
+                                                        sub_etnia = '$sub_etnia',
                                                         zona = '$zona',
                                                         departamento_ubi = '$departamento_ubi',
                                                         municipio = '$municipio',
@@ -230,6 +231,8 @@ class Participantes extends ModeloBaseDeDatos{
                                                         state = '1',
                                                         created_at = '$created_at',
                                                         updated_at = '$created_at'
+                                                        cargo_poblador = '$cargo_poblador',
+                                                        anio_ingreso_pdp = '$anio_ingreso_pdp'
 
                                                         WHERE id = '$id'";
         if($this->actualizar_registro()){
@@ -276,6 +279,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         sub_genero = 'sub_$genero',
                                                         cap_dife = '$cap_dife',
                                                         etnia = '$etnia',
+                                                        sub_etnia = '$sub_etnia',
                                                         zona = '$zona',
                                                         departamento_ubi = '$departamento_ubi',
                                                         municipio = '$municipio',
@@ -284,31 +288,16 @@ class Participantes extends ModeloBaseDeDatos{
                                                         escolaridad = '$escolaridad',
                                                         titulo_obt = '$titulo_obt',
                                                         state = '1',
-                                                        created_at = '$created_at',
-                                                        updated_at = '$created_at'
+                                                        updated_at = '$created_at',
+                                                        cargo_poblador = '$cargo_poblador',
+                                                        anio_ingreso_pdp = '$anio_ingreso_pdp'
 
                                                         WHERE id = '$id'";
         $RR=$this->actualizar_registro();                                                        
                                                               
         if($RR){
             //var_dump($procesos);  
-            foreach ($procesos as $key => $value) {
-                $pp=$value;
-                 $this->sentencia_sql="SELECT * FROM detalle_procesos WHERE id_usuario = '$documento' AND id_proceso = '$pp' ";
-                
-                $re=$this->consultar_registros();
-                //var_dump(count($this->filas));
-                //echo "<br>";
-                //var_dump($this->filas);    
-                //echo "<br>";
-                if(count($this->filas)>0){
-                     $this->sentencia_sql="INSERT INTO  detalle_procesos (id_usuario,id_proceso,created_at) VALUES ('$documento','$pp','$created_at')";
-                    $this->insertar_registro();
-                }
-                
-                    
-                
-            }
+            
                 
              return array("mensaje"=> $this->mensajeDepuracion,
                     "respuesta"=>TRUE);   
@@ -346,7 +335,7 @@ class Participantes extends ModeloBaseDeDatos{
         }
     }
     function obtener_procesos_por_usuario($doc){
-        $this->sentencia_sql="SELECT * FROM detalle_procesos INNER JOIN proceso ON proceso.id = detalle_procesos.id_proceso
+        $this->sentencia_sql="SELECT detalle_procesos.id as id_detalle_proceso,detalle_procesos.id_usuario,detalle_procesos.id_proceso,proceso.nombre_proceso FROM detalle_procesos INNER JOIN proceso ON proceso.id = detalle_procesos.id_proceso
                               WHERE id_usuario = '$doc' ";
 
        
@@ -360,4 +349,26 @@ class Participantes extends ModeloBaseDeDatos{
         }
     }
     
+    function actualizar_detalle_proceso($procesos,$documento){
+         foreach ($procesos as $key => $value) {
+                            $pp=$value;
+                            
+
+                            $this->sentencia_sql="SELECT * FROM detalle_procesos WHERE id_usuario = '$documento' 
+                                AND id_proceso = '$pp' ";
+                            
+                            $re=$this->consultar_registros();
+                            //var_dump(count($this->filas));
+                            //echo "<br>";
+                            //var_dump($this->filas);    
+                            //echo "<br>";
+                            if(count($this->filas)==0){
+                                 $this->sentencia_sql="INSERT INTO  detalle_procesos (id_usuario,id_proceso,created_at) VALUES ('$documento','$pp','$created_at')";
+                                $this->insertar_registro();
+                            }
+                            
+                                
+                            
+                        } 
+    }
 }

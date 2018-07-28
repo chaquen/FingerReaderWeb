@@ -55,7 +55,7 @@ function iniciar_evento_actualizar_participantes(){
                 mostrarMensaje("Selecciona al menos un proceso");
                 return false;  
              }else{
-                for(var p in procesos){
+                for(var p in procesos){ 
                     procesos[p]=procesos[p].split("-")[0];
                 }
                 datos.procesos=procesos;
@@ -80,12 +80,20 @@ function iniciar_evento_actualizar_participantes(){
                 mostrarMensaje("Selecciona el año de ingreso al pdp");
                 return false; 
              }
-
-             datos.dep_nacimiento=datos.dep_nacimiento.split("-")[1];
-             datos.departamento_ubi=datos.departamento_ubi.split("-")[1];
+             if(datos.dep_nacimiento.split("-")[1]==undefined){
+                datos.dep_nacimiento=datos.dep_nacimiento;
+             }else{
+                datos.dep_nacimiento=datos.dep_nacimiento.split("-")[1];
+             }
+             if(datos.departamento_ubi.split("-")[1]==undefined){
+                datos.departamento_ubi=datos.departamento_ubi;
+             }else{
+                datos.departamento_ubi=datos.departamento_ubi.split("-")[1];
+             }
+             
              
                 //registrarDato("participantes",{datos:datos,id:data.id},function(rs){
-                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
+                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","actualizarParticipanteConEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
                             //  window.open('','_parent',''); 
@@ -333,22 +341,45 @@ function dibujar_procesos_db(proc){
     var lista=document.getElementById("liProceso");
     //lista.innerHTML="";
     for(var f in proc){
-        procesos.push(proc[f].id+"-"+proc[f].nombre_proceso);
+        procesos.push(proc[f].id_detalle_proceso+"-"+proc[f].nombre_proceso);
 
         var li=document.createElement("li");
-        li.innerHTML=proc[f].id+"-"+proc[f].nombre_proceso;
+        var h=document.createElement("h5");
+        h.innerHTML=proc[f].id_detalle_proceso+"-"+proc[f].nombre_proceso;
+        var h5=document.createElement("h6");
+        //h5.setAttribute("onclick","quitar('"+proc[f].id_detalle_proceso+"')");
+        //h5.innerHTML="Quitar";
+        li.appendChild(h);
+        li.appendChild(h5);
         lista.appendChild(li);
     }
 }
+function quitar(id){
+    if(confirm("¿Desea eliminar este proceso?")){
+        consultarDatosOff(globales._URL_BE+"controlador/controlador_eventos.php","eliminarDetalleProceso",{id:id},function(rs){
+            console.log(rs);
+            
+            
+        });    
+    }
+    
+}
+
 function dibujar_procesos(){
     var lista=document.getElementById("liProceso");
     lista.innerHTML="";
     for(var f in procesos){
-        
-
+    
         var li=document.createElement("li");
-        li.innerHTML=procesos[f];
+        var h=document.createElement("h5");
+        h.innerHTML=procesos[f];
+        var h5=document.createElement("h6");
+        //h5.setAttribute("onclick","quitar('"+proc[f].id_detalle_proceso+"')");
+        //h5.innerHTML="Quitar";
+        li.appendChild(h);
+        li.appendChild(h5);
         lista.appendChild(li);
+
     }
 }
 agregarEventoLoad(iniciar_evento_actualizar_participantes);

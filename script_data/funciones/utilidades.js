@@ -675,7 +675,10 @@ function crear_select_3(id_select,datos,id,valor,prim_item,pri_value){
           var opt=document.createElement("option");
           opt.innerHTML=prim_item;
           opt.setAttribute("value",pri_value);
-          sel.appendChild(opt); 
+          if(prim_item!=""){
+            sel.appendChild(opt); 
+          }
+          
           
        
         Object.keys(datos).forEach(function(clave) {
@@ -712,6 +715,7 @@ function crear_select_3(id_select,datos,id,valor,prim_item,pri_value){
         console.log(sel);
   }
 }
+
 
 /*  FUNCION PARA CREAR TABLAS SIN FUNCIONES
 

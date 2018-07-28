@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2018 at 02:30 AM
+-- Generation Time: Jul 28, 2018 at 05:43 PM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -36,6 +36,10 @@ CREATE TABLE `detalle_participantes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `detalle_participantes`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +52,10 @@ CREATE TABLE `detalle_procesos` (
   `id_proceso` int(11) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `detalle_procesos`:
+--
 
 -- --------------------------------------------------------
 
@@ -71,6 +79,10 @@ CREATE TABLE `eventos` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `eventos`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -81,6 +93,10 @@ CREATE TABLE `lineas` (
   `id` int(11) NOT NULL,
   `nombre_linea` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `lineas`:
+--
 
 -- --------------------------------------------------------
 
@@ -113,13 +129,19 @@ CREATE TABLE `participantes` (
   `email` varchar(255) DEFAULT NULL,
   `escolaridad` varchar(255) DEFAULT NULL,
   `titulo_obt` varchar(255) DEFAULT NULL,
+  `anio_ingreso_pdp` int(11) DEFAULT NULL,
+  `cargo_poblador` varchar(256) DEFAULT NULL,
   `huella_binaria` blob,
   `state` tinyint(1) DEFAULT NULL,
-  `estado_registro` varchar(20) NOT NULL,
+  `estado_registro` enum('verificado','registrado','participando','antiguo') DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `tipo_registro` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `participantes`:
+--
 
 -- --------------------------------------------------------
 
@@ -133,6 +155,10 @@ CREATE TABLE `proceso` (
   `nombre_proceso` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `proceso`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -145,6 +171,10 @@ CREATE TABLE `sincronizaciones` (
   `usuario` int(11) NOT NULL,
   `tipo` enum('preparacion','sincronizacion') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `sincronizaciones`:
+--
 
 -- --------------------------------------------------------
 
@@ -163,6 +193,10 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `users`:
+--
 
 --
 -- Indexes for dumped tables
@@ -273,23 +307,6 @@ ALTER TABLE `sincronizaciones`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `detalle_participantes`
---
-ALTER TABLE `detalle_participantes`
-  ADD CONSTRAINT `fk_id_participante` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `detalle_procesos`
---
-ALTER TABLE `detalle_procesos`
-  ADD CONSTRAINT `fk_id_participante_doc` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_id_proceso` FOREIGN KEY (`id_proceso`) REFERENCES `proceso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
