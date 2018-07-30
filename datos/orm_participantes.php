@@ -35,7 +35,7 @@ class Participantes extends ModeloBaseDeDatos{
     function obtener_registro_todos_los_registros(){
         
             $this->sentencia_sql="SELECT 
-                            `participantes`.`id`, 
+                             `participantes`.`id`, 
                             `tipo_doc`,
                             `documento`,
                             `lugar_exp`, 
@@ -47,21 +47,24 @@ class Participantes extends ModeloBaseDeDatos{
                             `dep_nacimiento`, 
                             `fecha_nac`, 
                             `edad`, 
-                            `genero`,
+                            `genero`, 
                             `sub_genero`, 
                             `cap_dife`, 
                             `etnia`, 
+                            `sub_etnia`, 
                             `zona`, 
-                            `departamento_ubi`, 
                             `municipio`, 
+                            `departamento_ubi`, 
                             `celular`, 
                             `email`, 
                             `escolaridad`, 
-                            `titulo_obt`,                              
+                            `titulo_obt`, 
                             `huella_binaria`, 
                             `state`, 
                             `estado_registro`, 
                             `tipo_registro`, 
+                            `anio_ingreso_pdp`,
+                            `cargo_poblador`,  
                             `participantes`.`created_at`, 
                             `participantes`.`updated_at`
                             FROM ".trim($this->TABLA)." " ;
@@ -96,6 +99,7 @@ class Participantes extends ModeloBaseDeDatos{
                             `sub_genero`, 
                             `cap_dife`, 
                             `etnia`, 
+                            `sub_etnia`, 
                             `zona`, 
                             `municipio`, 
                             `departamento_ubi`, 
@@ -107,6 +111,8 @@ class Participantes extends ModeloBaseDeDatos{
                             `state`, 
                             `estado_registro`, 
                             `tipo_registro`, 
+                            `anio_ingreso_pdp`,
+                            `cargo_poblador`,  
                             `participantes`.`created_at`, 
                             `participantes`.`updated_at`
                             FROM ".trim($this->TABLA)." ".$WHERE ;
@@ -202,7 +208,8 @@ class Participantes extends ModeloBaseDeDatos{
             $hoy = new DateTime();
             $annos = $hoy->diff($cumpleanos);
             $edad=$annos->y;
-          $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
+            
+           $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
                                                         tipo_doc = '$tipo_doc',
                                                         documento = '$documento',
                                                         lugar_exp = '$lugar_exp',
@@ -215,7 +222,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         fecha_nac = '$fecha_nac',
                                                         edad = '$edad',
                                                         genero = '$genero',
-                                                        sub_genero = 'sub_$genero',
+                                                        sub_genero = '$genero_otro',
                                                         cap_dife = '$cap_dife',
                                                         etnia = '$etnia',
                                                         sub_etnia = '$sub_etnia',
@@ -230,7 +237,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         tipo_registro = 'nuevo',
                                                         state = '1',
                                                         created_at = '$created_at',
-                                                        updated_at = '$created_at'
+                                                        updated_at = '$created_at',
                                                         cargo_poblador = '$cargo_poblador',
                                                         anio_ingreso_pdp = '$anio_ingreso_pdp'
 
@@ -246,10 +253,10 @@ class Participantes extends ModeloBaseDeDatos{
             }
                 
              return array("mensaje"=> $this->mensajeDepuracion,
-                    "respuesta"=>TRUE);   
+                    "respuesta"=>TRUE,"SQL"=> $this->sentencia_sql);   
             
         }else{
-            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
+            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE,"sql"=>$this->sentencia_sql);
         }
     }
 
@@ -276,7 +283,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         fecha_nac = '$fecha_nac',
                                                         edad = '$edad',
                                                         genero = '$genero',
-                                                        sub_genero = 'sub_$genero',
+                                                        sub_genero = '$genero_otro',
                                                         cap_dife = '$cap_dife',
                                                         etnia = '$etnia',
                                                         sub_etnia = '$sub_etnia',

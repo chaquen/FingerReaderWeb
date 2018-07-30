@@ -24,12 +24,20 @@ function iniciar_evento_actualizar_participantes(){
              datos.created_at=horaCliente();
              datos.tipo_registro="nuevo";
              datos.state=true;
-             if(datos.etnia=="Otro"){
-                datos.etnia=document.getElementById("txt_et_otro").value;
+             if(datos.etnia!="0"){
+                if(datos.etnia=="Otro"){
+                     datos.sub_etnia=document.getElementById("txt_et_otro").value;
+                 }else{
+                    datos.sub_etnia="";
+                 }
+             }else{
+                 mostrarMensaje("Selecciona una etnia");
+                return false; 
              }
+             
              if(datos.genero!="--Genero--"){
                 if(datos.genero=="Otro"){
-                    datos._sub_genero=document.getElementById("txtGenero").value;
+                    datos.genero_otro=document.getElementById("txtGenero").value;
                  }   
              }else{
                 mostrarMensaje("Debes seleccionar un genero");
