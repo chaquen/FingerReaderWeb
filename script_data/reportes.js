@@ -72,6 +72,11 @@ function iniciar_reportes(){
             location.href="index.html";     
         }
     });
+    registrarDatoOff(globales._URL_BE+"controlador/controlador_eventos.php","preparar_eventos",{},function(rs){
+            if(rs.respuesta==false){
+                mostrarMensaje("Error al selecciona evento");
+            }
+    },"");
 
 
   
@@ -182,6 +187,44 @@ function iniciar_reportes(){
 					},"");
 
 					break;	
+				case undefined:
+					registrarDato("reportes_general",{datos,id_evento:eventos},function(rs){
+											
+							dibujar_tabla_eventos(rs.eventos);
+							document.getElementById("tblListaGeneral").style.display="";
+							document.getElementById("divReporteGeneralLista").style.display="";
+							if(Object.keys(rs.datos).length>0){
+								todos_los_datos_asistentes=rs.datos;
+								arr_gen=chunkArray(rs.datos,10);
+								document.getElementById("divReporteGeneral").style.display="";
+								dibujar_tabla(arr_gen[0]);	
+								crear_sel_paginas(arr_gen.length);	
+							}else{
+								document.getElementById("divReporteGeneral").style.display="none";
+								document.getElementById("divReporteGeneralLista").style.display="none";
+							}
+							document.getElementById("divListaAsis3").style.display="none";
+							document.getElementById("divGenero").style.display="none";
+							document.getElementById("divSubGenero").style.display="none";
+							document.getElementById("divEdades").style.display="none";
+							document.getElementById("divCapDife").style.display="none";
+							document.getElementById("divCiuNac").style.display="none";
+							document.getElementById("divDepNac").style.display="none";
+							document.getElementById("divOrga").style.display="none";
+							document.getElementById("divPro").style.display="none";
+							document.getElementById("divAnioIng").style.display="none";
+							document.getElementById("divEsco").style.display="none";
+							document.getElementById("divCargo").style.display="none";
+							document.getElementById("divZona").style.display="none";
+							document.getElementById("divEtnia").style.display="none";
+							document.getElementById("divOtraEtnia").style.display="none";
+
+								
+											
+
+					},"");	
+				
+					break;		
 				default:
 					//TORTAS
 					registrarDato("reportes_general",{datos,id_evento:eventos},function(rs){
@@ -997,6 +1040,8 @@ function iniciar_reportes(){
 					},"");
 			
 					break;			
+
+				
 			}
 		}
 

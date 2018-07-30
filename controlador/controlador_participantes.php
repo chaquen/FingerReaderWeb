@@ -95,8 +95,16 @@ if(isset($_REQUEST['datos'])){
          case "actualizarParticipanteConEvento":
                 $r=$objeto->actualizar_recurso_en_evento($post->datos->datos,$post->datos->id);
                 if($r["respuesta"]){
+                    foreach ($post->datos->datos->procesos as $key => $value) {
+                           //var_dump($value);
+                           $objeto2=new Participantes();
+                           if($value!=0){
+                            $objeto2->actualizar_detalle_proceso($value,$post->datos->datos->documento,$post->hora_cliente);  
+                           }
+                           
+                    }
                         //var_dump($post->datos->datos->documento);
-                        $objeto2->actualizar_detalle_proceso($post->datos->datos->procesos,$post->datos->datos->documento);
+                        
                 }
                 echo  json_encode($r);
                     

@@ -1,6 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *'); 
 include("../datos/orm_core.php");
+ini_set('max_execution_time', 14400); //14400 seconds = 240 minutes =  4 horas
 $conn = new mysqli(DB_HOST, DB_USUARIO, DB_CLAVE,DB_NOMBRE_DATABASE);
 $objeto= new Participantes();
 $evento=new Eventos();

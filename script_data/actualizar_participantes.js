@@ -97,8 +97,8 @@ function iniciar_evento_actualizar_participantes(){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
                             //  window.open('','_parent',''); 
-                            //window.close(); 
-                            location.href="menuEventos.html";
+                            window.close(); 
+                            //location.href="menuEventos.html";
                             
                         }
                         
@@ -341,11 +341,11 @@ function dibujar_procesos_db(proc){
     var lista=document.getElementById("liProceso");
     //lista.innerHTML="";
     for(var f in proc){
-        procesos.push(proc[f].id_detalle_proceso+"-"+proc[f].nombre_proceso);
+        procesos.push(proc[f].id+"-"+proc[f].nombre_proceso);
 
         var li=document.createElement("li");
         var h=document.createElement("h5");
-        h.innerHTML=proc[f].id_detalle_proceso+"-"+proc[f].nombre_proceso;
+        h.innerHTML=proc[f].id+"-"+proc[f].nombre_proceso;
         var h5=document.createElement("h6");
         //h5.setAttribute("onclick","quitar('"+proc[f].id_detalle_proceso+"')");
         //h5.innerHTML="Quitar";

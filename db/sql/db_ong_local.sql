@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2018 at 05:43 PM
+-- Generation Time: Jul 29, 2018 at 08:28 PM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -38,6 +38,10 @@ CREATE TABLE `detalle_participantes` (
 
 --
 -- RELATIONSHIPS FOR TABLE `detalle_participantes`:
+--   `event_id`
+--       `eventos` -> `id`
+--   `user_id`
+--       `participantes` -> `documento`
 --
 
 -- --------------------------------------------------------
@@ -47,7 +51,7 @@ CREATE TABLE `detalle_participantes` (
 --
 
 CREATE TABLE `detalle_procesos` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `id_usuario` int(11) UNSIGNED DEFAULT NULL,
   `id_proceso` int(11) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
@@ -55,6 +59,10 @@ CREATE TABLE `detalle_procesos` (
 
 --
 -- RELATIONSHIPS FOR TABLE `detalle_procesos`:
+--   `id_usuario`
+--       `participantes` -> `documento`
+--   `id_proceso`
+--       `proceso` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -90,7 +98,7 @@ CREATE TABLE `eventos` (
 --
 
 CREATE TABLE `lineas` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `nombre_linea` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -157,6 +165,8 @@ CREATE TABLE `proceso` (
 
 --
 -- RELATIONSHIPS FOR TABLE `proceso`:
+--   `fk_id_linea`
+--       `lineas` -> `id`
 --
 
 -- --------------------------------------------------------
@@ -166,7 +176,7 @@ CREATE TABLE `proceso` (
 --
 
 CREATE TABLE `sincronizaciones` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `fecha` datetime NOT NULL,
   `usuario` int(11) NOT NULL,
   `tipo` enum('preparacion','sincronizacion') NOT NULL
@@ -242,7 +252,8 @@ ALTER TABLE `participantes`
 -- Indexes for table `proceso`
 --
 ALTER TABLE `proceso`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_lineas` (`fk_id_linea`);
 
 --
 -- Indexes for table `sincronizaciones`
@@ -270,7 +281,7 @@ ALTER TABLE `detalle_participantes`
 -- AUTO_INCREMENT for table `detalle_procesos`
 --
 ALTER TABLE `detalle_procesos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `eventos`
@@ -282,7 +293,7 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT for table `lineas`
 --
 ALTER TABLE `lineas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `participantes`
@@ -300,13 +311,37 @@ ALTER TABLE `proceso`
 -- AUTO_INCREMENT for table `sincronizaciones`
 --
 ALTER TABLE `sincronizaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `detalle_participantes`
+--
+ALTER TABLE `detalle_participantes`
+  ADD CONSTRAINT `fk_id_eventi_deta` FOREIGN KEY (`event_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_id_participante_deta` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detalle_procesos`
+--
+ALTER TABLE `detalle_procesos`
+  ADD CONSTRAINT `fk_id_participantes_det_pro` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_id_proceso_det_pro` FOREIGN KEY (`id_proceso`) REFERENCES `proceso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `proceso`
+--
+ALTER TABLE `proceso`
+  ADD CONSTRAINT `fk_id_lineas` FOREIGN KEY (`fk_id_linea`) REFERENCES `lineas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

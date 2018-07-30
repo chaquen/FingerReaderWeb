@@ -335,7 +335,7 @@ class Participantes extends ModeloBaseDeDatos{
         }
     }
     function obtener_procesos_por_usuario($doc){
-        $this->sentencia_sql="SELECT detalle_procesos.id as id_detalle_proceso,detalle_procesos.id_usuario,detalle_procesos.id_proceso,proceso.nombre_proceso FROM detalle_procesos INNER JOIN proceso ON proceso.id = detalle_procesos.id_proceso
+        $this->sentencia_sql="SELECT detalle_procesos.id as id_detalle_proceso,detalle_procesos.id_usuario,detalle_procesos.id_proceso,proceso.nombre_proceso,proceso.id FROM detalle_procesos INNER JOIN proceso ON proceso.id = detalle_procesos.id_proceso
                               WHERE id_usuario = '$doc' ";
 
        
@@ -349,26 +349,16 @@ class Participantes extends ModeloBaseDeDatos{
         }
     }
     
-    function actualizar_detalle_proceso($procesos,$documento){
-         foreach ($procesos as $key => $value) {
-                            $pp=$value;
-                            
-
-                            $this->sentencia_sql="SELECT * FROM detalle_procesos WHERE id_usuario = '$documento' 
-                                AND id_proceso = '$pp' ";
-                            
-                            $re=$this->consultar_registros();
-                            //var_dump(count($this->filas));
-                            //echo "<br>";
-                            //var_dump($this->filas);    
-                            //echo "<br>";
-                            if(count($this->filas)==0){
-                                 $this->sentencia_sql="INSERT INTO  detalle_procesos (id_usuario,id_proceso,created_at) VALUES ('$documento','$pp','$created_at')";
-                                $this->insertar_registro();
-                            }
-                            
+    function actualizar_detalle_proceso($proceso,$documento,$created_at){
+         
+            $this->sentencia_sql="SELECT * FROM detalle_procesos WHERE id_usuario = '$documento' 
+                                AND id_proceso = '$proceso' ";
+            if(TRUE!=$this->consultar_registros()){
+                $this->sentencia_sql="INSERT INTO  detalle_procesos (id_usuario,id_proceso,created_at) VALUES ('$documento','$proceso','$created_at')";
+                $this->insertar_registro();
+            }                            
                                 
                             
-                        } 
+                         
     }
 }

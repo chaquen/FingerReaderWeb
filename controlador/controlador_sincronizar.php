@@ -2,6 +2,9 @@
 //seleccionar el vento y los registros para registrar
 header('Access-Control-Allow-Origin: *'); 
 include("../datos/orm_core.php");
+ini_set('max_execution_time', 14400); //14400 seconds = 240 minutes =  4 horas
+
+
 $objeto= new Participantes();
 $objeto2= new Participantes();
 $objeto3= new Participantes();
