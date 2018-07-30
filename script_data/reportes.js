@@ -148,7 +148,7 @@ function iniciar_reportes(){
 		if(datos.anio_ingreso_pdp==0){
 			delete datos.anio_ingreso_pdp;
 		}
-		console.log(datos);
+	
 		
 		if(aprovado){
 			//mostrar tablas de resultados
@@ -1136,7 +1136,7 @@ function iniciar_reportes(){
      });
 	
     agregarEvento("btnGenerarExcel","click",function(){
-		if(document.getElementById("selEventos").value!="0"){
+		/*if(document.getElementById("selEventos").value!="0"){
 			var datos = $("#formReportes").serializarFormulario();
 			var datos2 = $("#formReportes").serializarFormulario2();
 
@@ -1182,10 +1182,76 @@ function iniciar_reportes(){
 
 		if(datos.anio_ingreso_pdp==0){
 			delete datos.anio_ingreso_pdp;
+		}*/
+		var datos = $("#formReportes").serializarFormulario();
+		var datos2 = $("#formReportes").serializarFormulario2();
+		var aprovado=true;
+
+		if(datos.tipo_doc!=undefined){
+			datos.tipo_doc=datos2.tipo_doc;
 		}
+		if(datos.edad!=undefined){
+			datos.edad=datos2.edad;
+		}
+		if(datos.genero!=undefined){
+			datos.genero=datos2.genero;
+		}
+		if(datos.zonas!=undefined){
+			datos.zonas=datos2.zonas;
+		}
+		if(datos.escolaridad!=undefined){
+			datos.escolaridad=datos2.escolaridad;
+		}
+		if(datos.etnia!=undefined){
+			var va=document.getElementById("selEtnia").value;
+			console.log(va);
+			if(va=="Otro"){
+				va='Otro';
+
+			}else if(va=="0"){
+				va=["Indígena","Negro (Afro-colombiano)","Blanco","Mestizo","Zambo",'Otro'];					
+			}
+			datos.etnia=va;
+		}
+		if(datos.ciud_nacimiento!=""){
+			datos.ciud_nacimiento = datos.ciud_nacimiento.split("-")[0];
+		}
+		if(datos.dep_nacimiento!=""){
+			datos.dep_nacimiento = datos.dep_nacimiento.split("-")[0]+"-"+datos.dep_nacimiento.split("-")[1];
+		}
+		if(datos.municipio!=""){
+			datos.municipio = datos.municipio.split("-")[0];
+		}
+					
+		//nom_reporte=document.getElementById("selEventos").options[document.getElementById("selEventos").selectedIndex].innerHTML;	
 		
+		var opt=document.getElementById("selEventos").options;
+		var eventos=[];
+		var i=0;
+		for(var f in opt){
+			if(opt[f].selected==true && opt[f].value=="G"){
+				eventos=opt[f].value;
+				break;
+			}
+			if(opt[f].selected==true){
+				eventos[i++]=opt[f].value;
+			}
+		}
+
+		//alert(eventos);
+		//alert(eventos.length);
+
+		if(eventos.length==0){
+			
+			aprovado=false;
+		}
+
+		if(datos.anio_ingreso_pdp==0){
+			delete datos.anio_ingreso_pdp;
+		}
+		if(aprovado){
 			//registrarDato(globales._URL_ONLINE+"exportar_reporte_lista",{datos},function(rs){
-			registrarDato("exportar_reporte_lista",{id_evento:document.getElementById("selEventos").value,datos:datos},function(rs){	
+			registrarDato("exportar_reporte_lista",{id_evento:eventos,datos:datos},function(rs){	
 				if(rs.respuesta==true){
 					document.getElementById("aExpor").setAttribute("href",globales._URL_ONLINE+rs.direccion);
 					document.getElementById("aExpor").innerHTML="DESCARGAR REPORTE";
