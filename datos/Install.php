@@ -35,7 +35,7 @@ class Install {
 
 			$query = '';
 			$curluse=new CurlUse();
-			$curluse->descargar_archivo("https://biometric.mohansoft.com/db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
+			$curluse->descargar_archivo(API_URL."db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
 			$sqlScript = file('../db/sql/db_ong_local.sql');
 			foreach ($sqlScript as $line)   {
 			        
@@ -58,7 +58,7 @@ class Install {
 
 			$query = '';
 			$curluse=new CurlUse();
-			$curluse->descargar_archivo("https://biometric.mohansoft.com/db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
+			$curluse->descargar_archivo(API_URL."db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
 			$sqlScript = file('../db/sql/db_ong_local.sql');
 			foreach ($sqlScript as $line)   {
 			        

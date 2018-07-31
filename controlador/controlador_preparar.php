@@ -15,7 +15,7 @@ $ch = curl_init();
 $us=json_decode($_REQUEST["datos"]);
 //var_dump($us);
 //curl_setopt($ch, CURLOPT_URL,"http://localhost/api_biometric/preparar");
-curl_setopt($ch, CURLOPT_URL,"https://biometric.mohansoft.com/preparar");
+curl_setopt($ch, CURLOPT_URL,API_URL."preparar");
 // recibimos la respuesta y la guardamos en una variable
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 // indicamos el tipo de petición: GET
@@ -75,8 +75,8 @@ if($da!=NULL){
 		}
 		
 
-		
-		$down->descargar_archivo("http://pdpmagdalenacentro.org/assets/private/atachments/events/".$value->atachments,$dir."/".$value->atachments);
+		//SE CONECTA CON EL SERVIDOR PRINCIPAL Y DESCARGA LOS ARCHIVOS
+		$down->descargar_archivo(API_URL_MATRIZ.$value->atachments,$dir."/".$value->atachments);
 	}	
 
 	$objeto->eliminar_recurso("estado_registro = 'antiguo'");

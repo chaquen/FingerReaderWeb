@@ -22,7 +22,7 @@ if($partici["respuesta"]==true || $detalle_partici["respuesta"]==true){
 // abrimos la sesión cURL
 $ch = curl_init();
 // definimos la URL a la que hacemos la petición
-curl_setopt($ch, CURLOPT_URL,"https://biometric.mohansoft.com/sync");
+curl_setopt($ch, CURLOPT_URL,API_URL."sync");
 
 //curl_setopt($ch, CURLOPT_URL,"http://localhost/api_biometric/sync");
 
