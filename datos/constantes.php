@@ -8,5 +8,5 @@ define('DB_CLAVE','');
 //define('API_URL', 'https://biometric.mohansoft.com/');
 //test
 define('API_URL', 'https://apitestbiometrico.mohansoft.com/');
-define('API_URL_MATRIZ', "http://pdpmagdalenacentro.org/assets/private/atachments/events/")
+define('API_URL_MATRIZ', "http://pdpmagdalenacentro.org/assets/private/atachments/events/");
 
