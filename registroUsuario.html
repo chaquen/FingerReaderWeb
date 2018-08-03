@@ -59,8 +59,9 @@
                     <li>
                         <select name="tipo_doc" required>
                             <option value="0">--Tipo de Documento--</option>
-                            <option value="CC">Cedula Ciudadania</option>
-                            <option value="CE">Cedula extranjera</option>
+                            <option value="CC">Cédula Ciudadanía</option>
+                            <option value="CE">Cédula extranjera</option>
+                            <option value="TI">Tarjeta de Identidad</option>
                             <option value="PP">Passaporte</option>
                         </select>
                     </li>
@@ -87,7 +88,7 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="seg_apellido" required>
+                            <input class="mdl-textfield__input" type="text" name="seg_apellido">
                             <label class="mdl-textfield__label" for="sample3">Segundo Apellido</label>
                         </div>
                     </li>
@@ -99,7 +100,7 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="seg_nombre" required>
+                            <input class="mdl-textfield__input" type="text" name="seg_nombre">
                             <label class="mdl-textfield__label" for="sample3">Segundo Nombre</label>
                         </div>
                     </li>
@@ -120,7 +121,12 @@
                         </div>
                         
                     </li>
-                    
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text"  name="vereda_nacimiento" >
+                            <label class="mdl-textfield__label" for="sample3">Vereda/Corregimineto/Inspección</label>                           
+                        </div>                        
+                    </li>
                     <li>
                         <h6>Fecha de Nacimiento</h6>
                     </li>
@@ -183,6 +189,13 @@
                             <input class="mdl-textfield__input" type="text" name="municipio" list="lista_datos_mun_2" required>
                             <datalist id="lista_datos_mun_2"></datalist> 
                             <label class="mdl-textfield__label" for="sample3">Municipio</label>
+                        </div> 
+                        
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="vereda_ubi" >                            
+                            <label class="mdl-textfield__label" for="sample3">Vereda/Corregimineto/Inspección</label>
                         </div> 
                         
                     </li>
