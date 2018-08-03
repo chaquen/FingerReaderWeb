@@ -102,6 +102,7 @@ if($da!=NULL){
 						$escolaridad=utf8_decode($escolaridad);
 						$titulo_obt=utf8_decode($titulo_obt);
 						$ciud_nacimiento=utf8_decode($ciud_nacimiento);
+				 		$vereda_nacimiento=utf8_decode($vereda_nacimiento);
 						$pri_apellido=utf8_decode($pri_apellido);
 						$seg_apellido=utf8_decode($seg_apellido);
 						$pri_nombre=utf8_decode($pri_nombre);
