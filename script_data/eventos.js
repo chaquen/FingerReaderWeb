@@ -46,6 +46,7 @@ function iniciar_menu_eventos(){
 
                     
                 },"");
+		
 	agregarEvento("btnSalir","click",function(){
 
 		if(confirm("¿Estas seguro de salir de la aplicación?")){

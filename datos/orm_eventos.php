@@ -233,7 +233,7 @@ class Eventos extends ModeloBaseDeDatos{
     }
     function obtener_registro_todos_los_procesos($nom){
         
-          $this->sentencia_sql="SELECT proceso.id,proceso.nombre_proceso FROM proceso INNER JOIN lineas ON proceso.fk_id_linea = lineas.id WHERE lineas.nombre_linea LIKE '$nom'";
+           $this->sentencia_sql="SELECT proceso.id,proceso.nombre_proceso FROM proceso INNER JOIN lineas ON proceso.fk_id_linea = lineas.id WHERE lineas.id = '$nom'";
         
         
         if($this->consultar_registros()){
@@ -287,5 +287,20 @@ class Eventos extends ModeloBaseDeDatos{
                 
         
     }  
-    
+    function eliminar_detalle_proceso($id){
+            
+
+            $this->sentencia_sql="DELETE FROM detalle_procesos WHERE id = '$id'";
+            if($this->eliminar_registro()){
+            
+                return array("mensaje"=> "registro eliminado",
+                        "respuesta"=>TRUE);
+                
+            }else{
+                    return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
+            }
+            
+                
+        
+    } 
 }

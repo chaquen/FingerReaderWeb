@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2018 at 06:07 AM
+-- Generation Time: Jul 30, 2018 at 03:46 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -36,6 +36,14 @@ CREATE TABLE `detalle_participantes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `detalle_participantes`:
+--   `event_id`
+--       `eventos` -> `id`
+--   `user_id`
+--       `participantes` -> `documento`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -43,11 +51,19 @@ CREATE TABLE `detalle_participantes` (
 --
 
 CREATE TABLE `detalle_procesos` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `id_usuario` int(11) UNSIGNED DEFAULT NULL,
   `id_proceso` int(11) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `detalle_procesos`:
+--   `id_usuario`
+--       `participantes` -> `documento`
+--   `id_proceso`
+--       `proceso` -> `id`
+--
 
 -- --------------------------------------------------------
 
@@ -71,6 +87,10 @@ CREATE TABLE `eventos` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `eventos`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -78,9 +98,13 @@ CREATE TABLE `eventos` (
 --
 
 CREATE TABLE `lineas` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `nombre_linea` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `lineas`:
+--
 
 -- --------------------------------------------------------
 
@@ -99,6 +123,7 @@ CREATE TABLE `participantes` (
   `seg_nombre` varchar(255) DEFAULT NULL,
   `ciud_nacimiento` varchar(255) DEFAULT NULL,
   `dep_nacimiento` varchar(255) DEFAULT NULL,
+  `vereda_nacimiento` varchar(255) DEFAULT NULL,
   `fecha_nac` varchar(255) DEFAULT NULL,
   `edad` int(11) DEFAULT NULL,
   `genero` varchar(255) DEFAULT NULL,
@@ -107,32 +132,26 @@ CREATE TABLE `participantes` (
   `etnia` varchar(255) DEFAULT NULL,
   `sub_etnia` varchar(255) DEFAULT NULL,
   `zona` varchar(255) DEFAULT NULL,
+  `departamento_ubi` varchar(256) DEFAULT NULL,
   `municipio` varchar(255) DEFAULT NULL,
+  `vereda_ubi` varchar(256) DEFAULT NULL,
   `celular` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `escolaridad` varchar(255) DEFAULT NULL,
   `titulo_obt` varchar(255) DEFAULT NULL,
-  `proceso` varchar(256) DEFAULT NULL,
-  `organizacion` varchar(255) DEFAULT NULL,
+  `anio_ingreso_pdp` int(11) DEFAULT NULL,
+  `cargo_poblador` varchar(256) DEFAULT NULL,
   `huella_binaria` blob,
   `state` tinyint(1) DEFAULT NULL,
-  `estado_registro` varchar(20) NOT NULL,
+  `estado_registro` enum('verificado','registrado','participando','antiguo','por_registrar') DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `tipo_registro` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `password_resets`
+-- RELATIONSHIPS FOR TABLE `participantes`:
 --
-
-CREATE TABLE `password_resets` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -146,6 +165,12 @@ CREATE TABLE `proceso` (
   `nombre_proceso` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- RELATIONSHIPS FOR TABLE `proceso`:
+--   `fk_id_linea`
+--       `lineas` -> `id`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -153,11 +178,15 @@ CREATE TABLE `proceso` (
 --
 
 CREATE TABLE `sincronizaciones` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `fecha` datetime NOT NULL,
   `usuario` int(11) NOT NULL,
   `tipo` enum('preparacion','sincronizacion') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `sincronizaciones`:
+--
 
 -- --------------------------------------------------------
 
@@ -176,6 +205,10 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONSHIPS FOR TABLE `users`:
+--
 
 --
 -- Indexes for dumped tables
@@ -218,18 +251,11 @@ ALTER TABLE `participantes`
   ADD KEY `documento` (`documento`);
 
 --
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`),
-  ADD KEY `password_resets_token_index` (`token`);
-
---
 -- Indexes for table `proceso`
 --
 ALTER TABLE `proceso`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_id_linea` (`fk_id_linea`);
+  ADD KEY `fk_id_lineas` (`fk_id_linea`);
 
 --
 -- Indexes for table `sincronizaciones`
@@ -257,7 +283,7 @@ ALTER TABLE `detalle_participantes`
 -- AUTO_INCREMENT for table `detalle_procesos`
 --
 ALTER TABLE `detalle_procesos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `eventos`
@@ -269,7 +295,7 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT for table `lineas`
 --
 ALTER TABLE `lineas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `participantes`
@@ -287,7 +313,7 @@ ALTER TABLE `proceso`
 -- AUTO_INCREMENT for table `sincronizaciones`
 --
 ALTER TABLE `sincronizaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -303,21 +329,21 @@ ALTER TABLE `users`
 -- Constraints for table `detalle_participantes`
 --
 ALTER TABLE `detalle_participantes`
-  ADD CONSTRAINT `detalle_participantes_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalle_participantes_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_id_eventi_deta` FOREIGN KEY (`event_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_id_participante_deta` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `detalle_procesos`
 --
 ALTER TABLE `detalle_procesos`
-  ADD CONSTRAINT `fk_id_participante` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_id_proceso` FOREIGN KEY (`id_proceso`) REFERENCES `proceso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_id_participantes_det_pro` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_id_proceso_det_pro` FOREIGN KEY (`id_proceso`) REFERENCES `proceso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `eventos`
+-- Constraints for table `proceso`
 --
-ALTER TABLE `eventos`
-  ADD CONSTRAINT `eventos_id_ref_foreign` FOREIGN KEY (`id_ref`) REFERENCES `users` (`id`);
+ALTER TABLE `proceso`
+  ADD CONSTRAINT `fk_id_lineas` FOREIGN KEY (`fk_id_linea`) REFERENCES `lineas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,14 +2,17 @@
 //seleccionar el vento y los registros para registrar
 header('Access-Control-Allow-Origin: *'); 
 include("../datos/orm_core.php");
+ini_set('max_execution_time', 14400); //14400 seconds = 240 minutes =  4 horas
+
+
 $objeto= new Participantes();
 $objeto2= new Participantes();
 $objeto3= new Participantes();
 //$objeto->huella;
 $partici=$objeto->obtener_registro_todos_los_registros_para_sync("WHERE estado_registro = 'verificado' OR estado_registro = 'registrado' OR estado_registro = 'participando'");
 $detalle_partici=$objeto2->obtener_registro_todos_los_registros_detall_participacion();
-$procesos=$objeto3->obtener_procesos_por_usuario();
-//var_dump($procesos);
+$procesos=$objeto3->obtener_todos_procesos();
+//var_dump($partici);
 //var_dump($datos_2);
 if($partici["respuesta"]==true || $detalle_partici["respuesta"]==true){
 	//$datos=http_build_query(array("datos"=>array("hora_cliente"=>"00000000","peticion"=>"post","datos"=>array("a"=>1,"b"=>"2"))));
@@ -19,7 +22,7 @@ if($partici["respuesta"]==true || $detalle_partici["respuesta"]==true){
 // abrimos la sesión cURL
 $ch = curl_init();
 // definimos la URL a la que hacemos la petición
-curl_setopt($ch, CURLOPT_URL,"https://biometric.mohansoft.com/sync");
+curl_setopt($ch, CURLOPT_URL,API_URL."sync");
 
 //curl_setopt($ch, CURLOPT_URL,"http://localhost/api_biometric/sync");
 
@@ -46,7 +49,7 @@ curl_close ($ch);
 // hacemos lo que queramos con los datos recibidos
 // por ejemplo, los mostramos
 //echo "falta respuesta de servidor";
-print_r($remote_server_output);
+//print_r($remote_server_output);
 
 
 $da=json_decode($remote_server_output);

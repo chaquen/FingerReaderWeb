@@ -30,12 +30,13 @@ class Install {
 		$var =DB_NOMBRE_DATABASE;
 		$consulta ="CREATE DATABASE $var CHARACTER SET utf8 COLLATE utf8_general_ci";
 		$resultado=mysqli_query($conectar,$consulta);
+		
 		if($resultado){
 			$conn =new mysqli(DB_HOST, DB_USUARIO, DB_CLAVE , DB_NOMBRE_DATABASE);
 
 			$query = '';
 			$curluse=new CurlUse();
-			$curluse->descargar_archivo("https://biometric.mohansoft.com/db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
+			$curluse->descargar_archivo(API_URL."db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
 			$sqlScript = file('../db/sql/db_ong_local.sql');
 			foreach ($sqlScript as $line)   {
 			        
@@ -45,7 +46,7 @@ class Install {
 			        if (empty($line) || $startWith == '--' || $startWith == '/*' || $startWith == '//') {
 			                continue;
 			        }
-			                
+			               
 			        $query = $query . $line;
 			        if ($endWith == ';') {
 			                mysqli_query($conn,$query) or die('<div class="error-response sql-import-response">Problem in executing the SQL query <b>' . $query. '</b></div>');
@@ -58,7 +59,7 @@ class Install {
 
 			$query = '';
 			$curluse=new CurlUse();
-			$curluse->descargar_archivo("https://biometric.mohansoft.com/db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
+			$curluse->descargar_archivo(API_URL."db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
 			$sqlScript = file('../db/sql/db_ong_local.sql');
 			foreach ($sqlScript as $line)   {
 			        
@@ -68,10 +69,11 @@ class Install {
 			        if (empty($line) || $startWith == '--' || $startWith == '/*' || $startWith == '//') {
 			                continue;
 			        }
-			                
+					//echo "string";
+			        //var_dump($query); 			                
 			        $query = $query . $line;
 			        if ($endWith == ';') {
-			                mysqli_query($conn,$query) or die('<div class="error-response sql-import-response">Problem in executing the SQL query <b>' . $query. '</b></div>');
+			                mysqli_query($conn,$query) or die('<div class="error-response sql-import-response">Problem in executing the SQL query <b>' . $query. '</b>'.API_URL."db/archivo/sql/db_ong_local.sql".'</div>');
 			                $query= '';             
 			        }
 			}

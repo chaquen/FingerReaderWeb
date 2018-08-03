@@ -52,7 +52,12 @@ function iniciar_menu_eventos(){
 	});
 	
 	consultar_db();
-
+	registrarDatoOff(globales._URL_BE+"controlador/controlador_eventos.php","preparar_eventos",{},function(rs){
+            if(rs.respuesta==false){
+                mostrarMensaje("Error al selecciona evento");
+            }
+    },"");
+	
 }
 
 function consultar_db(){
@@ -99,62 +104,6 @@ function consultar_db(){
 			    }
 	});
 }
-
-/*
-function menu() {
-
-            var menu_ul = $('.menu > li > ul'),
-                menu_a  = $('.menu > li > a');
-
-            menu_ul.hide();
-
-            menu_a.click(function(e) {
-                e.preventDefault();
-                if(!$(this).hasClass('active')) {
-                    menu_a.removeClass('active');
-                    menu_ul.filter(':visible').slideUp('normal');
-                    $(this).addClass('active').next().stop(true,true).slideDown('normal');
-                } else {
-                    $(this).removeClass('active');
-                    $(this).next().stop(true,true).slideUp('normal');
-                }
-            });
-
-}*/
-/*
-function menu_2(){
-	
-var changeClass = function (r,className1,className2) {
-                    var regex = new RegExp("(?:^|\\s+)" + className1 + "(?:\\s+|$)");
-                    if( regex.test(r.className) ) {
-                            r.className = r.className.replace(regex,' '+className2+' ');
-                }
-                else{
-                            r.className = r.className.replace(new RegExp("(?:^|\\s+)" + className2 + "(?:\\s+|$)"),' '+className1+' ');
-                }
-                return r.className;
-            };	
-
-            //  Creating our button in JS for smaller screens
-var menuElements = document.getElementById('menu');
-menuElements.insertAdjacentHTML('afterBegin','<button type="button" id="menutoggle" class="navtoogle" aria-hidden="true"><i aria-hidden="true" class="icon-menu"> </i> Menu</button>');
-
-            //  Toggle the class on click to show / hide the menu
-            document.getElementById('menutoggle').onclick = function() {
-                    changeClass(this, 'navtoogle active', 'navtoogle');
-            }
-
-            // http://tympanus.net/codrops/2013/05/08/responsive-retina-ready-menu/comment-page-2/#comment-438918
-            document.onclick = function(e) {
-                    var mobileButton = document.getElementById('menutoggle'),
-                            buttonStyle =  mobileButton.currentStyle ? mobileButton.currentStyle.display : getComputedStyle(mobileButton, null).display;
-
-                    if(buttonStyle === 'block' && e.target !== mobileButton && new RegExp(' ' + 'active' + ' ').test(' ' + mobileButton.className + ' ')) {
-                            changeClass(mobileButton, 'navtoogle active', 'navtoogle');
-                    }
-            }
-}
-*/
 
 
 agregarEventoLoad(iniciar_menu_eventos);
