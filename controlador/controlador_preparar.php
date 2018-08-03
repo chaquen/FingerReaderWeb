@@ -98,6 +98,7 @@ if($da!=NULL){
 						$sub_etnia=utf8_decode($sub_etnia);
 						$departamento_ubi=utf8_decode($departamento_ubi);
 						$municipio=utf8_decode($municipio);
+				                $vereda_ubi=utf8_decode($vereda_ubi);
 						$escolaridad=utf8_decode($escolaridad);
 						$titulo_obt=utf8_decode($titulo_obt);
 						$ciud_nacimiento=utf8_decode($ciud_nacimiento);
@@ -122,6 +123,7 @@ if($da!=NULL){
 															seg_nombre,
 															ciud_nacimiento,
 															dep_nacimiento,
+															vereda_nacimiento,
 															fecha_nac,
 															edad,
 															genero,
@@ -132,6 +134,7 @@ if($da!=NULL){
 															zona,
 															departamento_ubi,
 															municipio,
+															vereda_ubi,
 															celular,
 															email,
 															escolaridad,
@@ -154,6 +157,7 @@ if($da!=NULL){
 			                                  		  '$seg_nombre',
 			                                  		  '$ciud_nacimiento',
 			                                  		  '$dep_nacimiento',
+									  '$vereda_nacimiento',
 			                                  		  '$fecha_nac',
 			                                  		  '$edad',
 			                                  		  '$genero',
@@ -164,6 +168,7 @@ if($da!=NULL){
 			                                  		  '$zona',
 			                                  		  '$departamento_ubi',
 			                                  		  '$municipio',
+									  '$vereda_ubi',
 			                                  		  '$celular',
 			                                  		  '$email',
 			                                  		  '$escolaridad',
