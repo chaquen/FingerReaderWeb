@@ -216,7 +216,7 @@
                 </ul>
                 <ul class="escolaridad">
                     <li>
-                        <select  name="escolaridad" required>
+                        <select id="selEscolaridad"  name="escolaridad" required>
                             <option value="0">--Nivel de Escolaridad--</option>
                             <option>Primaria</option>
                             <option>Bachillerato</option>
@@ -226,10 +226,11 @@
                             <option>Ninguno</option>
                         </select>
                         <input type="text" name="escolaridad_otro" id="txtEscolaridad" style="display: none">
+                        <select id="selGrado" style="display: none"></select>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="titulo_obt" id="txtTitulo">
+                            <input class="mdl-textfield__input" type="text" name="titulo_obt" id="txtTitulo" >
                             <label class="mdl-textfield__label" for="sample3">Título Obtenido</label>
                         </div> 
                     </li>

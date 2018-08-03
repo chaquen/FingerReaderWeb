@@ -294,11 +294,14 @@ function cargar_archivos(){
 }
 
 function buscar_participante(id){
-	consultarDatosOff(globales._URL_BE+"controlador/controlador_participantes.php","consultarParticipantePorId",{id:id},function(rs){
-        console.log(rs);
-        mostrar_datos_usuario(rs.datos[0]);
-        
-    });
+    if(id!=undefined){
+        consultarDatosOff(globales._URL_BE+"controlador/controlador_participantes.php","consultarParticipantePorId",{id:id},function(rs){
+            console.log(rs);
+            mostrar_datos_usuario(rs.datos[0]);
+            
+        });    
+    }
+	
 }
 
 function mostrar_datos_usuario(datos){
@@ -390,4 +393,4 @@ function dibujar_procesos(){
 
     }
 }
-agregarEventoLoad(iniciar_evento_actualizar_participantes);
+agregarEventoPageShow(iniciar_evento_actualizar_participantes);

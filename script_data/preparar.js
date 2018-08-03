@@ -14,8 +14,9 @@ function iniciar_menu_preparar(){
 			registrarDatoOff(globales._URL_BE+"controlador/controlador_preparar.php","",{user:globales._usuario.email,pass:globales._usuario.pass,id:globales._usuario.id},function(rs){
 			    $('#preparando').fadeOut();
 				$('#listo').fadeIn();
-				if(rs.respuesta==true){
-					console.log(rs);
+				console.log(rs);
+				if(Object.keys(rs).length>=1){
+					
 				    var msn="";
 				    console.log(Object.keys(rs).length);
 				    for(var r in rs){
