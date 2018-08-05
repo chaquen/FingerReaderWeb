@@ -1075,3 +1075,17 @@ function dibujar_anio(id_sel){
         sel.appendChild(opt);
     }
 }
+
+function dibujar_grado(id_sel,ini,fin){
+    var anio=Number(horaCliente().split("-")[0]);
+    sel=document.getElementById(id_sel);
+    sel.innerHTML="";
+    var opt=document.createElement("option");
+    opt.innerHTML="--seleccione un grado--";
+    sel.appendChild(opt);
+    for(var a=ini ; a <= fin;a++){
+        var opt=document.createElement("option");
+        opt.innerHTML=a;
+        sel.appendChild(opt);
+    }
+}

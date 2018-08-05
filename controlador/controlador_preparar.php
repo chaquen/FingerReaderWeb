@@ -40,7 +40,7 @@ if($da!=NULL){
 
 		//var_dump($res);
 
-			$i=0;
+			
 			foreach ($da->lineas as $key => $value) {
 				//var_dump($value);
 				$evento=new Eventos();	
@@ -51,10 +51,10 @@ if($da!=NULL){
 				//var_dump($value);
 				$evento=new Eventos();	
 				$evento->crear_registro_proceso($value);
-				$i++;
+				//$i++;
 			}
-
-			foreach ($da->eventos as $key => $value) {
+			$i=0;
+			/*foreach ($da->eventos as $key => $value) {
 				//var_dump($value);
 				$evento=new Eventos();	
 				$res[$i]=$evento->crear_registro($value);
@@ -63,14 +63,14 @@ if($da!=NULL){
 
 				
 				
-			}
+			}*/
 
 
 			foreach ($da->eventos as $key => $value) {
 				//var_dump($value);
 				$evento=new Eventos();	
 				$resp[$i]=$evento->crear_registro($value);
-				$i++;
+				
 				$dir="../files/events/".$value->id;
 				if(!file_exists($dir)){
 					mkdir($dir, 0700);
@@ -98,7 +98,7 @@ if($da!=NULL){
 						$sub_etnia=utf8_decode($sub_etnia);
 						$departamento_ubi=utf8_decode($departamento_ubi);
 						$municipio=utf8_decode($municipio);
-				                $vereda_ubi=utf8_decode($vereda_ubi);
+				        $vereda_ubi=utf8_decode($vereda_ubi);
 						$escolaridad=utf8_decode($escolaridad);
 						$titulo_obt=utf8_decode($titulo_obt);
 						$ciud_nacimiento=utf8_decode($ciud_nacimiento);
@@ -158,7 +158,7 @@ if($da!=NULL){
 			                                  		  '$seg_nombre',
 			                                  		  '$ciud_nacimiento',
 			                                  		  '$dep_nacimiento',
-									  '$vereda_nacimiento',
+													  '$vereda_nacimiento',
 			                                  		  '$fecha_nac',
 			                                  		  '$edad',
 			                                  		  '$genero',
@@ -169,7 +169,7 @@ if($da!=NULL){
 			                                  		  '$zona',
 			                                  		  '$departamento_ubi',
 			                                  		  '$municipio',
-									  '$vereda_ubi',
+									  				  '$vereda_ubi',
 			                                  		  '$celular',
 			                                  		  '$email',
 			                                  		  '$escolaridad',

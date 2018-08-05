@@ -59,7 +59,7 @@ if(isset($_REQUEST['datos'])){
             $res=$objeto->obtener_registro_por_valor("id,tipo_doc,documento,lugar_exp,pri_apellido,seg_apellido,pri_nombre,seg_nombre,ciud_nacimiento,dep_nacimiento,fecha_nac,edad,genero,sub_genero,cap_dife,etnia,sub_etnia,zona,departamento_ubi,municipio,celular,email,escolaridad,titulo_obt,anio_ingreso_pdp,cargo_poblador,anio_ingreso_pdp","id = '$id'");
 
             
-            //var_dump($res);
+           
             //echo "================"; 
             //var_dump($res2);
             if($res["respuesta"]){
@@ -73,18 +73,27 @@ if(isset($_REQUEST['datos'])){
                     $d1[0]["procesos"]=[];                    
                 }
                 
-            }else{
-                $d1=NULL;
-            }
-            
-            
-             echo json_encode(
+
+                echo json_encode(
                     array("respuesta"=>TRUE,
                         "mensaje"=>"REGISTRO ENCONTRADO",
                         "datos"=>$d1
                        
                         )
-                    );
+                    );   
+
+
+            }else{
+                echo json_encode(
+                    array("respuesta"=>FALSE,
+                        "mensaje"=>"REGISTRO NO FUE ENCONTRADO"
+                       
+                        )
+                    );   
+            }
+            
+            
+             
              break;    
          case "crearParticipanteSinEvento":
             
