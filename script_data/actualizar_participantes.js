@@ -268,6 +268,30 @@ function iniciar_evento_actualizar_participantes(){
         }
         
     });
+    agregarEvento("selEscolaridad","change",function(){
+       
+        switch(this.value){
+            case "Primaria":
+                dibujar_grado("selGrado",1,5);
+                document.getElementById("selGrado").style.display="";
+                document.getElementById("txtTitulo").value="";
+            break;
+            
+            case "Bachillerato":
+                dibujar_grado("selGrado",6,11);
+                document.getElementById("selGrado").style.display="";
+                document.getElementById("txtTitulo").value="";
+            break;
+            default:
+                document.getElementById("selGrado").style.display="none";
+            break;
+        }
+    });
+    agregarEvento("selGrado","change",function(){
+        document.getElementById("txtTitulo").value="";
+        document.getElementById("txtTitulo").value=this.value+"° Grado";
+    });
+		
     cargar_archivos();
     dibujar_anio("selAnioDeingreso");
 
