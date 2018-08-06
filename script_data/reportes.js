@@ -8,6 +8,7 @@ var lugar_evento="";
 var nom_reporte;
 
 var todo_esco;
+var todo_titulo;
 var todo_genero;
 var todo_sub_genero;
 var todo_proceso;
@@ -27,6 +28,7 @@ var todo_cargo;
 var todo_zona;
 //
 var todo_esco_pie;
+var todo_titulo_pie;
 var todo_genero_pie;
 var todo_sub_genero_pie;
 var todo_proceso_pie;
@@ -226,6 +228,7 @@ function iniciar_reportes(){
 							document.getElementById("divPro").style.display="none";
 							document.getElementById("divAnioIng").style.display="none";
 							document.getElementById("divEsco").style.display="none";
+							document.getElementById("divTitu").style.display="none";
 							document.getElementById("divCargo").style.display="none";
 							document.getElementById("divZona").style.display="none";
 							document.getElementById("divEtnia").style.display="none";
@@ -297,6 +300,37 @@ function iniciar_reportes(){
 	                               
 								}
 
+								if(Object.keys(rs.titulo_obt).length>0){
+									$('#piechart_material_titu').fadeIn();
+	                               
+	                                $('#divTitu').fadeIn();
+	                                
+									var arr=[];
+	                                arr.push("Participantes");
+	                                arr.push("Título");
+									var cabza=[];
+									
+									cabza.push(arr);
+
+									for(var v in rs.titulo_obt){
+	                                    var arr=[];
+										arr.push( rs.titulo_obt[v].titulo_obt);	
+										arr.push(Number(rs.titulo_obt[v].cuantos_por_titulo	));	
+	                                    cabza.push(arr);
+									}
+	                                console.log(cabza);   
+									todo_titulo_pie=cabza;
+									
+								
+
+								      
+								}else{
+									$('#piechart_material_titu').fadeOut();
+									$('#divTitu').fadeOut();
+									todo_titulo_pie=[];
+	                               
+								}
+
 								if(Object.keys(rs.anio_ingreso_pdp).length>0){
 									$('#piechart_material_anio').fadeIn();
 	                                
@@ -304,7 +338,7 @@ function iniciar_reportes(){
 	                                
 									var arr=[];
 	                                arr.push("Participantes");
-	                                arr.push("Año Ingreso");
+	                                arr.push("A\u00f1o Ingreso");
 									var cabza=[];
 									
 									cabza.push(arr);
@@ -533,7 +567,7 @@ function iniciar_reportes(){
 									for(v in rs.datos_ver_ubi){
 	                                    var arr=[];
 										arr.push( rs.datos_ver_ubi[v].vereda_ubi);	
-										arr.push(Number(rs.datos_ciu_nac[v].cuantos_por_vereda_ubi));	
+										arr.push(Number(rs.datos_ver_ubi[v].cuantos_por_vereda_ubi));	
 	                                    cabza.push(arr);
 									}
 									todo_ver_ubi_pie=cabza;
@@ -632,7 +666,7 @@ function iniciar_reportes(){
 	                                $('#piechart_material_zona').fadeIn();
 	                                $('#divZona').fadeIn();
 									var cabza=[];
-	                                                                var arr=[];
+	                                var arr=[];
 									arr.push("Participantes");
 									arr.push("Zonas");
 									cabza.push(arr);
@@ -829,6 +863,33 @@ function iniciar_reportes(){
 	                                todo_esco=[];
 								}
 
+								if(Object.keys(rs.titulo_obt).length>0){
+									
+	                                $('#barchart_material_titu').fadeIn();
+	                                $('#divTitu').fadeIn();
+									var arr=[];
+									var cabza=["Participantes"];
+									var body2=["Título "];
+									//cabza.push("participantes");
+
+									for(v in rs.titulo_obt){
+										console.log(rs.titulo_obt[v]);
+										cabza.push( rs.titulo_obt[v].titulo_obt);	
+										body2.push(Number(rs.titulo_obt[v].cuantos_por_titulo));	
+									}
+									todo_titulo=[cabza,body2];
+									
+								 	//google.charts.load('current', {'packages':['bar']});
+							      	//google.charts.setOnLoadCallback(drawChartes);
+
+								      
+								}else{
+									
+	                                $('#barchart_material_titu').fadeOut();
+	                                $('#divTitu').fadeOut();
+	                                todo_titulo=[];
+								}
+
 
 								if(Object.keys(rs.anio_ingreso_pdp).length>0){
 									
@@ -1007,7 +1068,7 @@ function iniciar_reportes(){
 									//cabza.push("participantes");
 
 									for(v in rs.datos_ciu_ubi){
-										cabza.push( rs.datos_ciu_nac[v].municipio);	
+										cabza.push( rs.datos_ciu_ubi[v].municipio);	
 										body.push(Number(rs.datos_ciu_ubi[v].cuantos_por_ciud_ubi));	
 
 									}
@@ -1334,16 +1395,44 @@ function iniciar_reportes(){
 					nom_reporte="";	
 				}
 				
-				crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
-				crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");		
-
-				crear_data_list_dos("lista_datos_ubi",rs.departamento_ubi,"departamento_ubi","cuantos_por_departamento_ubi");
-				crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
-				crear_data_list_dos("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  
-				crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
-				//crear_data_list_dos("lista_datos_etnia",rs.etnia,"etnia","cuantos_por_etnia");  
-				crear_data_list_dos("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
-				crear_data_list_dos("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  
+				if(Object.keys(rs.etnia).length > 0){
+					crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
+				}
+				if(Object.keys(rs.cap_dife).length > 0){
+					crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");		
+				}
+				if(Object.keys(rs.departamento_ubi).length > 0){
+					crear_data_list_dos("lista_datos_ubi",rs.departamento_ubi,"departamento_ubi","cuantos_por_departamento_ubi");	
+				}
+				
+				if(Object.keys(rs.dep_nacimiento).length > 0){
+					crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
+				}
+				if(Object.keys(rs.ciud_nacimiento).length > 0){
+					crear_data_list_dos("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  	
+				}
+				
+				
+				if(Object.keys(rs.cap_dife).length > 0){
+					crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  	
+				}
+				
+				if(Object.keys(rs.organizacion).length > 0){
+					crear_data_list_dos("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  	
+				}
+				
+				if(Object.keys(rs.proceso).length > 0){
+					crear_data_list_dos("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  	
+				}
+				
+				if(Object.keys(rs.vereda_ubi).length > 0){
+					crear_data_list_dos("lista_datos_ver_ubi",rs.vereda_ubi,"vereda_ubi","cuantos_por_vereda_ubi");  	
+				}
+				
+				if(Object.keys(rs.vereda_nacimiento).length > 0){
+					crear_data_list_dos("lista_datos_ver_nac",rs.vereda_nacimiento,"vereda_nacimiento","cuantos_por_vereda_nacimiento");  	
+				}
+				
 			},"");
      	
        
@@ -1496,7 +1585,7 @@ function reporte_tortas(rs){
                                 
 								var arr=[];
                                 arr.push("Participantes");
-                                arr.push("Tipo");
+                                arr.push("Escolaridad");
 								var cabza=[];
 								
 								cabza.push(arr);
@@ -1518,6 +1607,37 @@ function reporte_tortas(rs){
                                 $('#barchart_material_esco').fadeOut();
                                 $('#divEsco').fadeIn();
                                 todo_esco_pie=[];
+							}
+							//TITULO OBTENIDO
+							if(Object.keys(rs.titulo_obt).length>0){
+								$('#piechart_material_titu').fadeIn();
+                                $('#barchart_material_titu').fadeOut();
+                                $('#divTitu').fadeIn();
+                                
+								var arr=[];
+                                arr.push("Participantes");
+                                arr.push("Título");
+								var cabza=[];
+								
+								cabza.push(arr);
+
+								for(var v in rs.titulo_obt){
+                                    var arr=[];
+									arr.push( rs.titulo_obt[v].titulo_obt);	
+									arr.push(Number(rs.titulo_obt[v].cuantos_por_titulo));	
+                                    cabza.push(arr);
+								}
+                                console.log(cabza);   
+								todo_titulo_pie=cabza;
+								
+							 	
+
+							      
+							}else{
+								$('#piechart_material_titu').fadeOut();
+                                $('#barchart_material_titu').fadeOut();
+                                $('#divTitu').fadeIn();
+                                todo_titulo_pie=[];
 							}
 
 							//ANIO INGRESO PDP
@@ -2043,6 +2163,31 @@ function reporte_barras(rs){
                                 $('#barchart_material_esco').fadeOut();
                                 $('#divEsco').fadeOut();
                                 todo_esco=[];
+							}
+
+							if(Object.keys(rs.titulo_obt).length>0){
+								$('#piechart_material_titu').fadeOut();
+                                $('#barchart_material_titu').fadeIn();
+                                $('#divTitu').fadeIn();
+								var arr=[];
+								var cabza=["Participantes"];
+								var body2=["Título "];
+								//cabza.push("participantes");
+
+								for(v in rs.titulo_obt){
+									console.log(rs.titulo_obt[v]);
+									cabza.push( rs.titulo_obt[v].titulo_obt);	
+									body2.push(Number(rs.titulo_obt[v].cuantos_por_titulo));	
+								}
+								todo_titulo=[cabza,body2];
+								
+							 	
+							      
+							}else{
+								$('#piechart_material_titu').fadeOut();
+                                $('#barchart_material_titu').fadeOut();
+                                $('#divTitu').fadeOut();
+                                todo_titulo=[];
 							}
 
 							if(Object.keys(rs.anio_ingreso_pdp).length>0){
@@ -2798,6 +2943,13 @@ function consultar_eventos(id){
 			crear_data_list("lista_datos_mun_ubi",rs.municipio,"municipio","cuantos_por_municipio");  
 			crear_data_list("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
 			crear_data_list("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  
+			if(Object.keys(rs.vereda_ubi).length > 0){
+					crear_data_list("lista_datos_ver_ubi",rs.vereda_ubi,"vereda_ubi","cuantos_por_vereda_ubi");  	
+			}
+				
+			if(Object.keys(rs.vereda_nacimiento).length > 0){
+					crear_data_list("lista_datos_ver_nac",rs.vereda_nacimiento,"vereda_nacimiento","cuantos_por_vereda_nacimiento");  	
+			}
 		},"");	
 	}else{
 		consultarDatos("repo_eventos/"+id,{},function(rs){
@@ -2811,6 +2963,13 @@ function consultar_eventos(id){
 			crear_data_list("lista_datos_ubi",rs.departamento_ubi,"departamento_ubi","cuantos_por_departamento_ubi");
 			crear_data_list("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
 			crear_data_list("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso"); 
+			if(Object.keys(rs.vereda_ubi).length > 0){
+					crear_data_list("lista_datos_ver_ubi",rs.vereda_ubi,"vereda_ubi","cuantos_por_vereda_ubi");  	
+			}
+				
+			if(Object.keys(rs.vereda_nacimiento).length > 0){
+					crear_data_list("lista_datos_ver_nac",rs.vereda_nacimiento,"vereda_nacimiento","cuantos_por_vereda_nacimiento");  	
+			}
 			fecha_evento=rs.eventos[0].date;
 			lugar_evento=rs.eventos[0].city;
 		},"");
@@ -2991,6 +3150,27 @@ function dibujar_grafico_reporte_barras(){
 								        	    
 		var chartesco = new google.charts.Bar(document.getElementById('barchart_material_esco'));
 	    chartesco.draw(data_esco, google.charts.Bar.convertOptions(options_esoc));	
+	}
+	//titulo_obt
+	if(todo_titulo!=undefined){
+		var data_titu = google.visualization.arrayToDataTable(
+							          todo_titulo
+							         );
+
+		var options_tit = {
+	                    
+			     chart: {
+			        title: nom_reporte+" Título" ,
+			        subtitle: lugar_evento+" "+fecha_evento
+			        },
+			     bars: 'horizontal' // Required for Material Bar Charts.
+			    };
+
+
+		 
+								        	    
+		var charttitu = new google.charts.Bar(document.getElementById('barchart_material_titu'));
+	    charttitu.draw(data_titu, google.charts.Bar.convertOptions(options_tit));	
 	}
 	//ingreso pdp
 	if(todo_anio!=undefined){
@@ -3345,6 +3525,19 @@ function dibujar_grafico_reporte_torta(){
 				        	    
 		var chartesco = new google.visualization.PieChart(document.getElementById('piechart_material_esco'));
 	        chartesco.draw(data_esco,options_esoc);
+	}
+	//titulo_obt
+	if(todo_titulo_pie!=undefined){
+		var data_titu = google.visualization.arrayToDataTable( todo_titulo_pie     );
+        
+		var options_titu = {
+			     
+			         title: nom_reporte+" Título",
+	          		 is3D: true,
+			         };
+				        	    
+		var charttitu = new google.visualization.PieChart(document.getElementById('piechart_material_titu'));
+	        charttitu.draw(data_titu,options_titu);
 	}
 	//año ingreso
 	if(todo_anio_pie!=undefined){

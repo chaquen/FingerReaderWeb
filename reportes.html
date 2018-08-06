@@ -112,9 +112,9 @@
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" name="vereda_nacimiento" >
+                            <input class="mdl-textfield__input" type="text" name="vereda_nacimiento" list="lista_datos_ver_nac">
                             <label class="mdl-textfield__label" for="sample3">Vereda/Corregimineto/Inspección</label>
-                            
+                            <datalist id="lista_datos_ver_nac"></datalist>
                         </div>
                         
                     </li>
@@ -249,6 +249,15 @@
                             <input class="mdl-textfield__input" type="text" id="txt_mun_ubi" name="municipio" list="lista_datos_mun_ubi">
                              <datalist id="lista_datos_mun_ubi"></datalist> 
                             <label class="mdl-textfield__label" for="sample3">Municipio ubicación</label>
+                        </div> 
+                        
+                    </li>
+                     <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                             
+                            <input class="mdl-textfield__input" type="text" id="txt_ver_ubi" name="vereda_ubi" list="lista_datos_ver_ubi">
+                             <datalist id="lista_datos_ver_ubi"></datalist> 
+                            <label class="mdl-textfield__label" for="sample3">Vereda/Corregimineto/Inspección ubicación</label>
                         </div> 
                         
                     </li>
@@ -514,6 +523,12 @@
                     <h5 class="tituloRepor">Reporte Escolaridad</h5>
                      <div id="barchart_material_esco" class="barraHor"></div>
                      <div id="piechart_material_esco" ></div>
+                </div>
+                <!--Grafico por Titulo Obtenido-->
+                <div id="divTitu">
+                    <h5 class="tituloRepor">Reporte Título Obtenido</h5>
+                     <div id="barchart_material_titu" class="barraHor"></div>
+                     <div id="piechart_material_titu" ></div>
                 </div>
                  <!--Grafico por Cargo Poblador-->
                 <div id="divCargo">

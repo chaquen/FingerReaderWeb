@@ -12,6 +12,7 @@ var globales={
 	//test
 	_URL_BE_TEST:"http://localhost/FingerReaderWeb/",
 	_URL_ONLINE_TEST:"https://apitestbiometrico.mohansoft.com/",
+	//_URL_ONLINE_TEST:"https://biometric.mohansoft.com/",
 	//_URL:"https://",
 	_usuario:false,
 	_cerrar_sesion:true,
@@ -19,7 +20,7 @@ var globales={
 	_eventos:false,
 	_departamentos:false,
 	_municipios:false,
-	_dev:true
+	_dev:false
 
 };
 
