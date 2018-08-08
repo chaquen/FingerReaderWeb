@@ -8,6 +8,7 @@ var lugar_evento="";
 var nom_reporte;
 
 var todo_esco;
+var todo_titulo;
 var todo_genero;
 var todo_sub_genero;
 var todo_proceso;
@@ -17,12 +18,17 @@ var todo_sub_etnia;
 var todo_edad;
 var todo_dep_nac;
 var todo_ciu_nac;
+var todo_ver_nac;
+var todo_dep_ubi;
+var todo_ciu_ubi;
+var todo_ver_ubi;
 var todo_cap_dife;
 var todo_anio;
 var todo_cargo;
 var todo_zona;
 //
 var todo_esco_pie;
+var todo_titulo_pie;
 var todo_genero_pie;
 var todo_sub_genero_pie;
 var todo_proceso_pie;
@@ -32,6 +38,10 @@ var todo_sub_etnia_pie;
 var todo_edad_pie;
 var todo_dep_nac_pie;
 var todo_ciu_nac_pie;
+var todo_ver_nac_pie;
+var todo_dep_ubi_pie;
+var todo_ciu_ubi_pie;
+var todo_ver_ubi_pie;
 var todo_cap_dife_pie;
 var todo_anio_pie;
 var todo_cargo_pie;
@@ -210,10 +220,15 @@ function iniciar_reportes(){
 							document.getElementById("divCapDife").style.display="none";
 							document.getElementById("divCiuNac").style.display="none";
 							document.getElementById("divDepNac").style.display="none";
+							document.getElementById("divVerNac").style.display="none";
+							document.getElementById("divCiuUbi").style.display="none";
+							document.getElementById("divDepUbi").style.display="none";
+							document.getElementById("divVerUbi").style.display="none";														
 							document.getElementById("divOrga").style.display="none";
 							document.getElementById("divPro").style.display="none";
 							document.getElementById("divAnioIng").style.display="none";
 							document.getElementById("divEsco").style.display="none";
+							document.getElementById("divTitu").style.display="none";
 							document.getElementById("divCargo").style.display="none";
 							document.getElementById("divZona").style.display="none";
 							document.getElementById("divEtnia").style.display="none";
@@ -285,6 +300,37 @@ function iniciar_reportes(){
 	                               
 								}
 
+								if(Object.keys(rs.titulo_obt).length>0){
+									$('#piechart_material_titu').fadeIn();
+	                               
+	                                $('#divTitu').fadeIn();
+	                                
+									var arr=[];
+	                                arr.push("Participantes");
+	                                arr.push("Título");
+									var cabza=[];
+									
+									cabza.push(arr);
+
+									for(var v in rs.titulo_obt){
+	                                    var arr=[];
+										arr.push( rs.titulo_obt[v].titulo_obt);	
+										arr.push(Number(rs.titulo_obt[v].cuantos_por_titulo	));	
+	                                    cabza.push(arr);
+									}
+	                                console.log(cabza);   
+									todo_titulo_pie=cabza;
+									
+								
+
+								      
+								}else{
+									$('#piechart_material_titu').fadeOut();
+									$('#divTitu').fadeOut();
+									todo_titulo_pie=[];
+	                               
+								}
+
 								if(Object.keys(rs.anio_ingreso_pdp).length>0){
 									$('#piechart_material_anio').fadeIn();
 	                                
@@ -292,7 +338,7 @@ function iniciar_reportes(){
 	                                
 									var arr=[];
 	                                arr.push("Participantes");
-	                                arr.push("Año Ingreso");
+	                                arr.push("A\u00f1o Ingreso");
 									var cabza=[];
 									
 									cabza.push(arr);
@@ -371,6 +417,32 @@ function iniciar_reportes(){
 	                                todo_cap_dife_pie=[];
 								}
 
+								if(Object.keys(rs.datos_dep_nac).length>0){
+									
+	                                $('#piechart_material_dep_nac').fadeIn();
+	                                $('#divDepNac').fadeIn();
+									var arr=[];
+									var cabza=[];
+	                                arr.push("Participantes");
+									arr.push("Departamento Nacimiento");
+									cabza.push(arr);
+
+									for(var v in rs.datos_dep_nac){
+										var arr=[];
+										arr.push( rs.datos_dep_nac[v].dep_nacimiento);	
+										arr.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
+	                                    cabza.push(arr);
+									}
+								    todo_dep_nac_pie=cabza;
+								
+								}else{
+									
+	                                $('#piechart_material_dep_nac').fadeOut();
+	                                $('#divDepNac').fadeOut();
+	                                todo_dep_nac_pie=[];
+
+								}
+
 								if(Object.keys(rs.datos_ciu_nac).length>0){
 									$('#piechart_material_ciu').fadeIn();
 									
@@ -398,31 +470,118 @@ function iniciar_reportes(){
 									todo_ciu_nac_pie=[];
 									
 								}
-								if(Object.keys(rs.datos_dep_nac).length>0){
+
+								if(Object.keys(rs.datos_ver_nac).length>0){
+									$('#piechart_material_ver').fadeIn();
 									
-	                                $('#piechart_material_dep_nac').fadeIn();
-	                                $('#divDepNac').fadeIn();
+									$('#divVerNac').fadeIn();
+	                                
+									var cabza=[];
+	                                var arr=[];
+									arr.push("Participantes");
+									arr.push("Vereda Nacimiento");
+									cabza.push(arr);
+
+									for(v in rs.datos_ver_nac){
+	                                    var arr=[];
+										arr.push( rs.datos_ver_nac[v].vereda_nacimiento);	
+										arr.push(Number(rs.datos_ciu_nac[v].cuantos_por_vereda_nacimiento));	
+	                                    cabza.push(arr);
+									}
+									todo_ver_nac_pie=cabza;
+									
+
+								}else{
+									$('#piechart_material_ver').fadeOut();
+									
+									$('#divVerNac').fadeOut();
+									todo_ver_nac_pie=[];
+									
+								}
+
+								if(Object.keys(rs.datos_dep_ubi).length>0){
+									
+	                                $('#piechart_material_dep_ubi').fadeIn();
+	                                $('#divDepUbi').fadeIn();
 									var arr=[];
 									var cabza=[];
 	                                arr.push("Participantes");
-									arr.push("Departamento Nacimiento");
+									arr.push("Departamento Ubicación");
 									cabza.push(arr);
 
-									for(var v in rs.datos_dep_nac){
+									for(var v in rs.datos_dep_ubi){
 										var arr=[];
-										arr.push( rs.datos_dep_nac[v].dep_nacimiento);	
-										arr.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
+										arr.push( rs.datos_dep_ubi[v].departamento_ubi);	
+										arr.push(Number(rs.datos_dep_ubi[v].cuantos_por_departamento_ubi));	
 	                                    cabza.push(arr);
 									}
-								    todo_dep_nac_pie=cabza;
+								    todo_dep_ubi_pie=cabza;
 								
 								}else{
 									
-	                                $('#piechart_material_dep_nac').fadeOut();
-	                                $('#divDepNac').fadeOut();
-	                                todo_dep_nac_pie=[];
-
+	                                $('#piechart_material_dep_ubi').fadeOut();
+	                                $('#divDepUbi').fadeOut();
+	                                
+	                                todo_dep_ubi_pie=[];
 								}
+
+								if(Object.keys(rs.datos_ciu_ubi).length>0){
+									$('#piechart_material_ciu_ubi').fadeIn();
+									
+									$('#divCiuUbi').fadeIn();
+	                                
+									var cabza=[];
+	                                var arr=[];
+									arr.push("Participantes");
+									arr.push("Ciudad Ubicación");
+									cabza.push(arr);
+
+									for(v in rs.datos_ciu_ubi){
+	                                    var arr=[];
+										arr.push( rs.datos_ciu_ubi[v].municipio);	
+										arr.push(Number(rs.datos_ciu_ubi[v].cuantos_por_ciud_ubi));	
+	                                    cabza.push(arr);
+									}
+									todo_ciu_ubi_pie=cabza;
+									
+
+								}else{
+									$('#piechart_material_ciu_ubi').fadeOut();
+									
+									$('#divCiuUbi').fadeOut();
+									todo_ciu_ubi_pie=[];
+									
+								}
+
+								if(Object.keys(rs.datos_ver_ubi).length>0){
+									$('#piechart_material_ver_ubi').fadeIn();
+									
+									$('#divVerUbi').fadeIn();
+	                                
+									var cabza=[];
+	                                var arr=[];
+									arr.push("Participantes");
+									arr.push("Vereda Ubicación");
+									cabza.push(arr);
+
+									for(v in rs.datos_ver_ubi){
+	                                    var arr=[];
+										arr.push( rs.datos_ver_ubi[v].vereda_ubi);	
+										arr.push(Number(rs.datos_ver_ubi[v].cuantos_por_vereda_ubi));	
+	                                    cabza.push(arr);
+									}
+									todo_ver_ubi_pie=cabza;
+									
+
+								}else{
+									$('#piechart_material_ver_ubi').fadeOut();
+									
+									$('#divVerUbi').fadeOut();
+									todo_ver_ubi_pie=[];
+									
+								}
+
+								
 
 								if(Object.keys(rs.datos_edaddes).length>0){
 									
@@ -507,7 +666,7 @@ function iniciar_reportes(){
 	                                $('#piechart_material_zona').fadeIn();
 	                                $('#divZona').fadeIn();
 									var cabza=[];
-	                                                                var arr=[];
+	                                var arr=[];
 									arr.push("Participantes");
 									arr.push("Zonas");
 									cabza.push(arr);
@@ -704,6 +863,33 @@ function iniciar_reportes(){
 	                                todo_esco=[];
 								}
 
+								if(Object.keys(rs.titulo_obt).length>0){
+									
+	                                $('#barchart_material_titu').fadeIn();
+	                                $('#divTitu').fadeIn();
+									var arr=[];
+									var cabza=["Participantes"];
+									var body2=["Título "];
+									//cabza.push("participantes");
+
+									for(v in rs.titulo_obt){
+										console.log(rs.titulo_obt[v]);
+										cabza.push( rs.titulo_obt[v].titulo_obt);	
+										body2.push(Number(rs.titulo_obt[v].cuantos_por_titulo));	
+									}
+									todo_titulo=[cabza,body2];
+									
+								 	//google.charts.load('current', {'packages':['bar']});
+							      	//google.charts.setOnLoadCallback(drawChartes);
+
+								      
+								}else{
+									
+	                                $('#barchart_material_titu').fadeOut();
+	                                $('#divTitu').fadeOut();
+	                                todo_titulo=[];
+								}
+
 
 								if(Object.keys(rs.anio_ingreso_pdp).length>0){
 									
@@ -780,6 +966,28 @@ function iniciar_reportes(){
 	                                todo_cap_dife=[];
 								}
 
+								if(Object.keys(rs.datos_dep_nac).length>0){
+									
+	                                $('#barchart_material_dep_nac').fadeIn();
+	                                $('#divDepNac').fadeIn();
+	                                var arr=[];
+									var cabza=["Participantes"];
+									var body=["Departamento Nacimiento"];
+									//cabza.push("participantes");
+
+									for(v in rs.datos_dep_nac){
+										cabza.push( rs.datos_dep_nac[v].dep_nacimiento);	
+										body.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
+									}
+								    todo_dep_nac=[cabza,body];
+								
+								}else{
+									
+	                                $('#barchart_material_dep_nac').fadeOut();
+	                                $('#divDepNac').fadeOut();
+	                                todo_dep_nac=[];
+								}
+
 								if(Object.keys(rs.datos_ciu_nac).length>0){
 									
 									$('#barchart_material_ciu').fadeIn();
@@ -803,27 +1011,101 @@ function iniciar_reportes(){
 									$('#divCiuNac').fadeOut();
 									todo_ciu_nac=[];
 								}
-								if(Object.keys(rs.datos_dep_nac).length>0){
+
+								if(Object.keys(rs.datos_ver_nac).length>0){
 									
-	                                $('#barchart_material_dep_nac').fadeIn();
-	                                $('#divDepNac').fadeIn();
-	                                var arr=[];
+									$('#barchart_material_ver').fadeIn();
+									$('#divVerNac').fadeIn();
+									var arr=[];
 									var cabza=["Participantes"];
-									var body=["Departamento Nacimiento"];
+									var body=["Vereda Nacimiento"];
 									//cabza.push("participantes");
 
-									for(v in rs.datos_dep_nac){
-										cabza.push( rs.datos_dep_nac[v].dep_nacimiento);	
-										body.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
+									for(v in rs.datos_ver_nac){
+										cabza.push( rs.datos_ver_nac[v].vereda_nacimiento);	
+										body.push(Number(rs.datos_ver_nac[v].cuantos_por_vereda_nacimiento));	
+
 									}
-								    todo_dep_nac=[cabza,body];
+									todo_ver_nac=[cabza,body];
+									
+
+								}else{
+									
+									$('#barchart_material_ver').fadeOut();
+									$('#divVerNac').fadeOut();
+									todo_ver_nac=[];
+								}
+
+								if(Object.keys(rs.datos_dep_ubi).length>0){
+									
+	                                $('#barchart_material_dep_ubi').fadeIn();
+	                                $('#divDepUbi').fadeIn();
+	                                var arr=[];
+									var cabza=["Participantes"];
+									var body=["Departamento Ubicación"];
+									//cabza.push("participantes");
+
+									for(v in rs.datos_dep_ubi){
+										cabza.push( rs.datos_dep_ubi[v].departamento_ubi);	
+										body.push(Number(rs.datos_dep_ubi[v].cuantos_por_departamento_ubi));	
+									}
+								    todo_dep_ubi=[cabza,body];
 								
 								}else{
 									
-	                                $('#barchart_material_dep_nac').fadeOut();
-	                                $('#divDepNac').fadeOut();
-	                                todo_dep_nac=[];
+	                                $('#barchart_material_dep_ubi').fadeOut();
+	                                $('#divDepUbi').fadeOut();
+	                                todo_dep_ubi=[];
 								}
+
+								if(Object.keys(rs.datos_ciu_ubi).length>0){
+									
+									$('#barchart_material_ciu_ubi').fadeIn();
+									$('#divCiuUbi').fadeIn();
+									var arr=[];
+									var cabza=["Participantes"];
+									var body=["Ciudad Ubicación"];
+									//cabza.push("participantes");
+
+									for(v in rs.datos_ciu_ubi){
+										cabza.push( rs.datos_ciu_ubi[v].municipio);	
+										body.push(Number(rs.datos_ciu_ubi[v].cuantos_por_ciud_ubi));	
+
+									}
+									todo_ciu_ubi=[cabza,body];
+									
+
+								}else{
+									
+									$('#barchart_material_ciu_ubi').fadeOut();
+									$('#divCiuUbi').fadeOut();
+									todo_ciu_ubi=[];
+								}
+
+								if(Object.keys(rs.datos_ver_ubi).length>0){
+									
+									$('#barchart_material_ver_ubi').fadeIn();
+									$('#divVerUbi').fadeIn();
+									var arr=[];
+									var cabza=["Participantes"];
+									var body=["Vereda Ubicación"];
+									//cabza.push("participantes");
+
+									for(v in rs.datos_ver_ubi){
+										cabza.push( rs.datos_ver_ubi[v].vereda_ubi);	
+										body.push(Number(rs.datos_ver_ubi[v].cuantos_por_vereda_ubi));	
+
+									}
+									todo_ver_ubi=[cabza,body];
+									
+
+								}else{
+									
+									$('#barchart_material_ver_ubi').fadeOut();
+									$('#divVerUbi').fadeOut();
+									todo_ver_ubi=[];
+								}
+								
 
 								if(Object.keys(rs.datos_edaddes).length>0){
 									
@@ -1113,16 +1395,44 @@ function iniciar_reportes(){
 					nom_reporte="";	
 				}
 				
-				crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
-				crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");		
-
-
-				crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
-				crear_data_list_dos("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  
-				crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  
-				//crear_data_list_dos("lista_datos_etnia",rs.etnia,"etnia","cuantos_por_etnia");  
-				crear_data_list_dos("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
-				crear_data_list_dos("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  
+				if(Object.keys(rs.etnia).length > 0){
+					crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
+				}
+				if(Object.keys(rs.cap_dife).length > 0){
+					crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");		
+				}
+				if(Object.keys(rs.departamento_ubi).length > 0){
+					crear_data_list_dos("lista_datos_ubi",rs.departamento_ubi,"departamento_ubi","cuantos_por_departamento_ubi");	
+				}
+				
+				if(Object.keys(rs.dep_nacimiento).length > 0){
+					crear_data_list_dos("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
+				}
+				if(Object.keys(rs.ciud_nacimiento).length > 0){
+					crear_data_list_dos("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_por_ciud_nacimiento");  	
+				}
+				
+				
+				if(Object.keys(rs.cap_dife).length > 0){
+					crear_data_list_dos("lista_datos_cap_dife",rs.cap_dife,"cap_dife","cuantos_por_cap_dife");  	
+				}
+				
+				if(Object.keys(rs.organizacion).length > 0){
+					crear_data_list_dos("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  	
+				}
+				
+				if(Object.keys(rs.proceso).length > 0){
+					crear_data_list_dos("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  	
+				}
+				
+				if(Object.keys(rs.vereda_ubi).length > 0){
+					crear_data_list_dos("lista_datos_ver_ubi",rs.vereda_ubi,"vereda_ubi","cuantos_por_vereda_ubi");  	
+				}
+				
+				if(Object.keys(rs.vereda_nacimiento).length > 0){
+					crear_data_list_dos("lista_datos_ver_nac",rs.vereda_nacimiento,"vereda_nacimiento","cuantos_por_vereda_nacimiento");  	
+				}
+				
 			},"");
      	
        
@@ -1136,53 +1446,7 @@ function iniciar_reportes(){
      });
 	
     agregarEvento("btnGenerarExcel","click",function(){
-		/*if(document.getElementById("selEventos").value!="0"){
-			var datos = $("#formReportes").serializarFormulario();
-			var datos2 = $("#formReportes").serializarFormulario2();
-
-			if(datos.tipo_doc!=undefined){
-			datos.tipo_doc=datos2.tipo_doc;
-		}
-		if(datos.edad!=undefined){
-			datos.edad=datos2.edad;
-		}
-		if(datos.genero!=undefined){
-			datos.genero=datos2.genero;
-		}
-		if(datos.zonas!=undefined){
-			datos.zonas=datos2.zonas;
-		}
-		if(datos.escolaridad!=undefined){
-			datos.escolaridad=datos2.escolaridad;
-		}
-		if(datos.etnia!=undefined){
-			var va=document.getElementById("selEtnia").value;
-			console.log(va);
-			if(va=="Otro"){
-				va=document.getElementById("txt_et_otro").value;
-
-			}else if(va=="0"){
-				va=["Indígena","Negro (Afro-colombiano)","Blanco","Mestizo","Zambo"];					
-			}
-			datos.etnia=va;
-		}
 		
-		var opt=document.getElementById("selEventos").options;
-		var eventos=[];
-		var i=0;
-		for(var f in opt){
-			if(opt[f].selected==true && opt[f].value=="G"){
-				eventos=opt[f].value;
-				break;
-			}
-			if(opt[f].selected==true){
-				eventos[i++]=opt[f].value;
-			}
-		}
-
-		if(datos.anio_ingreso_pdp==0){
-			delete datos.anio_ingreso_pdp;
-		}*/
 		var datos = $("#formReportes").serializarFormulario();
 		var datos2 = $("#formReportes").serializarFormulario2();
 		var aprovado=true;
@@ -1313,7 +1577,7 @@ function reporte_tortas(rs){
 							}
 
 							
-
+							//ESCOLARIDAD
 							if(Object.keys(rs.datos_escolaridad).length>0){
 								$('#piechart_material_esco').fadeIn();
                                 $('#barchart_material_esco').fadeOut();
@@ -1321,7 +1585,7 @@ function reporte_tortas(rs){
                                 
 								var arr=[];
                                 arr.push("Participantes");
-                                arr.push("Tipo");
+                                arr.push("Escolaridad");
 								var cabza=[];
 								
 								cabza.push(arr);
@@ -1344,8 +1608,39 @@ function reporte_tortas(rs){
                                 $('#divEsco').fadeIn();
                                 todo_esco_pie=[];
 							}
+							//TITULO OBTENIDO
+							if(Object.keys(rs.titulo_obt).length>0){
+								$('#piechart_material_titu').fadeIn();
+                                $('#barchart_material_titu').fadeOut();
+                                $('#divTitu').fadeIn();
+                                
+								var arr=[];
+                                arr.push("Participantes");
+                                arr.push("Título");
+								var cabza=[];
+								
+								cabza.push(arr);
 
+								for(var v in rs.titulo_obt){
+                                    var arr=[];
+									arr.push( rs.titulo_obt[v].titulo_obt);	
+									arr.push(Number(rs.titulo_obt[v].cuantos_por_titulo));	
+                                    cabza.push(arr);
+								}
+                                console.log(cabza);   
+								todo_titulo_pie=cabza;
+								
+							 	
 
+							      
+							}else{
+								$('#piechart_material_titu').fadeOut();
+                                $('#barchart_material_titu').fadeOut();
+                                $('#divTitu').fadeIn();
+                                todo_titulo_pie=[];
+							}
+
+							//ANIO INGRESO PDP
 							if(Object.keys(rs.anio_ingreso_pdp).length>0){
 								$('#piechart_material_anio').fadeIn();
                                 $('#barchart_material_anio').fadeOut();
@@ -1377,7 +1672,7 @@ function reporte_tortas(rs){
                                 todo_anio_pie=[];
 							}
 
-
+							//CARGO
 							if(Object.keys(rs.cargo).length>0){
 								$('#piechart_material_cargo').fadeIn();
                                 $('#barchart_material_cargo').fadeOut();
@@ -1405,7 +1700,7 @@ function reporte_tortas(rs){
                                 todo_cargo_pie=[];
 							}
 
-
+							//CAPACIDADES DIFERENTES
 							if(Object.keys(rs.datos_cap_dife).length>0){
 								$('#piechart_material_cap_dif').fadeIn();
                                  $('#barchart_material_cap_dif').fadeOut();
@@ -1432,7 +1727,32 @@ function reporte_tortas(rs){
                                 $('#divCapDife').fadeOut();
                                 todo_cap_dife_pie=[];
 							}
+							//DEPARTAMENTO NACIMIENTO
+							if(Object.keys(rs.datos_dep_nac).length>0){
+								$('#barchart_material_dep_nac').fadeOut();
+                                $('#piechart_material_dep_nac').fadeIn();
+                                $('#divDepNac').fadeIn();
+								var arr=[];
+								var cabza=[];
+                                arr.push("Participantes");
+								arr.push("Departamento Nacimiento");
+								cabza.push(arr);
 
+								for(var v in rs.datos_dep_nac){
+                                    var arr=[];
+									arr.push( rs.datos_dep_nac[v].dep_nacimiento);	
+									arr.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
+                                    cabza.push(arr);
+								}
+							    todo_dep_nac_pie=cabza;
+							
+							}else{
+								$('#barchart_material_dep_nac').fadeOut();
+                                $('#piechart_material_dep_nac').fadeOut();
+                                $('#divDepNac').fadeOut();
+                                todo_dep_nac_pie=[];
+							}
+							//CIUDAD NACIMIENTO
 							if(Object.keys(rs.datos_ciu_nac).length>0){
 								$('#piechart_material_ciu').fadeIn();
 								$('#barchart_material_ciu').fadeOut();
@@ -1459,30 +1779,112 @@ function reporte_tortas(rs){
 								$('#divCiuNac').fadeOut();
 								todo_ciu_nac_pie=[];
 							}
-							if(Object.keys(rs.datos_dep_nac).length>0){
-								$('#barchart_material_dep_nac').fadeOut();
-                                $('#piechart_material_dep_nac').fadeIn();
-                                $('#divDepNac').fadeIn();
+							//VEREDA NACIMIENTO
+							if(Object.keys(rs.datos_ver_nac).length>0){
+								$('#piechart_material_ver').fadeIn();
+								$('#barchart_material_ver').fadeOut();
+								$('#divCiuVer').fadeIn();
+                                
+								var cabza=[];
+                                var arr=[];
+								arr.push("Participantes");
+								arr.push("Vereda Nacimiento");
+								cabza.push(arr);
+
+								for(v in rs.datos_ver_nac){
+                                    var arr=[];
+									arr.push( rs.datos_ver_nac[v].vereda_nacimiento);	
+									arr.push(Number(rs.datos_ver_nac[v].cuantos_por_vereda_nacimiento));	
+                                   cabza.push(arr);
+								}
+								todo_ciu_ver_pie=cabza;
+								
+
+							}else{
+								$('#piechart_material_ver').fadeOut();
+								$('#barchart_material_ver').fadeOut();
+								$('#divCiuVer').fadeOut();
+								todo_ciu_ver_pie=[];
+							}
+
+							//DEPARTAMENTO UBICACION
+							if(Object.keys(rs.datos_dep_ubi).length>0){
+								$('#barchart_material_dep_ubi').fadeOut();
+                                $('#piechart_material_dep_ubi').fadeIn();
+                                $('#divDepUbi').fadeIn();
 								var arr=[];
 								var cabza=[];
                                 arr.push("Participantes");
-								arr.push("Departamento Nacimiento");
+								arr.push("Departamento Ubicación");
 								cabza.push(arr);
 
-								for(var v in rs.datos_dep_nac){
+								for(var v in rs.datos_dep_ubi){
                                     var arr=[];
-									arr.push( rs.datos_dep_nac[v].dep_nacimiento);	
-									arr.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
+									arr.push( rs.datos_dep_ubi[v].departamento_ubi);	
+									arr.push(Number(rs.datos_dep_ubi[v].cuantos_por_departamento_ubi));	
                                     cabza.push(arr);
 								}
-							    todo_dep_nac_pie=cabza;
+							    todo_dep_ubi_pie=cabza;
 							
 							}else{
-								$('#barchart_material_dep_nac').fadeOut();
-                                $('#piechart_material_dep_nac').fadeOut();
-                                $('#divDepNac').fadeOut();
+								$('#barchart_material_dep_ubi').fadeOut();
+                                $('#piechart_material_dep_ubi').fadeOut();
+                                $('#divDepUbi').fadeOut();
                                 todo_dep_nac_pie=[];
 							}
+							//CIUDAD UBICACION
+							if(Object.keys(rs.datos_ciu_ubi).length>0){
+								$('#piechart_material_ciu_ubi').fadeIn();
+								$('#barchart_material_ciu_ubi').fadeOut();
+								$('#divCiuUbi').fadeIn();
+                                
+								var cabza=[];
+                                var arr=[];
+								arr.push("Participantes");
+								arr.push("Ciudad Ubicación");
+								cabza.push(arr);
+
+								for(v in rs.datos_ciu_ubi){
+                                    var arr=[];
+									arr.push( rs.datos_ciu_ubi[v].municipio);	
+									arr.push(Number(rs.datos_ciu_ubi[v].cuantos_por_ciud_ubi));	
+                                   cabza.push(arr);
+								}
+								todo_ciu_ubi_pie=cabza;
+								
+
+							}else{
+								$('#piechart_material_ciu_ubi').fadeOut();
+								$('#barchart_material_ciu_ubi').fadeOut();
+								$('#divCiuUbi').fadeOut();
+								todo_ciu_ubi_pie=[];
+							}
+							//VEREDA UBICACION
+							if(Object.keys(rs.datos_ver_ubi).length>0){
+								$('#piechart_material_ver_ubi').fadeIn();
+								$('#barchart_material_ver_ubi').fadeOut();
+								$('#divVerUbi').fadeIn();
+                                
+								var cabza=[];
+                                var arr=[];
+								arr.push("Participantes");
+								arr.push("Vereda Ubicación");
+								cabza.push(arr);
+
+								for(v in rs.datos_ver_ubi){
+                                    var arr=[];
+									arr.push( rs.datos_ver_ubi[v].vereda_ubi);	
+									arr.push(Number(rs.datos_ver_ubi[v].cuantos_por_vereda_ubi));	
+                                   cabza.push(arr);
+								}
+								todo_ver_ubi_pie=cabza;						
+
+							}else{
+								$('#piechart_material_ver_ubi').fadeOut();
+								$('#barchart_material_ver_ubi').fadeOut();
+								$('#divVerUbi').fadeOut();
+								todo_ver_ubi_pie=[];
+							}	
 
 							if(Object.keys(rs.datos_edaddes).length>0){
 								$('#barchart_material_eda').fadeOut();
@@ -1763,6 +2165,31 @@ function reporte_barras(rs){
                                 todo_esco=[];
 							}
 
+							if(Object.keys(rs.titulo_obt).length>0){
+								$('#piechart_material_titu').fadeOut();
+                                $('#barchart_material_titu').fadeIn();
+                                $('#divTitu').fadeIn();
+								var arr=[];
+								var cabza=["Participantes"];
+								var body2=["Título "];
+								//cabza.push("participantes");
+
+								for(v in rs.titulo_obt){
+									console.log(rs.titulo_obt[v]);
+									cabza.push( rs.titulo_obt[v].titulo_obt);	
+									body2.push(Number(rs.titulo_obt[v].cuantos_por_titulo));	
+								}
+								todo_titulo=[cabza,body2];
+								
+							 	
+							      
+							}else{
+								$('#piechart_material_titu').fadeOut();
+                                $('#barchart_material_titu').fadeOut();
+                                $('#divTitu').fadeOut();
+                                todo_titulo=[];
+							}
+
 							if(Object.keys(rs.anio_ingreso_pdp).length>0){
 								$('#piechart_material_anio').fadeOut();
                                 $('#barchart_material_anio').fadeIn();
@@ -1837,6 +2264,27 @@ function reporte_barras(rs){
                                 $('#divCapDife').fadeOut();
                                 todo_cap_dife=[];
 							}
+							if(Object.keys(rs.datos_dep_nac).length>0){
+								$('#piechart_material_dep_nac').fadeOut();
+                                $('#barchart_material_dep_nac').fadeIn();
+                                $('#divDepNac').fadeIn();
+                                var arr=[];
+								var cabza=["Participantes"];
+								var body=["Departamento Nacimiento"];
+								//cabza.push("participantes");
+
+								for(v in rs.datos_dep_nac){
+									cabza.push( rs.datos_dep_nac[v].dep_nacimiento);	
+									body.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
+								}
+							    todo_dep_nac=[cabza,body];
+							
+							}else{
+								$('#piechart_material_dep_nac').fadeOut();
+                                $('#barchart_material_dep_nac').fadeOut();
+                                $('#divDepNac').fadeOut();
+                                todo_dep_nac=[];
+							}
 
 							if(Object.keys(rs.datos_ciu_nac).length>0){
 								$('#piechart_material_ciu').fadeOut();
@@ -1861,26 +2309,97 @@ function reporte_barras(rs){
 								$('#divCiuNac').fadeOut();
 								todo_ciu_nac=[];
 							}
-							if(Object.keys(rs.datos_dep_nac).length>0){
-								$('#piechart_material_dep_nac').fadeOut();
-                                $('#barchart_material_dep_nac').fadeIn();
-                                $('#divDepNac').fadeIn();
-                                var arr=[];
+							if(Object.keys(rs.datos_ver_nac).length>0){
+								$('#piechart_material_ver').fadeOut();
+								$('#barchart_material_ver').fadeIn();
+								$('#divVerNac').fadeIn();
+								var arr=[];
 								var cabza=["Participantes"];
-								var body=["Departamento Nacimiento"];
+								var body=["Vereda Nacimiento"];
 								//cabza.push("participantes");
 
-								for(v in rs.datos_dep_nac){
-									cabza.push( rs.datos_dep_nac[v].dep_nacimiento);	
-									body.push(Number(rs.datos_dep_nac[v].cuantos_por_dep_nacimiento));	
+								for(v in rs.datos_ver_nac){
+									cabza.push( rs.datos_ver_nac[v].vereda_nacimiento);	
+									body.push(Number(rs.datos_ver_nac[v].cuantos_por_vereda_nacimiento));	
+
 								}
-							    todo_dep_nac=[cabza,body];
+								todo_ver_nac=[cabza,body];
+								
+
+							}else{
+								$('#piechart_material_ver').fadeOut();
+								$('#barchart_material_ver').fadeOut();
+								$('#divVerNac').fadeOut();
+								todo_ver_nac=[];
+							}
+							
+							if(Object.keys(rs.datos_dep_ubi).length>0){
+								$('#piechart_material_dep_ubi').fadeOut();
+                                $('#barchart_material_dep_ubi').fadeIn();
+                                $('#divDepUbi').fadeIn();
+                                var arr=[];
+								var cabza=["Participantes"];
+								var body=["Departamento Ubicación"];
+								//cabza.push("participantes");
+
+								for(v in rs.datos_dep_ubi){
+									cabza.push( rs.datos_dep_ubi[v].departamento_ubi);	
+									body.push(Number(rs.datos_dep_ubi[v].cuantos_por_departamento_ubi));	
+								}
+							    todo_dep_ubi=[cabza,body];
 							
 							}else{
-								$('#piechart_material_dep_nac').fadeOut();
-                                $('#barchart_material_dep_nac').fadeOut();
-                                $('#divDepNac').fadeOut();
-                                todo_dep_nac=[];
+								$('#piechart_material_dep_ubi').fadeOut();
+                                $('#barchart_material_dep_ubi').fadeOut();
+                                $('#divDepUbi').fadeOut();
+                                todo_dep_ubi=[];
+							}
+
+							if(Object.keys(rs.datos_ciu_ubi).length>0){
+								$('#piechart_material_ciu_ubi').fadeOut();
+								$('#barchart_material_ciu_ubi').fadeIn();
+								$('#divCiuUbi').fadeIn();
+								var arr=[];
+								var cabza=["Participantes"];
+								var body=["Ciudad Ubicación"];
+								//cabza.push("participantes");
+
+								for(v in rs.datos_ciu_ubi){
+									cabza.push( rs.datos_ciu_ubi[v].municipio);	
+									body.push(Number(rs.datos_ciu_ubi[v].cuantos_por_ciud_ubi));	
+
+								}
+								todo_ciu_ubi=[cabza,body];
+								
+
+							}else{
+								$('#piechart_material_ciu_ubi').fadeOut();
+								$('#barchart_material_ciu_ubi').fadeOut();
+								$('#divCiuUbi').fadeOut();
+								todo_ciu_ubi=[];
+							}
+							if(Object.keys(rs.datos_ver_ubi).length>0){
+								$('#piechart_material_ver_ubi').fadeOut();
+								$('#barchart_material_ver_ubi').fadeIn();
+								$('#divVerUbi').fadeIn();
+								var arr=[];
+								var cabza=["Participantes"];
+								var body=["Vereda Ubicación"];
+								//cabza.push("participantes");
+
+								for(v in rs.datos_ver_ubi){
+									cabza.push( rs.datos_ver_ubi[v].vereda_ubi);	
+									body.push(Number(rs.datos_ver_ubi[v].cuantos_por_vereda_ubi));	
+
+								}
+								todo_ver_ubi=[cabza,body];
+								
+
+							}else{
+								$('#piechart_material_ver_ubi').fadeOut();
+								$('#barchart_material_ver_ubi').fadeOut();
+								$('#divVerUbi').fadeOut();
+								todo_ver_ubi=[];
 							}
 
 							if(Object.keys(rs.datos_edaddes).length>0){
@@ -2419,10 +2938,18 @@ function consultar_eventos(id){
 			crear_select_3("selEtnias",rs.etnia,"etnia","etnia","Todas las etnias","0");
 			crear_select_3("selCapDiff",rs.cap_dife,"cap_dife","cap_dife","Todas las Capacidades","0");
 			crear_data_list("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
+			crear_data_list("lista_datos_ubi",rs.departamento_ubi,"departamento_ubi","cuantos_por_departamento_ubi");
 			crear_data_list("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_ciud_nacimiento");  
 			crear_data_list("lista_datos_mun_ubi",rs.municipio,"municipio","cuantos_por_municipio");  
 			crear_data_list("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
 			crear_data_list("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso");  
+			if(Object.keys(rs.vereda_ubi).length > 0){
+					crear_data_list("lista_datos_ver_ubi",rs.vereda_ubi,"vereda_ubi","cuantos_por_vereda_ubi");  	
+			}
+				
+			if(Object.keys(rs.vereda_nacimiento).length > 0){
+					crear_data_list("lista_datos_ver_nac",rs.vereda_nacimiento,"vereda_nacimiento","cuantos_por_vereda_nacimiento");  	
+			}
 		},"");	
 	}else{
 		consultarDatos("repo_eventos/"+id,{},function(rs){
@@ -2433,8 +2960,16 @@ function consultar_eventos(id){
 			crear_data_list("lista_datos_dep_nac",rs.dep_nacimiento,"dep_nacimiento","cuantos_por_dep_nacimiento");  
 			crear_data_list("lista_datos_ciu_nacimiento",rs.ciud_nacimiento,"ciud_nacimiento","cuantos_ciud_nacimiento");  
 			crear_data_list("lista_datos_mun_ubi",rs.municipio,"municipio","cuantos_por_municipio");  
+			crear_data_list("lista_datos_ubi",rs.departamento_ubi,"departamento_ubi","cuantos_por_departamento_ubi");
 			crear_data_list("lista_datos_orga",rs.organizacion,"organizacion","cuantos_por_organizacion");  
 			crear_data_list("lista_datos_proceso",rs.proceso,"proceso","cuantos_por_proceso"); 
+			if(Object.keys(rs.vereda_ubi).length > 0){
+					crear_data_list("lista_datos_ver_ubi",rs.vereda_ubi,"vereda_ubi","cuantos_por_vereda_ubi");  	
+			}
+				
+			if(Object.keys(rs.vereda_nacimiento).length > 0){
+					crear_data_list("lista_datos_ver_nac",rs.vereda_nacimiento,"vereda_nacimiento","cuantos_por_vereda_nacimiento");  	
+			}
 			fecha_evento=rs.eventos[0].date;
 			lugar_evento=rs.eventos[0].city;
 		},"");
@@ -2615,6 +3150,27 @@ function dibujar_grafico_reporte_barras(){
 								        	    
 		var chartesco = new google.charts.Bar(document.getElementById('barchart_material_esco'));
 	    chartesco.draw(data_esco, google.charts.Bar.convertOptions(options_esoc));	
+	}
+	//titulo_obt
+	if(todo_titulo!=undefined){
+		var data_titu = google.visualization.arrayToDataTable(
+							          todo_titulo
+							         );
+
+		var options_tit = {
+	                    
+			     chart: {
+			        title: nom_reporte+" Título" ,
+			        subtitle: lugar_evento+" "+fecha_evento
+			        },
+			     bars: 'horizontal' // Required for Material Bar Charts.
+			    };
+
+
+		 
+								        	    
+		var charttitu = new google.charts.Bar(document.getElementById('barchart_material_titu'));
+	    charttitu.draw(data_titu, google.charts.Bar.convertOptions(options_tit));	
 	}
 	//ingreso pdp
 	if(todo_anio!=undefined){
@@ -2858,7 +3414,81 @@ function dibujar_grafico_reporte_barras(){
 							        chart_ciu_nac.draw(data_ciu_nac, google.charts.Bar.convertOptions(options_ciu_nac));						        
 		
 	}  			        
-	
+	//vereda nacimeinto
+	if(todo_ver_nac!=undefined){
+		        var data_ver_nac = google.visualization.arrayToDataTable(
+							          todo_ver_nac
+							         );
+
+							        var options_ver_nac = {
+							          chart: {
+							            title: nom_reporte +" Vereda Nacimiento",
+							            subtitle: lugar_evento+" "+fecha_evento
+							          },
+							          bars: 'horizontal' // Required for Material Bar Charts.
+							        };
+
+							        var chart_ver_nac = new google.charts.Bar(document.getElementById('barchart_material_ver'));
+
+							        chart_ver_nac.draw(data_ver_nac, google.charts.Bar.convertOptions(options_ver_nac));						        
+		
+	}  		
+	//departamento ubicacion
+	if(todo_dep_ubi!=undefined){
+		var data_dep_ubi = google.visualization.arrayToDataTable(
+							          todo_dep_ubi
+							         );
+
+							        var options_dep_ubi = {
+							          chart: {
+							            title: nom_reporte+" Departamento Ubicación",
+							            subtitle: lugar_evento+" "+fecha_evento
+							          },
+							          bars: 'horizontal' // Required for Material Bar Charts.
+							        };
+
+							        var chart_dep_ubi = new google.charts.Bar(document.getElementById('barchart_material_dep_ubi'));
+
+							        chart_dep_ubi.draw(data_dep_ubi, google.charts.Bar.convertOptions(options_dep_ubi));	
+	}
+	//ciudad ubicacion
+	if(todo_ciu_ubi!=undefined){
+		        var data_ciu_ubi = google.visualization.arrayToDataTable(
+							          todo_ciu_ubi
+							         );
+
+							        var options_ciu_ubi = {
+							          chart: {
+							            title: nom_reporte +" Ciudad Ubicación",
+							            subtitle: lugar_evento+" "+fecha_evento
+							          },
+							          bars: 'horizontal' // Required for Material Bar Charts.
+							        };
+
+							        var chart_ciu_ubi = new google.charts.Bar(document.getElementById('barchart_material_ciu_ubi'));
+
+							        chart_ciu_ubi.draw(data_ciu_ubi, google.charts.Bar.convertOptions(options_ciu_ubi));						        
+		
+	}  			        
+	//vereda ubicacion
+	if(todo_ver_ubi!=undefined){
+		        var data_ver_ubi = google.visualization.arrayToDataTable(
+							          todo_ver_ubi
+							         );
+
+							        var options_ver_ubi = {
+							          chart: {
+							            title: nom_reporte +" Vereda Ubicación",
+							            subtitle: lugar_evento+" "+fecha_evento
+							          },
+							          bars: 'horizontal' // Required for Material Bar Charts.
+							        };
+
+							        var chart_ver_ubi = new google.charts.Bar(document.getElementById('barchart_material_ver_ubi'));
+
+							        chart_ver_ubi.draw(data_ver_ubi, google.charts.Bar.convertOptions(options_ver_ubi));						        
+		
+	}  		
 						        
 
 	if(todo_cap_dife!=undefined){
@@ -2879,10 +3509,6 @@ function dibujar_grafico_reporte_barras(){
 
 							        chart_cap_dif.draw(data_cap_dif, google.charts.Bar.convertOptions(options_cap_dif));
 	}
-							        
-
-
-							   
 							   
 }
 function dibujar_grafico_reporte_torta(){
@@ -2899,6 +3525,19 @@ function dibujar_grafico_reporte_torta(){
 				        	    
 		var chartesco = new google.visualization.PieChart(document.getElementById('piechart_material_esco'));
 	        chartesco.draw(data_esco,options_esoc);
+	}
+	//titulo_obt
+	if(todo_titulo_pie!=undefined){
+		var data_titu = google.visualization.arrayToDataTable( todo_titulo_pie     );
+        
+		var options_titu = {
+			     
+			         title: nom_reporte+" Título",
+	          		 is3D: true,
+			         };
+				        	    
+		var charttitu = new google.visualization.PieChart(document.getElementById('piechart_material_titu'));
+	        charttitu.draw(data_titu,options_titu);
 	}
 	//año ingreso
 	if(todo_anio_pie!=undefined){
@@ -3047,7 +3686,7 @@ function dibujar_grafico_reporte_torta(){
 			var data_dep_nac = google.visualization.arrayToDataTable(todo_dep_nac_pie   );
 
 							        var options_dep_nac = {
-							           title: nom_reporte+" Departamentos de nacimiento",
+							           title: nom_reporte+" Departamento de nacimiento",
           							   is3D: true,
 							        };
 
@@ -3062,7 +3701,7 @@ function dibujar_grafico_reporte_torta(){
 		var data_ciu_nac = google.visualization.arrayToDataTable( todo_ciu_nac_pie );
 
 							        var options_ciu_nac = {
-							           title: nom_reporte+" Ciudad de nacimeinto",
+							           title: nom_reporte+" Ciudad de nacimiento",
           							   is3D: true,
 							        };
 
@@ -3070,6 +3709,60 @@ function dibujar_grafico_reporte_torta(){
 
 							        chart_ciu_nac.draw(data_ciu_nac, options_ciu_nac );						
 	}
+	if(todo_ver_nac_pie!=undefined){
+		var data_ver_nac = google.visualization.arrayToDataTable( todo_ver_nac_pie );
+
+							        var options_ver_nac = {
+							           title: nom_reporte+" Vereda de nacimiento",
+          							   is3D: true,
+							        };
+
+							        var chart_ver_nac = new google.visualization.PieChart(document.getElementById('piechart_material_ver'));
+
+							        chart_ver_nac.draw(data_ver_nac, options_ver_nac );						
+	}
+
+	//departamento ubicacion
+	if(todo_dep_ubi_pie!=undefined){
+			var data_dep_ubi = google.visualization.arrayToDataTable(todo_dep_ubi_pie   );
+
+							        var options_dep_ubi = {
+							           title: nom_reporte+" Departamento de ubicación",
+          							   is3D: true,
+							        };
+
+							        var chart_dep_ubi = new google.visualization.PieChart(document.getElementById('piechart_material_dep_ubi'));
+
+							        chart_dep_ubi.draw(data_dep_ubi, options_dep_ubi);			
+	}
+				        
+
+	//ciudad ubicacion
+	if(todo_ciu_ubi_pie!=undefined){
+		var data_ciu_ubi = google.visualization.arrayToDataTable( todo_ciu_ubi_pie );
+
+							        var options_ciu_ubi = {
+							           title: nom_reporte+" Ciudad de ubicación",
+          							   is3D: true,
+							        };
+
+							        var chart_ciu_ubi = new google.visualization.PieChart(document.getElementById('piechart_material_ciu_ubi'));
+
+							        chart_ciu_ubi.draw(data_ciu_ubi, options_ciu_ubi );						
+	}
+	if(todo_ver_ubi_pie!=undefined){
+		var data_ver_ubi = google.visualization.arrayToDataTable( todo_ver_ubi_pie );
+
+							        var options_ver_ubi = {
+							           title: nom_reporte+" Vereda de ubicación",
+          							   is3D: true,
+							        };
+
+							        var chart_ver_ubi = new google.visualization.PieChart(document.getElementById('piechart_material_ver_ubi'));
+
+							        chart_ver_ubi.draw(data_ver_ubi, options_ver_ubi );						
+	}
+	
 	if(todo_cap_dife_pie!=undefined){
 		var data_cap_dif = google.visualization.arrayToDataTable( todo_cap_dife_pie );
 

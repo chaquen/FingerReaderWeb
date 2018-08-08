@@ -7,5 +7,6 @@ function iniciar_index(){
 			                mostrarMensaje("Error al selecciona evento");
 			            }
 			    },"");
+	
 }
 

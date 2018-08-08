@@ -28,6 +28,7 @@ and open the template in the editor.
             <script defer src="mdl/material.min.js"></script>
     </head>
     <body>
+        
         <img src="images/logo.png">
         <section class="main">
             <form class="form-2" id="formLogIn">
@@ -48,7 +49,8 @@ and open the template in the editor.
                 </p>
                     
                 
-            </form>​​
+            </form>
+            <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active" id="load_login" style="display: none"></div>​​
         </section>
          <dialog class="mdl-dialog" id="mensaje">
             <h4 id="tMsn" class="mdl-dialog__title"></h4>
@@ -74,7 +76,8 @@ and open the template in the editor.
                 
                 var datos = $("#formLogIn").serializarFormulario();
                 if(false!=datos){
-                   
+                   document.forms.formLogIn.elements.btnLogIn.disabled=true;     
+                   document.getElementById("load_login").style.display="block";
                     if(navigator.onLine) {
 
                      registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
@@ -89,12 +92,16 @@ and open the template in the editor.
                                 globales._usuario=rs.datos; 
                                 //location.href=rs.redireccionar;
                                 agregar_local_storage("ssUsuario",globales._usuario);
+                                document.getElementById("load_login").style.display="none";
+                                document.forms.formLogIn.elements.btnLogIn.disabled=false;
                             
                         }else{
                             document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
-                                                    document.getElementById("pMsn").innerHTML=rs.mensaje;
+                            document.getElementById("pMsn").innerHTML=rs.mensaje;
                             document.getElementById("btnAceptar2").style.display="none";
-                                                        dialog.showModal();
+                            dialog.showModal();
+                            document.getElementById("load_login").style.display="none";
+                            document.forms.formLogIn.elements.btnLogIn.disabled=false;
                         }                   
 
                      },"formLogIn");
@@ -109,14 +116,17 @@ and open the template in the editor.
                                 document.getElementById("btnAceptar2").style.display="";
                                 dialog.showModal();
                                 globales._usuario=rs.valores_consultados;   
-                                //location.href=rs.redireccionar;
                                 agregar_local_storage("ssUsuario",globales._usuario);
+                                document.getElementById("load_login").style.display="none";
+                                document.forms.formLogIn.elements.btnLogIn.disabled=false;
                             
                         }else{
                             document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
-                                                    document.getElementById("pMsn").innerHTML=rs.mensaje;
+                            document.getElementById("pMsn").innerHTML=rs.mensaje;
                             document.getElementById("btnAceptar2").style.display="none";
-                                                        dialog.showModal();
+                            dialog.showModal();
+                            document.getElementById("load_login").style.display="none";
+                            document.forms.formLogIn.elements.btnLogIn.disabled=false;
                         }                   
 
                     },"formLogIn");
@@ -126,7 +136,7 @@ and open the template in the editor.
                 }else{
                     document.getElementById("tMsn").innerHTML="Error! ";
                     document.getElementById("pMsn").innerHTML="Por favor ingresa los valores requeridos! ";
-                      document.getElementById("btnAceptar2").style.display="none";  
+                    document.getElementById("btnAceptar2").style.display="none";  
                     //mostrarMensaje("Datos suministrados no concuerdan");
                     dialog.showModal();
                 }
@@ -137,10 +147,12 @@ and open the template in the editor.
                 console.log(e.KeyPress);
                 console.log(e.key);
                 if(e.key=="Enter"){
+                    
 
                     var datos = $("#formLogIn").serializarFormulario();
                     if(false!=datos){
-                       
+                        document.forms.formLogIn.elements.btnLogIn.disabled=true;     
+                        document.getElementById("load_login").style.display="block";
                         if(navigator.onLine) {
 
                          registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
@@ -156,19 +168,24 @@ and open the template in the editor.
                                             globales._usuario=rs.datos; 
                                             //location.href=rs.redireccionar;
                                             agregar_local_storage("ssUsuario",globales._usuario);
+                                            document.getElementById("load_login").style.display="none";
+                                            document.forms.formLogIn.elements.btnLogIn.disabled=false;     
                                         
                                     }else{
                                         document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
-                                                                document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                        document.getElementById("pMsn").innerHTML=rs.mensaje;
                                         document.getElementById("btnAceptar2").style.display="none";
-                                                                    dialog.showModal();
+                                        dialog.showModal();
+                                        document.getElementById("load_login").style.display="none";
+                                        document.forms.formLogIn.elements.btnLogIn.disabled=false;     
                                     }                   
 
                             }else{
                                  document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
-                                                                document.getElementById("pMsn").innerHTML="Ingresa los datos necesarios";
-                                        document.getElementById("btnAceptar2").style.display="none";
-                                                                    dialog.showModal();
+                                 document.getElementById("pMsn").innerHTML="Ingresa los datos necesarios";
+                                 document.getElementById("btnAceptar2").style.display="none";
+                                 dialog.showModal();
+                                 document.getElementById("load_login").style.display="none";
                             }
                            
                          },"formLogIn");
@@ -185,12 +202,15 @@ and open the template in the editor.
                                     globales._usuario=rs.valores_consultados;   
                                     //location.href=rs.redireccionar;
                                     agregar_local_storage("ssUsuario",globales._usuario);
-                                
+                                    document.getElementById("load_login").style.display="none";
+                                    document.forms.formLogIn.elements.btnLogIn.disabled=false;     
                             }else{
                                 document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
-                                                        document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                document.getElementById("pMsn").innerHTML=rs.mensaje;
                                 document.getElementById("btnAceptar2").style.display="none";
-                                                            dialog.showModal();
+                                dialog.showModal();
+                                document.getElementById("load_login").style.display="none";
+                                document.forms.formLogIn.elements.btnLogIn.disabled=false;     
                             }                   
 
                         },"formLogIn");
