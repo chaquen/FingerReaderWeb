@@ -106,7 +106,6 @@ select {
     margin: auto;
     margin-top: 20px;
 }
-
 .identificacion {
     color: red;
     display: table;
@@ -115,29 +114,14 @@ select {
     float: left;
     width: 25%;
     padding-top: 15px;
-    padding-bottom: 15px;
-    
+    padding-bottom: 15px;    
+}
+.identificacion li:nth-child(6), .identificacion li:nth-child(7), .identificacion li:nth-child(8), .identificacion li:nth-child(9), .identificacion li:nth-child(10) {
+    width: 20%;
 }
 .identificacion li:first-child {
     width: 100%;
 }
-.identificacion li:nth-child(8){
-    padding-top: 0;
-    padding-bottom: 0;
-    width: 33%;
-}
-
-.identificacion li:nth-child(6){
-    padding-top: 0;
-    padding-bottom: 0;
-    width: 33%;
-}
-.identificacion li:nth-child(7){
-    padding-top: 0;
-    padding-bottom: 0;
-    width: 33%;
-}
-
 .datosPersonales {
     clear: both;
     color: blue;
@@ -151,19 +135,43 @@ select {
     width: 100%;
     padding-bottom: 0;
 }
-.datosPersonales li:nth-child(8) {
+.genero {
+    clear: both;
+    color: blue;
+}
+.genero li:first-child {
     width: 100%;
     padding-bottom: 0;
 }
-.datosPersonales li:nth-child(12) {
-    width: 50%;
-    padding-bottom: 0;
+.genero li {
+    float: left;
+    width: 25%;
+    padding-bottom: 15px;
 }
-.datosPersonales li:nth-child(13) {
-    width: 50%;
-    padding-bottom: 0;
+.treinta {
+    clear: both;
 }
-
+.treinta li {
+    width: 33%;
+    float: left;
+}
+.treinta1 {
+    clear: both;
+}
+.treinta1 li:first-child {
+    width: 100%;
+}
+.treinta1 li {
+    width: 33%;
+    float: left;
+}
+.cincuenta {
+    clear: both;    
+}
+.cincuenta li {
+    width: 50%;
+    float: left;
+}
 .ubicacion {
     clear: both;
     width: 98%;

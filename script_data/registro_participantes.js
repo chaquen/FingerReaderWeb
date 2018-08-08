@@ -97,6 +97,8 @@ function iniciar_evento_participantes(){
                 return false; 
              }
 
+            
+
              datos.dep_nacimiento=datos.dep_nacimiento.split("-")[1];
              datos.departamento_ubi=datos.departamento_ubi.split("-")[1];
              
@@ -222,18 +224,18 @@ function iniciar_evento_participantes(){
         console.log(this.value);
         console.log("Otro");
         if(this.value==="Otro"){
-            document.getElementById("txt_et_otro").style.display="";
+            $("#divOtraEtnia").fadeIn("fast");
         }else{
-            document.getElementById("txt_et_otro").style.display="none";
+            $("#divOtraEtnia").fadeOut("fast");
         }
     });
     agregarEvento("selGenero","change",function(){
         console.log(this.value);
         console.log("Otro");
         if(this.value==="Otro"){
-            document.getElementById("txtGenero").style.display="";
+            $("#divGenero").fadeIn("fast");
         }else{
-            document.getElementById("txtGenero").style.display="none";
+            $("#divGenero").fadeOut("fast");
         }
     });
 
@@ -291,6 +293,7 @@ function iniciar_evento_participantes(){
             break;
             default:
                 document.getElementById("selGrado").style.display="none";
+                document.getElementById("txtTitulo").value="";
             break;
         }
 

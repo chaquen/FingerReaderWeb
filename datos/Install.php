@@ -1,6 +1,7 @@
 <?php
 
 require_once '../datos/constantes.php';
+require_once '../datos/constantes_url.php';
 require_once '../utilidades/CurlUse.php';
 
 

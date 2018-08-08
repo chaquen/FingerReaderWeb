@@ -134,14 +134,18 @@
                         <input name="fecha_nac" type="date" required>
                     </li>
                     <li>
-
                         <select id="selGenero" name="genero" required>
                             <option>--Género--</option>
                             <option>Hombre</option>
                             <option>Mujer</option>
                             <option>Otro</option>
                         </select>
-                        <input type="text" name="genero_otro" id="txtGenero" style="display: none">
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="divGenero" style="display: none">
+                            <input class="mdl-textfield__input" type="text"  name="genero_otro" id="txtGenero">
+                            <label class="mdl-textfield__label" for="sample3">Otro Género</label>      
+                        </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -151,25 +155,25 @@
                         
                     </li>
                     <li>
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">     
                             <select id="selEtnia" name="etnia" required>
-                                    <option value="0">--Seleccione etnia--</option>
-                                    <option value="Indígena">Indígena</option>
-                                    <option value="Negro (Afro-colombiano)">Negro (Afro-colombiano)</>
-                                    <option value="Blanco">Blanco</option>
-                                    <option value="Mestizo">Mestizo</option>
-                                    <option value="Zambo">Zambo</option>
-                                    <option value="Otro">Otro </option>
-                                
+                                <option value="0">--Seleccione etnia--</option>
+                                <option value="Indígena">Indígena</option>
+                                <option value="Negro (Afro-colombiano)">Negro (Afro-colombiano)</>
+                                <option value="Blanco">Blanco</option>
+                                <option value="Mestizo">Mestizo</option>
+                                <option value="Zambo">Zambo</option>
+                                <option value="Otro">Otro </option>                                
                             </select>
-                           <input id="txt_et_otro" class="mdl-textfield__input" type="text" style="display: none" > 
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="divOtraEtnia" style="display: none">
+                            <input class="mdl-textfield__input" type="text" name="sub_etnia" id="txt_et_otro">
+                            <label class="mdl-textfield__label" for="sample3">Otra Etina</label> 
                         </div>    
                     </li>
-                </ul>
-                <ul class="ubicacion">
                     <li>
-                         
                         <select name="zona">
                             <option value="0">--Seleccione zona--</option>
                             <option value="urbana">Urbana</option>
@@ -213,8 +217,6 @@
                         </div> 
                         
                     </li>
-                </ul>
-                <ul class="escolaridad">
                     <li>
                         <select id="selEscolaridad"  name="escolaridad" required>
                             <option value="0">--Nivel de Escolaridad--</option>
@@ -225,7 +227,14 @@
                             <option>Universitario</option>
                             <option>Ninguno</option>
                         </select>
-                        <input type="text" name="escolaridad_otro" id="txtEscolaridad" style="display: none">
+                    </li>
+                    <!--<li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" name="escolaridad_otro" id="txtEscolaridad">
+                            <label class="mdl-textfield__label" for="sample3">Otra Escolaridad</label>
+                        </div>
+                    </li>-->
+                    <li>
                         <select id="selGrado" style="display: none"></select>
                     </li>
                     <li>
@@ -234,16 +243,12 @@
                             <label class="mdl-textfield__label" for="sample3">Título Obtenido</label>
                         </div> 
                     </li>
-                </ul>
-                <ul>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" name="cargo_poblador" id="txtCargo">
                             <label class="mdl-textfield__label" for="sample3">Cargo del poblador</label>
                         </div> 
                     </li>
-                </ul>
-                <ul class="datosP">
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input id="txtLineas" class="mdl-textfield__input" type="text" name="organizacion" list="listaLineas" >

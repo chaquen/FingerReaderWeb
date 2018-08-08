@@ -50,7 +50,8 @@ and open the template in the editor.
                     
                 
             </form>
-            <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active" id="load_login" style="display: none"></div>​​
+            
+            <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active" id="propia" style="display: none"></div>​​
         </section>
          <dialog class="mdl-dialog" id="mensaje">
             <h4 id="tMsn" class="mdl-dialog__title"></h4>
@@ -77,7 +78,8 @@ and open the template in the editor.
                 var datos = $("#formLogIn").serializarFormulario();
                 if(false!=datos){
                    document.forms.formLogIn.elements.btnLogIn.disabled=true;     
-                   document.getElementById("load_login").style.display="block";
+                   $("#propia").fadeIn("slow");
+                   
                     if(navigator.onLine) {
 
                      registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
@@ -92,7 +94,7 @@ and open the template in the editor.
                                 globales._usuario=rs.datos; 
                                 //location.href=rs.redireccionar;
                                 agregar_local_storage("ssUsuario",globales._usuario);
-                                document.getElementById("load_login").style.display="none";
+                                $("#propia").fadeOut("fast");
                                 document.forms.formLogIn.elements.btnLogIn.disabled=false;
                             
                         }else{
@@ -100,7 +102,7 @@ and open the template in the editor.
                             document.getElementById("pMsn").innerHTML=rs.mensaje;
                             document.getElementById("btnAceptar2").style.display="none";
                             dialog.showModal();
-                            document.getElementById("load_login").style.display="none";
+                            $("#propia").fadeOut("fast");
                             document.forms.formLogIn.elements.btnLogIn.disabled=false;
                         }                   
 
@@ -117,7 +119,7 @@ and open the template in the editor.
                                 dialog.showModal();
                                 globales._usuario=rs.valores_consultados;   
                                 agregar_local_storage("ssUsuario",globales._usuario);
-                                document.getElementById("load_login").style.display="none";
+                                $("#propia").fadeOut("fast");
                                 document.forms.formLogIn.elements.btnLogIn.disabled=false;
                             
                         }else{
@@ -125,7 +127,7 @@ and open the template in the editor.
                             document.getElementById("pMsn").innerHTML=rs.mensaje;
                             document.getElementById("btnAceptar2").style.display="none";
                             dialog.showModal();
-                            document.getElementById("load_login").style.display="none";
+                            $("#propia").fadeOut("fast");
                             document.forms.formLogIn.elements.btnLogIn.disabled=false;
                         }                   
 
@@ -152,7 +154,7 @@ and open the template in the editor.
                     var datos = $("#formLogIn").serializarFormulario();
                     if(false!=datos){
                         document.forms.formLogIn.elements.btnLogIn.disabled=true;     
-                        document.getElementById("load_login").style.display="block";
+                        $("#propia").fadeIn("slow");
                         if(navigator.onLine) {
 
                          registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
@@ -168,7 +170,7 @@ and open the template in the editor.
                                             globales._usuario=rs.datos; 
                                             //location.href=rs.redireccionar;
                                             agregar_local_storage("ssUsuario",globales._usuario);
-                                            document.getElementById("load_login").style.display="none";
+                                            $("#propia").fadeOut("fast");
                                             document.forms.formLogIn.elements.btnLogIn.disabled=false;     
                                         
                                     }else{
@@ -176,7 +178,7 @@ and open the template in the editor.
                                         document.getElementById("pMsn").innerHTML=rs.mensaje;
                                         document.getElementById("btnAceptar2").style.display="none";
                                         dialog.showModal();
-                                        document.getElementById("load_login").style.display="none";
+                                        $("#propia").fadeOut("fast");
                                         document.forms.formLogIn.elements.btnLogIn.disabled=false;     
                                     }                   
 
@@ -185,7 +187,7 @@ and open the template in the editor.
                                  document.getElementById("pMsn").innerHTML="Ingresa los datos necesarios";
                                  document.getElementById("btnAceptar2").style.display="none";
                                  dialog.showModal();
-                                 document.getElementById("load_login").style.display="none";
+                                 $("#propia").fadeOut("fast");
                             }
                            
                          },"formLogIn");
@@ -202,14 +204,14 @@ and open the template in the editor.
                                     globales._usuario=rs.valores_consultados;   
                                     //location.href=rs.redireccionar;
                                     agregar_local_storage("ssUsuario",globales._usuario);
-                                    document.getElementById("load_login").style.display="none";
+                                    $("#propia").fadeOut("fast");
                                     document.forms.formLogIn.elements.btnLogIn.disabled=false;     
                             }else{
                                 document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
                                 document.getElementById("pMsn").innerHTML=rs.mensaje;
                                 document.getElementById("btnAceptar2").style.display="none";
                                 dialog.showModal();
-                                document.getElementById("load_login").style.display="none";
+                                $("#propia").fadeOut("fast");
                                 document.forms.formLogIn.elements.btnLogIn.disabled=false;     
                             }                   
 

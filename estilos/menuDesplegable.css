@@ -108,7 +108,6 @@ select {
 }
 
 .identificacion {
-    
     display: table;
 }
 .identificacion li {
@@ -117,68 +116,39 @@ select {
     
 }
 .identificacion li:nth-child(4){
-    width: 49.5%;
+    width: 25%;
 }
 .identificacion li:nth-child(5){
-    width: 49.5%;
+    width: 25%;
 }
 .identificacion li:nth-child(6){
-    width: 49.5%;
+    width: 25%;
 }
 .identificacion li:nth-child(7){
-    width: 49.5%;
+    width: 25%;
 }
 
 .datosPersonales {
     clear: both;
+    display: table;
 }
 .datosPersonales li {
     float: left;
     width: 33%;
 }
-.datosPersonales li:nth-child(1){
-    width: 49%;
+
+.datosPersonales li:nth-child(7) {
+    width: 100%;
+    clear: both;
 }
-.datosPersonales li:nth-child(2){
-    width: 49%;
-}
-.datosPersonales li:nth-child(6){
-    width: 49%;
-}
-.datosPersonales li:nth-child(7){
-    width: 49%;
+#divGenero {
+    float: right;
+    display: none;
 }
 .datosPersonales li h6 {
-    margin-bottom: 10px;
 }
 
-.ubicacion {
-    clear: both;
-    width: 98%;
-}
-.ubicacion li {
-    float: left;
-    width: 25%;
-}
-.escolaridad {
-    clear: both;
-    width: 98%;
-}
-.escolaridad li {
-    float: left;
-    width: 20%;
-}
-.escolaridad li:nth-child(3){
-    width: 80%;
-}
-.datosP {
-    clear: both;
-    width: 98%;
-}
-.datosP li {
-    float: left;
-    width: 40%    
-}
+
 .botones {
     clear: both;
     width: 98%;
