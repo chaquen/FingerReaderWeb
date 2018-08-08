@@ -20,7 +20,7 @@ var globales={
 	_eventos:false,
 	_departamentos:false,
 	_municipios:false,
-	_dev:false
+	_dev:true,
 
 };
 
