@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 require_once '../datos/constantes.php';
+require_once '../datos/constantes_url.php';
 
 abstract class ModeloBaseDeDatos{
 
