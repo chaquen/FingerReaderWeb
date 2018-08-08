@@ -1,6 +1,5 @@
 <?php
+//url donde se almacenan los archivos de los eventos
 define('API_URL_MATRIZ', "http://pdpmagdalenacentro.org/assets/private/atachments/events/");
-//test
-//define('API_URL', 'https://apitestbiometrico.mohansoft.com/');
-//produccion
+//escriba aqui la url de su servidor produccion o pruebas
 define('API_URL', 'https://biometric.mohansoft.com/');
