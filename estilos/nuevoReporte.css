@@ -311,7 +311,6 @@ h5 {
 .btnImpresionRepor{
     width: 100%;
     clear: both;
-    position: fixed;
     z-index: 9999;
     padding-top: 20px;
 } 
