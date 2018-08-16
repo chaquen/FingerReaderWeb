@@ -106,8 +106,8 @@ function iniciar_evento_participantes(){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
                             //  window.open('','_parent',''); 
-                            window.close(); 
-                            //location.href="menuEventos.html";
+                            //window.close(); 
+                            location.href="menuEventos.html";
                             
                         }else{
                         	mostrarMensaje(rs);

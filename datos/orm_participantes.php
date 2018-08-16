@@ -212,6 +212,7 @@ class Participantes extends ModeloBaseDeDatos{
             $hoy = new DateTime();
             $annos = $hoy->diff($cumpleanos);
             $edad=$annos->y;
+          
             if($edad>=8){
                         $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
                                                                 tipo_doc = '$tipo_doc',
@@ -280,6 +281,7 @@ class Participantes extends ModeloBaseDeDatos{
             $hoy = new DateTime();
             $annos = $hoy->diff($cumpleanos);
             $edad=$annos->y;
+
             if($edad>=8){
                     $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
                                                             tipo_doc = '$tipo_doc',
