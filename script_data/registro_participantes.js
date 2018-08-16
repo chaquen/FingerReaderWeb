@@ -102,14 +102,15 @@ function iniciar_evento_participantes(){
              datos.dep_nacimiento=datos.dep_nacimiento.split("-")[1];
              datos.departamento_ubi=datos.departamento_ubi.split("-")[1];
              
-                //registrarDato("participantes",{datos:datos,id:data.id},function(rs){
-                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
+               registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
                             //  window.open('','_parent',''); 
-                            //window.close(); 
-                            location.href="menuEventos.html";
+                            window.close(); 
+                            //location.href="menuEventos.html";
                             
+                        }else{
+                        	mostrarMensaje(rs);
                         }
                         
                     
@@ -340,6 +341,5 @@ function cargar_archivos(){
 
    
 }
-
 
 agregarEventoLoad(iniciar_evento_participantes);
