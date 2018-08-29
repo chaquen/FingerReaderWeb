@@ -13,7 +13,8 @@ $partici=$objeto->obtener_registro_todos_los_registros_para_sync("WHERE estado_r
 $detalle_partici=$objeto2->obtener_registro_todos_los_registros_detall_participacion();
 $procesos=$objeto3->obtener_todos_procesos();
 //var_dump($partici);
-//var_dump($datos_2);
+//var_dump($detalle_partici);
+//var_dump($procesos);
 if($partici["respuesta"]==true || $detalle_partici["respuesta"]==true){
 	//$datos=http_build_query(array("datos"=>array("hora_cliente"=>"00000000","peticion"=>"post","datos"=>array("a"=>1,"b"=>"2"))));
 //$datos=array("datos"=>array("hora_cliente"=>"00000000","peticion"=>"post","datos"=>array("a"=>1,"b"=>"2")));
@@ -23,7 +24,7 @@ if($partici["respuesta"]==true || $detalle_partici["respuesta"]==true){
 $ch = curl_init();
 // definimos la URL a la que hacemos la petición
 curl_setopt($ch, CURLOPT_URL,API_URL."sync");
-
+//var_dump(API_URL."sync");
 //curl_setopt($ch, CURLOPT_URL,"http://localhost/api_biometric/sync");
 
 // recibimos la respuesta y la guardamos en una variable

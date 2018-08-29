@@ -139,8 +139,8 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-6">
-                            <input value="18a28" name="edad" type="checkbox" id="checkbox-6" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label">18 a 28</span>
+                            <input value="8a28" name="edad" type="checkbox" id="checkbox-6" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">8 a 28</span>
                          </label>
                     </li>
                     <li>
@@ -377,6 +377,53 @@
                         </select>
                     </li>
                 </ul>
+                <ul class="terminos">
+                    <li>
+                        <b><h5>Acepta términos y condiciones para uso de datos</h5></b>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-28">
+                            <input value="0" name="acepta_terminos" type="checkbox" id="checkbox-28" class="mdl-checkbox__input" checked="">
+                            <span class="mdl-checkbox__label">Todos </span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-29">
+                            <input value="SI" name="acepta_terminos" type="checkbox" id="checkbox-29" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Si, acepta</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-30">
+                            <input value="NO" name="acepta_terminos" type="checkbox" id="checkbox-30" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">No, acepta</span>
+                         </label>
+                    </li>
+                </ul>
+                <ul class="terminos_foto">
+                    <li>
+                        <b><h5>Acepta términos y condiciones para uso de foto</h5></b>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-31">
+                            <input value="0" name="acepta_terminos_foto" type="checkbox" id="checkbox-31" class="mdl-checkbox__input" checked="">
+                            <span class="mdl-checkbox__label">Todos </span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-32">
+                            <input value="SI" name="acepta_terminos_foto" type="checkbox" id="checkbox-32" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">Si, acepta</span>
+                         </label>
+                    </li>
+                    <li>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-33">
+                            <input value="NO" name="acepta_terminos_foto" type="checkbox" id="checkbox-33" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label">No, acepta</span>
+                         </label>
+                    </li>
+                </ul>
+                
                 <ul class="botones">
                     <li>
                         <b><h5>Tipo de Informe</h5></b>
@@ -418,6 +465,7 @@
                     <input type="button" value="Cerrar Informe" class="salir">
                     <input id="btnGenerarPdf"  type="button" value="Exportar PDF">
                     <input id="btnGenerarExcel" type="button"  value="Exportar Excel">
+                     <div  class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active" id="load" style="display: none; width: 25px;height: 25px;"></div>​​
                     <a id="aExpor" target="_blank"></a>
                 </div>
                
@@ -603,3 +651,4 @@
 
   </body>
 </html>
+

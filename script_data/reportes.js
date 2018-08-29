@@ -131,6 +131,18 @@ function iniciar_reportes(){
 		if(datos.municipio!=""){
 			datos.municipio = datos.municipio.split("-")[0];
 		}
+		if(datos.acepta_terminos!=undefined){
+			
+			if(datos.acepta_terminos=="0"){
+				datos.acepta_terminos=["SI","NO"];
+			}
+		}
+		if(datos.acepta_terminos_foto!=undefined){
+			
+			if(datos.acepta_terminos_foto=="0"){
+				datos.acepta_terminos_foto=["SI","NO"];
+			}
+		}
 					
 		//nom_reporte=document.getElementById("selEventos").options[document.getElementById("selEventos").selectedIndex].innerHTML;	
 		
@@ -1486,6 +1498,19 @@ function iniciar_reportes(){
 		if(datos.municipio!=""){
 			datos.municipio = datos.municipio.split("-")[0];
 		}
+		if(datos.acepta_terminos!=undefined){
+			
+			if(datos.acepta_terminos=="0"){
+				datos.acepta_terminos=["SI","NO"];
+			}
+		}
+		if(datos.acepta_terminos_foto!=undefined){
+			
+			if(datos.acepta_terminos_foto=="0"){
+				datos.acepta_terminos_foto=["SI","NO"];
+			}
+		}
+
 					
 		//nom_reporte=document.getElementById("selEventos").options[document.getElementById("selEventos").selectedIndex].innerHTML;	
 		
@@ -1514,11 +1539,16 @@ function iniciar_reportes(){
 			delete datos.anio_ingreso_pdp;
 		}
 		if(aprovado){
+			document.getElementById("load").style.display="";
 			//registrarDato(globales._URL_ONLINE+"exportar_reporte_lista",{datos},function(rs){
 			registrarDato("exportar_reporte_lista",{id_evento:eventos,datos:datos},function(rs){	
 				if(rs.respuesta==true){
 					document.getElementById("aExpor").setAttribute("href",globales._URL_ONLINE+rs.direccion);
 					document.getElementById("aExpor").innerHTML="DESCARGAR REPORTE";
+					document.getElementById("load").style.display="none";
+				}else{
+					mostrarMensaje(rs);
+					document.getElementById("load").style.display="none";
 				}
 				console.log(rs);
 			});
@@ -3044,6 +3074,16 @@ function dibujar_tabla(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
+		var td=document.createElement("td");
+		td.innerHTML="Acepta terminos";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML="Acepta uso de foto";
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
 		tbl.appendChild(tr);		
 	for(var f in datos){
 		console.log(datos[f]);
@@ -3108,6 +3148,16 @@ function dibujar_tabla(datos){
 
 		var td=document.createElement("td");
 		td.innerHTML=datos[f].anio_ingreso_pdp;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].acepta_terminos;
+		td.className="mdl-data-table__cell--non-numeric";
+		tr.appendChild(td);
+
+		var td=document.createElement("td");
+		td.innerHTML=datos[f].acepta_terminos_foto;
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
