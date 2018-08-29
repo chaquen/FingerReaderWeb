@@ -165,6 +165,7 @@ select {
 .treinta1 li {
     width: 33%;
     float: left;
+    color: blue;
 }
 .cincuenta {
     clear: both;    
@@ -219,6 +220,7 @@ select {
 .botones li {
     width: 33%;
     float: left;
+    color: red;
 }
 .botones li:first-child {
     width: 100%;
