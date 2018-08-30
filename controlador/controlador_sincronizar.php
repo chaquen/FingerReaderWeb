@@ -33,7 +33,7 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 // indicamos el tipo de petición: POST
 //curl_setopt($ch, CURLOPT_POST, TRUE);
 // definimos cada uno de los parámetros
-//var_dump($datos["valores_consultados"]);
+//var_dump($procesos["valores_consultados"]);
 /*foreach ($datos["valores_consultados"] as $key => $value) {
 	var_dump($value);
 }*/
@@ -54,16 +54,23 @@ curl_close ($ch);
 
 
 $da=json_decode($remote_server_output);
-if($da->respuesta){
-	//se eliminan registros usados
-	$objeto->eliminar_recurso("estado_registro = 'verificado'");
-	$objeto->eliminar_recurso("estado_registro = 'registrado'");
-	$objeto->eliminar_recurso("estado_registro = 'participando'");
-	print_r($remote_server_output);	
+//var_dump($da);
+	if($da!=NULL){
+		if($da->respuesta){
+		    //se eliminan registros usados
+			$objeto->eliminar_recurso("estado_registro = 'verificado'");
+			$objeto->eliminar_recurso("estado_registro = 'registrado'");
+			$objeto->eliminar_recurso("estado_registro = 'participando'");
+			print_r($remote_server_output);	
+		}else{
+			echo json_encode(array("mensaje"=>"No hay registros para sincronizar","respuesta"=>true));
+		}	
+	}else{
+		echo json_encode(array("mensaje"=>"No se ha sincronizado el servidor ha retornado NULL","respuesta"=>false));
+	}
+}else{
+	echo json_encode(array("mensaje"=>"No hay registros para sincronizar","respuesta"=>false));
 }
 
-}else{
-echo json_encode(array("mensaje"=>"No registros para sincronizar","respuesta"=>true));
-}
 
 ?>

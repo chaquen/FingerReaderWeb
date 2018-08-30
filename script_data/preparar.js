@@ -8,7 +8,8 @@ function iniciar_menu_preparar(){
 	agregarEvento("btnListo","click",function(){
 		$('#listo').fadeOut();
 	});
-	agregarEvento("btnAceptar","click",function(){
+	agregarEvento("btnAceptar","click",function(e){
+		e.preventDefault();
 		dialog.close();
 		$('#preparando').fadeIn();
 			registrarDatoOff(globales._URL_BE+"controlador/controlador_preparar.php","",{user:globales._usuario.email,pass:globales._usuario.pass,id:globales._usuario.id},function(rs){

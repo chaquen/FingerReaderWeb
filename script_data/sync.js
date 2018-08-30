@@ -9,6 +9,12 @@ function iniciar_evento_sync(){
 			    	 
         			 $('#sincroniza').fadeOut();
         			 $('#sincronizo').fadeIn();
+        			 document.getElementById("h5Mens").innerHTML="Se sincronizo adecuadamente";
+			    }else{
+			    	mostrarMensaje(rs);
+			    	document.getElementById("h5Mens").innerHTML=rs.mensaje;
+			    	 $('#sincroniza').fadeOut();
+        			 $('#sincronizo').fadeIn();
 			    }
 		        
 	        
