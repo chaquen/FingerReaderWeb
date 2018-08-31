@@ -13,7 +13,7 @@ function registrarDato(url,datos,callback,formulario,fun_error){
         var miAjax=new miObjetoAjax(url,datos,"POST");
         miAjax.peticion_ajax();
         miAjax.respuestaServidor.done(function(rs){
-                  console.log(rs);
+                  //console.log(rs);
             
                                      
                   if(callback!=undefined){
@@ -24,19 +24,19 @@ function registrarDato(url,datos,callback,formulario,fun_error){
                   }  
             
         }).fail(function( jqXHR, textStatus, errorThrown){
-            console.log("url "+url);
-            console.log("datos");
-            console.log(datos);
-            console.log("callback");
-            console.log(callback);
-            console.log("formulario");
-            console.log(formulario);
-            console.log("jqXHR");
-            console.log(jqXHR);
-            console.log("textStatus");
-            console.log(textStatus);
-            console.log("errorThrown");
-            console.log(errorThrown);
+            //console.log("url "+url);
+            //console.log("datos");
+            //console.log(datos);
+            //console.log("callback");
+            //console.log(callback);
+            //console.log("formulario");
+            //console.log(formulario);
+            //console.log("jqXHR");
+            //console.log(jqXHR);
+            //console.log("textStatus");
+            //console.log(textStatus);
+            //console.log("errorThrown");
+            //console.log(errorThrown);
             if(fun_error!=undefined){
               fun_error( jqXHR, textStatus, errorThrown);
             }
@@ -70,8 +70,8 @@ function registrarDatoArchivo(url,dat,archivo,id_formulario,callback){
        var form_data=new FormData();
        form_data.append("miArchivo",archivo.files[0]);
        dat.nombre_archivo=archivo.files[0].name;
-       console.log(archivo.files[0]);
-       console.log(form_data);
+       //console.log(archivo.files[0]);
+       //console.log(form_data);
        datos.datos=dat;
        form_data.append("datos",JSON.stringify(datos));
        miAjax.peticion_ajax_upload(form_data);
@@ -79,7 +79,7 @@ function registrarDatoArchivo(url,dat,archivo,id_formulario,callback){
         
         miAjax.respuestaServidor.done(function(rs){
             
-            console.log(rs);
+            //console.log(rs);
             
                 if(id_formulario!=undefined){
                     limpiarFormulario(id_formulario);
@@ -88,9 +88,9 @@ function registrarDatoArchivo(url,dat,archivo,id_formulario,callback){
             
             
         }).fail(function( jqXHR, textStatus, errorThrown){
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+            //console.log(jqXHR);
+            //console.log(textStatus);
+            //console.log(errorThrown);
         });
     
     }else{
@@ -103,23 +103,23 @@ function registrarDatoArchivo(url,dat,archivo,id_formulario,callback){
  * {datos} objeto con la estructira que voy a  enviaren la peticion HTTP
  * {funcion_depues} funccion que se realizara despues de recibir la respuesta del servidor*/    
 function consultarDatos(url,datos,callback,id_formulario){
-    console.log(datos);
+    //console.log(datos);
     var miAjax=new miObjetoAjax(url,datos,"GET");
     miAjax.peticion_ajax();
     
     miAjax.respuestaServidor.done(function(rs){
         
       
-        console.log(rs);
+        //console.log(rs);
          if(id_formulario!=undefined){
                 limpiarFormulario(id_formulario);
          }             
         
         callback(rs);
     }).fail(function( jqXHR, textStatus, errorThrown){
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+            //console.log(jqXHR);
+            //console.log(textStatus);
+            //console.log(errorThrown);
         });
     
     
@@ -130,23 +130,23 @@ function consultarDatos(url,datos,callback,id_formulario){
  * {funcion_depues} funccion que se realizara despues de recibir la respuesta del servidor
  * */
 function editarDato(url,datos,callback,id_formulario){
-    console.log(datos);
+    //console.log(datos);
     if(datos){
         
         var miAjax=new miObjetoAjax(url,datos,"PUT");
         miAjax.peticion_ajax();
         miAjax.respuestaServidor.done(function(rs){
            
-            console.log(rs);
+            //console.log(rs);
            
             callback(rs);
             if(rs.respuesta){
                 limpiarFormulario(id_formulario);
             }
         }).fail(function( jqXHR, textStatus, errorThrown){
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+            //console.log(jqXHR);
+            //console.log(textStatus);
+            //console.log(errorThrown);
         });
     
     }else{
@@ -162,12 +162,12 @@ function editarDato(url,datos,callback,id_formulario){
 function eliminarDato(url,datos,callback,id_formulario){
     
     if(datos){
-      //console.log(url);
+      ////console.log(url);
         var miAjax=new miObjetoAjax(url,datos,'DELETE');
         miAjax.peticion_ajax();
         miAjax.respuestaServidor.done(function(rs){
             
-            console.log(rs);
+            //console.log(rs);
            
             callback(rs);
              if(id_formulario!=undefined && rs.respuesta== true){
@@ -175,9 +175,9 @@ function eliminarDato(url,datos,callback,id_formulario){
                 }  
             
         }).fail(function( jqXHR, textStatus, errorThrown){
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+            //console.log(jqXHR);
+            //console.log(textStatus);
+            //console.log(errorThrown);
         });
     
     }else{
@@ -201,8 +201,8 @@ function editarDatoArchivo(url,dat,archivo,callback,id_formulario){
        var miAjax=new miObjetoAjax(url,datos,"PUT");
        var form_data=new FormData();
        form_data.append("miArchivo",archivo.files[0]);
-       console.log(archivo.files[0]);
-       console.log(form_data);
+       //console.log(archivo.files[0]);
+       //console.log(form_data);
        datos.datos=dat;
        form_data.append("datos",JSON.stringify(datos));
        miAjax.peticion_ajax_upload(form_data);
@@ -210,7 +210,7 @@ function editarDatoArchivo(url,dat,archivo,callback,id_formulario){
         
         miAjax.respuestaServidor.done(function(rs){
             
-            console.log(rs);
+            //console.log(rs);
            
                 if(id_formulario!=undefined){
                     limpiarFormulario(id_formulario);
@@ -219,9 +219,9 @@ function editarDatoArchivo(url,dat,archivo,callback,id_formulario){
             
             
         }).fail(function( jqXHR, textStatus, errorThrown){
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+            //console.log(jqXHR);
+            //console.log(textStatus);
+            //console.log(errorThrown);
         });
     
     }else{

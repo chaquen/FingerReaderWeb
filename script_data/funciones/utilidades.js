@@ -202,7 +202,7 @@ function ayer(){
             break;   
          } 
     }
-    console.log(anio+"-"+(mes)+"-"+(dia));
+    //console.log(anio+"-"+(mes)+"-"+(dia));
     return anio+"-"+(mes)+"-"+(dia);
 }
 
@@ -262,10 +262,10 @@ function este_mes(){
 function agregarEvento(idElemento,evento,funcion){
     if(document.getElementById(idElemento)!=null){
         
-        /*console.log("Nombre evento ");
-        console.log(evento);
-        console.log("Funcion ");
-        console.log(funcion);*/
+        /*//console.log("Nombre evento ");
+        //console.log(evento);
+        //console.log("Funcion ");
+        //console.log(funcion);*/
         
         document.getElementById(idElemento).addEventListener(evento,funcion,false);
         if(evento=="click"){
@@ -275,14 +275,14 @@ function agregarEvento(idElemento,evento,funcion){
         
         
     }else{
-        /*console.log("ERROR");
-        console.log("Nombre evento ");
-        console.log(evento);
-        console.log("Funcion ");
-        console.log(funcion);
-        console.log("-Elemento");
-        console.log(idElemento);
-        console.log("el elemento no existe");*/
+        /*//console.log("ERROR");
+        //console.log("Nombre evento ");
+        //console.log(evento);
+        //console.log("Funcion ");
+        //console.log(funcion);
+        //console.log("-Elemento");
+        //console.log(idElemento);
+        //console.log("el elemento no existe");*/
     }
     
 } 
@@ -328,8 +328,8 @@ function salir(_usuario){
  * @returns {recibirValorGet.tmparr}
  */
 function recibirValorGet(){
-  console.log(window.location.href);
-  console.log(window.location.pathname);
+  //console.log(window.location.href);
+  //console.log(window.location.pathname);
     params=window.location.href.split("?");
     if(params[1]!=undefined){
       params=params[1].split("&");
@@ -339,7 +339,7 @@ function recibirValorGet(){
           return false;
       }  
     }else{
-      console.log("No ay parametros enviados a la página");
+      //console.log("No ay parametros enviados a la página");
       return false;
     }
     
@@ -385,77 +385,77 @@ function control_de_teclas(){
                 switch(e.which){
                     case 49:
                       //CRTL+1
-                      console.log("acción para CTRL+1 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+1 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 50:
                       //CRTL+2
-                      console.log("acción para CTRL+2 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+2 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                      case 51:
                       //CRTL+3
-                      console.log("acción para CTRL+3 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+3 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                      case 52:
                       //CRTL+4
-                      console.log("acción para CTRL+4 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+4 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 53:
                       //CRTL+5
-                      console.log("acción para CTRL+5 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+5 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 54:
                       //CRTL+6
-                      console.log("acción para CTRL+6 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+6 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 55:
                       //CRTL+7
-                      console.log("acción para CTRL+7 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+7 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 56:
                       //CRTL+8
-                      console.log("acción para CTRL+8 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+8 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;
                     case 57:
                       //CRTL+9
-                      console.log("acción para CTRL+9 y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+9 y evitar que ejecute la acción propia del navegador");
                       return false;
                         break;           
                     case 83:
                     //S
-                    console.log("acción para CTRL+S y evitar que ejecute la acción propia del navegador");
+                    //console.log("acción para CTRL+S y evitar que ejecute la acción propia del navegador");
                     //return false;            
                     break;
                     case 82:
                     //R
                     
-                    console.log("acción para CTRL+R y evitar que ejecute la acción propia del navegador");
+                    //console.log("acción para CTRL+R y evitar que ejecute la acción propia del navegador");
                     return false;
                     break;
                     case 86:
-                      console.log("acción para CTRL+V y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+V y evitar que ejecute la acción propia del navegador");
                       //agregar_boton_ticket(1);
                       break;
                       case 67:
-                      console.log("acción para CTRL+C y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+C y evitar que ejecute la acción propia del navegador");
                      /* if(confirm("¿Desea registrar esta factura?")){
                         crear_factura();  
                       }*/
                       
                     break;
                     case 69:
-                      console.log("acción para CTRL+E y evitar que ejecute la acción propia del navegador");
+                      //console.log("acción para CTRL+E y evitar que ejecute la acción propia del navegador");
                      // eliminar_ticket(_numero_ticket);
                     break;  
                     default:
-                        console.log("acción para CTRL+"+e.which+" y evitar que ejecute la acción propia del navegador");
+                        //console.log("acción para CTRL+"+e.which+" y evitar que ejecute la acción propia del navegador");
 
                         //return false;
                     break;
@@ -496,7 +496,7 @@ function crear_data_list(id_data_list,datos,id,valor){
     }
  });
 
-  console.log(sel);
+  //console.log(sel);
 }
 function crear_data_list_tres(id_data_list,datos,id,valor){
   var existe=false;
@@ -528,7 +528,7 @@ function crear_data_list_tres(id_data_list,datos,id,valor){
     }
  });
   
-  console.log(sel);
+  //console.log(sel);
 }
 function crear_data_list_dos(id_data_list,datos,id,valor){
   var existe=false;
@@ -545,7 +545,7 @@ function crear_data_list_dos(id_data_list,datos,id,valor){
     var mis_llaves=Object.keys(datos[clave]);
     
     for(var l in datos[clave]){
-      console.log(datos[clave][l]);
+      //console.log(datos[clave][l]);
       if(existe==false && datos[clave][l]!=""){
 
         var opt=document.createElement("option");
@@ -561,7 +561,7 @@ function crear_data_list_dos(id_data_list,datos,id,valor){
     }
  });
 
-  console.log(sel);
+  //console.log(sel);
 }
 /*
   FUNCION PARA CREAR SELECT DINAMICOS
@@ -584,8 +584,8 @@ function crear_select(id_select,datos,id,valor){
           
        
         Object.keys(datos).forEach(function(clave) {
-          console.log(clave);
-          console.log(Object.keys(datos[clave]));
+          //console.log(clave);
+          //console.log(Object.keys(datos[clave]));
          
          
           var mis_llaves=Object.keys(datos[clave]);
@@ -593,19 +593,19 @@ function crear_select(id_select,datos,id,valor){
           for(var l in mis_llaves){
 
             if(existe==false && mis_llaves[l]==id){
-              console.log(mis_llaves[l]);
-              console.log(datos[clave][id]);
+              //console.log(mis_llaves[l]);
+              //console.log(datos[clave][id]);
               var opt=document.createElement("option");
               opt.setAttribute("value",datos[clave][id]);
               existe=true;
             }
-              //console.log("-"+mis_llaves[l]);
-              //console.log("->"+valor);
+              ////console.log("-"+mis_llaves[l]);
+              ////console.log("->"+valor);
             if(existe==true && mis_llaves[l]==valor){
-              //console.log(mis_llaves[l]);
-              //console.log(datos[clave][valor]);
-              //console.log(mis_llaves[l]);
-              //console.log(datos[clave][valor]);
+              ////console.log(mis_llaves[l]);
+              ////console.log(datos[clave][valor]);
+              ////console.log(mis_llaves[l]);
+              ////console.log(datos[clave][valor]);
               opt.innerHTML=datos[clave][valor];
               sel.appendChild(opt); 
               existe=false;
@@ -614,7 +614,7 @@ function crear_select(id_select,datos,id,valor){
           }
        });
 
-        console.log(sel);
+        //console.log(sel);
   }
 }
 
@@ -632,8 +632,8 @@ function crear_select_2(id_select,datos,id,valor){
           
        
         Object.keys(datos).forEach(function(clave) {
-          console.log(clave);
-          console.log(Object.keys(datos[clave]));
+          //console.log(clave);
+          //console.log(Object.keys(datos[clave]));
          
          
           var mis_llaves=Object.keys(datos[clave]);
@@ -641,19 +641,19 @@ function crear_select_2(id_select,datos,id,valor){
           for(var l in mis_llaves){
 
             if(existe==false && mis_llaves[l]==id){
-              console.log(mis_llaves[l]);
-              console.log(datos[clave][id]);
+              //console.log(mis_llaves[l]);
+              //console.log(datos[clave][id]);
               var opt=document.createElement("option");
               opt.setAttribute("value",datos[clave][id]);
               existe=true;
             }
-              //console.log("-"+mis_llaves[l]);
-              //console.log("->"+valor);
+              ////console.log("-"+mis_llaves[l]);
+              ////console.log("->"+valor);
             if(existe==true && mis_llaves[l]==valor){
-              //console.log(mis_llaves[l]);
-              //console.log(datos[clave][valor]);
-              //console.log(mis_llaves[l]);
-              //console.log(datos[clave][valor]);
+              ////console.log(mis_llaves[l]);
+              ////console.log(datos[clave][valor]);
+              ////console.log(mis_llaves[l]);
+              ////console.log(datos[clave][valor]);
               opt.innerHTML=datos[clave][valor];
               sel.appendChild(opt); 
               existe=false;
@@ -662,7 +662,7 @@ function crear_select_2(id_select,datos,id,valor){
           }
        });
 
-        console.log(sel);
+        //console.log(sel);
   }
 }
 function crear_select_3(id_select,datos,id,valor,prim_item,pri_value){
@@ -682,8 +682,8 @@ function crear_select_3(id_select,datos,id,valor,prim_item,pri_value){
           
        
         Object.keys(datos).forEach(function(clave) {
-          console.log(clave);
-          console.log(Object.keys(datos[clave]));
+          ////console.log(clave);
+          ////console.log(Object.keys(datos[clave]));
          
          
           var mis_llaves=Object.keys(datos[clave]);
@@ -691,19 +691,19 @@ function crear_select_3(id_select,datos,id,valor,prim_item,pri_value){
           for(var l in mis_llaves){
 
             if(existe==false && mis_llaves[l]==id){
-              console.log(mis_llaves[l]);
-              console.log(datos[clave][id]);
+              //console.log(mis_llaves[l]);
+              //console.log(datos[clave][id]);
               var opt=document.createElement("option");
               opt.setAttribute("value",datos[clave][id]);
               existe=true;
             }
-              //console.log("-"+mis_llaves[l]);
-              //console.log("->"+valor);
+              ////console.log("-"+mis_llaves[l]);
+              ////console.log("->"+valor);
             if(existe==true && mis_llaves[l]==valor){
-              //console.log(mis_llaves[l]);
-              //console.log(datos[clave][valor]);
-              //console.log(mis_llaves[l]);
-              //console.log(datos[clave][valor]);
+              ////console.log(mis_llaves[l]);
+              ////console.log(datos[clave][valor]);
+              ////console.log(mis_llaves[l]);
+              ////console.log(datos[clave][valor]);
               opt.innerHTML=datos[clave][valor];
               sel.appendChild(opt); 
               existe=false;
@@ -712,7 +712,7 @@ function crear_select_3(id_select,datos,id,valor,prim_item,pri_value){
           }
        });
 
-        console.log(sel);
+        //console.log(sel);
   }
 }
 
@@ -728,8 +728,8 @@ function crear_select_3(id_select,datos,id,valor,prim_item,pri_value){
 */
 
 function crear_tablas(id_tabla,datos,columnas,clase_tabla,clase_fila,clase_celda){
-  console.log(datos);
-  console.log(columnas);
+  //console.log(datos);
+  //console.log(columnas);
   var existe=false;
   var div=document.getElementById(id_tabla);
   var tabla=document.createElement("table");
@@ -740,13 +740,13 @@ function crear_tablas(id_tabla,datos,columnas,clase_tabla,clase_fila,clase_celda
   var fila=document.createElement("tr");
   for(var l in columnas){
       var celda=document.createElement("td"); 
-      console.log(l);  
+      //console.log(l);  
       if(columnas[l]!=undefined){
         
          if(clase_fila!=undefined){
             fila.setAttribute("class",clase_fila);
           }
-         console.log(columnas[l]);
+         //console.log(columnas[l]);
          celda.innerHTML=columnas[l];
          if(clase_celda!=undefined){
             celda.setAttribute("class",clase_celda);
@@ -754,24 +754,24 @@ function crear_tablas(id_tabla,datos,columnas,clase_tabla,clase_fila,clase_celda
          
        
          fila.appendChild(celda);
-         console.log(fila); 
+         //console.log(fila); 
          tabla.appendChild(fila);
       }
   }    
   Object.keys(datos).forEach(function(clave) {
    
     var mis_llaves=columnas;
-    console.log(mis_llaves);  
+    //console.log(mis_llaves);  
      var fila=document.createElement("tr");
     for(var l in mis_llaves){
       var celda=document.createElement("td"); 
-      console.log(l);  
+      //console.log(l);  
       if(datos[clave][l]!=undefined){
         
          if(clase_fila!=undefined){
             fila.setAttribute("class",clase_fila);
           }
-         console.log(datos[clave][l]);
+         //console.log(datos[clave][l]);
          celda.innerHTML=datos[clave][l];
          if(clase_celda!=undefined){
             celda.setAttribute("class",clase_celda);
@@ -779,7 +779,7 @@ function crear_tablas(id_tabla,datos,columnas,clase_tabla,clase_fila,clase_celda
          
        
        fila.appendChild(celda);
-       console.log(fila); 
+       //console.log(fila); 
       }
 
        tabla.appendChild(fila);
@@ -807,12 +807,12 @@ function crear_tablas(id_tabla,datos,columnas,clase_tabla,clase_fila,clase_celda
 $.fn.serializarFormulario = function()
       {
       var o = {};
-      console.log(this);
+      //console.log(this);
       
       if(this[0]!=undefined){
         var elementos=this[0].elements;
         for(var e in elementos){
-          console.log(elementos[e].required);
+          //console.log(elementos[e].required);
           if(elementos[e].required==true && elementos[e].value ==""){
             elementos[e].style.borderColor="blue";
             return false;
@@ -832,7 +832,7 @@ $.fn.serializarFormulario = function()
                if (!o[this.name].push) {
                    o[this.name] = [o[this.name]];
                }
-                console.log(this.name);
+                //console.log(this.name);
                 
                o[this.name].push(this.value || '');
            } else {
@@ -851,16 +851,16 @@ $.fn.serializarFormulario = function()
 //FUNCION PARA LIMPIAR LOS FORMULARIOS
  function limpiarFormulario(idForm){
     var form=document.getElementById(idForm);
-    console.log(form);
+    //console.log(form);
     if(form!=null){
             for(var i in form.elements){
 
             if(form.elements[i].nodeName == "TEXTAREA"){
                 form.elements[i].value="";  
             }
-            //console.log(form.elements[i].style.borderColor);
-            //console.log(form.elements[i].checked);
-            //console.log(form.elements[i].value);
+            ////console.log(form.elements[i].style.borderColor);
+            ////console.log(form.elements[i].checked);
+            ////console.log(form.elements[i].value);
 
 
             switch(form.elements[i].type){
@@ -900,8 +900,8 @@ $.fn.serializarFormulario = function()
         }
     }
     
-    console.log(form);
-    console.log(idForm);
+    //console.log(form);
+    //console.log(idForm);
  }      
  /*
   FUNCION PARA OCULTAR LOGIN
@@ -938,7 +938,7 @@ $.fn.serializarFormulario2 = function()
       var ar=[];
       var i=0;
       for(var t in this[0].tipo_doc){
-        console.log(this[0].tipo_doc[t]);
+        //console.log(this[0].tipo_doc[t]);
           if(this[0].tipo_doc[0].value=="0" && this[0].tipo_doc[0].checked && this[0].tipo_doc[t].value != undefined ){
                 if(this[0].tipo_doc[t].value!="0"){
                   ar[i++]=this[0].tipo_doc[t].value;
@@ -960,7 +960,7 @@ $.fn.serializarFormulario2 = function()
       var ar=[];
       var i=0;
       for(var t in this[0].edad){
-        console.log(this[0].edad[t]);
+        //console.log(this[0].edad[t]);
           if(this[0].edad[0].value=="0" && this[0].edad[0].checked && this[0].edad[t].value != undefined ){
                 if(this[0].edad[t].value!="0"){
                   ar[i++]=this[0].edad[t].value;
@@ -982,7 +982,7 @@ $.fn.serializarFormulario2 = function()
       var ar=[];
       var i=0;
       for(var t in this[0].genero){
-        console.log(this[0].genero[t]);
+        //console.log(this[0].genero[t]);
           if(this[0].genero[0].value=="0" && this[0].genero[0].checked && this[0].genero[t].value != undefined ){
                 if(this[0].genero[t].value!="0"){
                   ar[i++]=this[0].genero[t].value;
@@ -1003,7 +1003,7 @@ $.fn.serializarFormulario2 = function()
       var ar=[];
       var i=0;
       for(var t in this[0].zonas){
-        console.log(this[0].zonas[t]);
+        ////console.log(this[0].zonas[t]);
           if(this[0].zonas[0].value=="0" && this[0].zonas[0].checked && this[0].zonas[t].value != undefined ){
                 if(this[0].zonas[t].value!="0"){
                   ar[i++]=this[0].zonas[t].value;
@@ -1024,7 +1024,7 @@ $.fn.serializarFormulario2 = function()
       var ar=[];
       var i=0;
       for(var t in this[0].escolaridad){
-        console.log(this[0].escolaridad[t]);
+        //console.log(this[0].escolaridad[t]);
           if(this[0].escolaridad[0].value=="0" && this[0].escolaridad[0].checked && this[0].escolaridad[t].value != undefined ){
                 if(this[0].escolaridad[t].value!="0"){
                   ar[i++]=this[0].escolaridad[t].value;

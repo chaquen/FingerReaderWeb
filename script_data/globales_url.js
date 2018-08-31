@@ -6,6 +6,6 @@ var url_globals={
 	
 	//test
 	_URL_BE_TEST:"http://localhost/FingerReaderWeb/",
-	_URL_ONLINE_TEST:"https://apitestbiometrico.mohansoft.com/",
+	_URL_ONLINE_TEST:"https://biometric.mohansoft.com/",
 	
 }
