@@ -3230,14 +3230,12 @@ function dibujar_grafico_reporte_barras(){
 	//ingreso pdp
 	if(todo_anio!=undefined){
 		console.log(todo_anio);
-		var data_anio = google.visualization.arrayToDataTable(
-							          todo_anio
-							         );
+		var data_anio = google.visualization.arrayToDataTable(todo_anio);
 
 		var options_anio = {
 	                    
 			     chart: {
-			        title: nom_reporte+" año ingreso pdp" ,
+			        title: nom_reporte+" año ingreso pdp",
 			        subtitle: lugar_evento+" "+fecha_evento
 			        },
 			     bars: 'horizontal' // Required for Material Bar Charts.

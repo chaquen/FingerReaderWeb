@@ -163,7 +163,7 @@ abstract class ModeloBaseDeDatos{
         if($this->sentencia_sql!=""){
             if($this->ejecutar_sentencia_sql()){
                 $this->codigoMensaje="00";
-                $this->mensajeDepuracion="se ha registrado un nuevo registro en la Base de datos";
+                $this->mensajeDepuracion="Se ha registrado un nuevo registro en la Base de datos.";
                 return TRUE;
             }else{
                 $this->codigoMensaje="01";

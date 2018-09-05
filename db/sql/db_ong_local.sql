@@ -1,3 +1,4 @@
+-- version 4.8.1
 -- phpMyAdmin SQL Dump
 -- version 4.8.1
 -- https://www.phpmyadmin.net/
@@ -13,6 +14,7 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -22,48 +24,24 @@ SET time_zone = "+00:00";
 -- Database: `db_ong_local`
 --
 
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detalle_participantes`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `detalle_participantes` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED DEFAULT NULL,
-  `event_id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE `users`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
+  `state` tinyint(1) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELATIONSHIPS FOR TABLE `detalle_participantes`:
---   `event_id`
---       `eventos` -> `id`
---   `user_id`
---       `participantes` -> `documento`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `detalle_procesos`
---
-
-CREATE TABLE `detalle_procesos` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `id_usuario` int(11) UNSIGNED DEFAULT NULL,
-  `id_proceso` int(11) UNSIGNED DEFAULT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELATIONSHIPS FOR TABLE `detalle_procesos`:
---   `id_usuario`
---       `participantes` -> `documento`
---   `id_proceso`
---       `proceso` -> `id`
---
 
 -- --------------------------------------------------------
 
@@ -71,8 +49,9 @@ CREATE TABLE `detalle_procesos` (
 -- Table structure for table `eventos`
 --
 
+
 CREATE TABLE `eventos` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `id_ref` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -84,12 +63,12 @@ CREATE TABLE `eventos` (
   `img` varchar(255) NOT NULL,
   `estado_evento` enum('activo','suspendido') NOT NULL DEFAULT 'suspendido',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  CONSTRAINT `fk_ref_evento`
+    FOREIGN KEY (id_ref) REFERENCES users (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELATIONSHIPS FOR TABLE `eventos`:
---
 
 -- --------------------------------------------------------
 
@@ -98,7 +77,7 @@ CREATE TABLE `eventos` (
 --
 
 CREATE TABLE `lineas` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `nombre_linea` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -107,15 +86,32 @@ CREATE TABLE `lineas` (
 --
 
 -- --------------------------------------------------------
+--
+-- Table structure for table `proceso`
+
+--
+
+CREATE TABLE `proceso` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `fk_id_linea` int(10) UNSIGNED NOT NULL,
+  `nombre_proceso` varchar(256) NOT NULL,
+  CONSTRAINT `fk_ref_linea`
+    FOREIGN KEY (fk_id_linea) REFERENCES lineas (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `participantes`
 --
 
 CREATE TABLE `participantes` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `tipo_doc` varchar(255) DEFAULT NULL,
-  `documento` int(11) UNSIGNED DEFAULT NULL,
+  `documento` bigint(255) UNSIGNED DEFAULT NULL,
   `lugar_exp` varchar(255) DEFAULT NULL,
   `pri_apellido` varchar(255) DEFAULT NULL,
   `seg_apellido` varchar(255) DEFAULT NULL,
@@ -146,7 +142,8 @@ CREATE TABLE `participantes` (
   `estado_registro` enum('verificado','registrado','participando','antiguo','por_registrar') DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `tipo_registro` varchar(20) DEFAULT NULL
+  `tipo_registro` varchar(20) DEFAULT NULL,
+    KEY (`documento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -155,197 +152,62 @@ CREATE TABLE `participantes` (
 
 -- --------------------------------------------------------
 
+
 --
--- Table structure for table `proceso`
+-- Table structure for table `detalle_procesos`
 --
 
-CREATE TABLE `proceso` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `fk_id_linea` int(10) UNSIGNED NOT NULL,
-  `nombre_proceso` varchar(256) NOT NULL
+CREATE TABLE `detalle_procesos` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_usuario` bigint(255) UNSIGNED DEFAULT NULL,
+  `id_proceso` int(11) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+   CONSTRAINT `fk_id_usuario`
+    FOREIGN KEY (id_usuario) REFERENCES participantes (documento)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_id_dt_proceso`
+    FOREIGN KEY (id_proceso) REFERENCES proceso (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+    
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 --
--- RELATIONSHIPS FOR TABLE `proceso`:
---   `fk_id_linea`
---       `lineas` -> `id`
+-- Table structure for table `detalle_participantes`
 --
+
+CREATE TABLE `detalle_participantes` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` bigint(255) UNSIGNED DEFAULT NULL,
+  `event_id` int(10) UNSIGNED NOT NULL,
+  `acepta_terminos` enum('SI','NO') NOT NULL DEFAULT 'NO',
+  `acepta_terminos_foto` enum('SI','NO') NOT NULL DEFAULT 'NO',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  CONSTRAINT `fk_user_id`
+    FOREIGN KEY (user_id) REFERENCES participantes (documento)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_event_id`
+    FOREIGN KEY (event_id) REFERENCES eventos (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE    
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `sincronizaciones`
 --
 
 CREATE TABLE `sincronizaciones` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `fecha` datetime NOT NULL,
-  `usuario` int(11) NOT NULL,
-  `tipo` enum('preparacion','sincronizacion') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELATIONSHIPS FOR TABLE `sincronizaciones`:
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `pass` varchar(255) NOT NULL,
-  `state` tinyint(1) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELATIONSHIPS FOR TABLE `users`:
---
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `detalle_participantes`
---
-ALTER TABLE `detalle_participantes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `detalle_participantes_user_id_foreign` (`user_id`),
-  ADD KEY `detalle_participantes_event_id_foreign` (`event_id`);
-
---
--- Indexes for table `detalle_procesos`
---
-ALTER TABLE `detalle_procesos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_id_participante` (`id_usuario`),
-  ADD KEY `fk_id_proceso` (`id_proceso`);
-
---
--- Indexes for table `eventos`
---
-ALTER TABLE `eventos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `eventos_id_ref_foreign` (`id_ref`);
-
---
--- Indexes for table `lineas`
---
-ALTER TABLE `lineas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `participantes`
---
-ALTER TABLE `participantes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `documento` (`documento`);
-
---
--- Indexes for table `proceso`
---
-ALTER TABLE `proceso`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_id_lineas` (`fk_id_linea`);
-
---
--- Indexes for table `sincronizaciones`
---
-ALTER TABLE `sincronizaciones`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `detalle_participantes`
---
-ALTER TABLE `detalle_participantes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `detalle_procesos`
---
-ALTER TABLE `detalle_procesos`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `eventos`
---
-ALTER TABLE `eventos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `lineas`
---
-ALTER TABLE `lineas`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `participantes`
---
-ALTER TABLE `participantes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `proceso`
---
-ALTER TABLE `proceso`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `sincronizaciones`
---
-ALTER TABLE `sincronizaciones`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `detalle_participantes`
---
-ALTER TABLE `detalle_participantes`
-  ADD CONSTRAINT `fk_id_eventi_deta` FOREIGN KEY (`event_id`) REFERENCES `eventos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_id_participante_deta` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `detalle_procesos`
---
-ALTER TABLE `detalle_procesos`
-  ADD CONSTRAINT `fk_id_participantes_det_pro` FOREIGN KEY (`id_usuario`) REFERENCES `participantes` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_id_proceso_det_pro` FOREIGN KEY (`id_proceso`) REFERENCES `proceso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `proceso`
---
-ALTER TABLE `proceso`
-  ADD CONSTRAINT `fk_id_lineas` FOREIGN KEY (`fk_id_linea`) REFERENCES `lineas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  `usuario` int(11) UNSIGNED NOT NULL,
+  `tipo` enum('preparacion','sincronizacion') NOT NULL,
+   CONSTRAINT `fk_user_id_syn`
+    FOREIGN KEY (usuario) REFERENCES users (id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

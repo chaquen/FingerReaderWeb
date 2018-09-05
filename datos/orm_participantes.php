@@ -212,7 +212,6 @@ class Participantes extends ModeloBaseDeDatos{
             $hoy = new DateTime();
             $annos = $hoy->diff($cumpleanos);
             $edad=$annos->y;
-          
             if($edad>=8){
                         $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
                                                                 tipo_doc = '$tipo_doc',
@@ -266,7 +265,7 @@ class Participantes extends ModeloBaseDeDatos{
                     return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE,"sql"=>$this->sentencia_sql);
                 }
             }else{
-                return array("mensaje"=>  "Este participante no tiene la edad suficiente paar ingresar a el evento ","respuesta"=>FALSE,"sql"=>"");
+                return array("mensaje"=>  "Este participante no tiene la edad suficiente para ingresar a el evento","respuesta"=>FALSE,"sql"=>"");
             } 
            
     }
@@ -281,7 +280,6 @@ class Participantes extends ModeloBaseDeDatos{
             $hoy = new DateTime();
             $annos = $hoy->diff($cumpleanos);
             $edad=$annos->y;
-
             if($edad>=8){
                     $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
                                                             tipo_doc = '$tipo_doc',

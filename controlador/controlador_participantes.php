@@ -23,7 +23,7 @@ if(isset($_REQUEST['datos'])){
                 //$evento->crear_detalle_evento(array("user_id"=>$post->datos->id,"event_id"=>$post->datos->id_evento));
                  echo  json_encode($evento->crear_detalle_evento(array("user_id"=>$post->datos->id,"event_id"=>$post->datos->id_evento,"created_at"=>$post->hora_cliente,"updated_at"=>$post->hora_cliente)));
             }else{
-                echo json_encode(array("mensaje"=>"Nose ha podido registrar este usuario al evento por favor verifca la huella, para registrar la asistencia"));    
+                echo json_encode(array("mensaje"=>"No se ha podido registrar este usuario al evento por favor verifica la huella, para registrar la asistencia"));    
             }
        
             break;   

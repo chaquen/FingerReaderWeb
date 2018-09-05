@@ -222,7 +222,7 @@ if($da!=NULL){
 
 
 }else{
-	echo json_encode([["mensaje"=>"ha ocurrido un error por favor comunicate con el administrador","respuesta"=>false]]);
+	echo json_encode([["mensaje"=>"Ha ocurrido un error por favor comunícate con el administrador","respuesta"=>false]]);
     //print_r($remote_server_output);
 }
 

@@ -105,9 +105,10 @@ function iniciar_evento_participantes(){
                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
+                            alert('El usuario se registro con exito');
                             //  window.open('','_parent',''); 
-                            //window.close(); 
-                            location.href="menuEventos.html";
+                            window.close(); 
+                            //location.href="menuEventos.html";
                             
                         }else{
                         	mostrarMensaje(rs);

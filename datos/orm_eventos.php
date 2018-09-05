@@ -23,7 +23,7 @@ class Eventos extends ModeloBaseDeDatos{
 
             if($this->insertar_registro()){
             //var_dump($this->filas[0]);
-                return array("mensaje"=> "El evento ".$name." se ha registrado satifactoriamente",
+                return array("mensaje"=> "Los eventos se han registrado satisfactoriamente.",
                     "respuesta"=>TRUE);
             }else{
                 return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
