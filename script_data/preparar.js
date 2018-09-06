@@ -16,19 +16,38 @@ function iniciar_menu_preparar(){
 			    $('#preparando').fadeOut();
 				$('#listo').fadeIn();
 				console.log(rs);
+				
 				if(Object.keys(rs).length>=1){
 					
 				    var msn="";
 				    console.log(Object.keys(rs).length);
 				    for(var r in rs){
+				    	if(rs[r].mensaje!=undefined){
+				    		msn+=rs[r].mensaje+"\n";	
+				    	}else{
+				    		msn=rs.mensaje;		
+				    		break;
+				    	}
+				    	
 
-				    	msn+=rs[r].mensaje+"\n";
 				    }
+
+				    
 				    if(Object.keys(rs).length==1){
-				    	document.getElementById('msnPrepara').innerHTML=rs[0].mensaje;
+				    	if(rs[0].mensaje!=undefined){
+				    		document.getElementById('msnPrepara').innerHTML=rs[0].mensaje;
+				    	}else{
+				    		document.getElementById('msnPrepara').innerHTML=rs.mensaje;
+				    	}
+				    	
 				    	consultar_db();
 				    }else{
-				    	document.getElementById('msnPrepara').innerHTML=msn;	
+				    	if(msn!=undefined){
+				    		document.getElementById('msnPrepara').innerHTML=msn;		
+				    	}else{
+				    		document.getElementById('msnPrepara').innerHTML=rs.mensaje;	
+				    	}
+				    	
 				    }
 				}else{
 					document.getElementById('msnPrepara').innerHTML=rs.mensaje;

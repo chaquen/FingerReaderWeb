@@ -97,7 +97,7 @@
                 <ul class="todosF">
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_seleccionar_todos">
-                            <input class="mdl-checkbox__input" id="checkbox_vereda_nacimiento" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_seleccionar_todos" type="checkbox" name="datos_filtro" value="todos_los_datos" checked>
                                 <span class="mdl-checkbox__label">
                                     Seleccionar todos los filtros
                                 </span>
@@ -161,7 +161,7 @@
                 <ul class="identificacion">
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_numero_identidad">
-                            <input class="mdl-checkbox__input" id="checkbox_numero_identidad" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_numero_identidad" name="datos_filtro" value="participantes.tipo_doc,participantes.documento" type="checkbox">
                                 <span class="mdl-checkbox__label">
                                     Numero de Documento
                                 </span>
@@ -173,7 +173,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_nombre">
-                            <input class="mdl-checkbox__input" id="checkbox_nombre" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_nombre" name="datos_filtro" value="participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido" type="checkbox">
                                 <span class="mdl-checkbox__label">
                                     Nombre
                                 </span>
@@ -190,7 +190,7 @@
                 <ul class="treinta">
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_departamento_nacimiento">
-                            <input class="mdl-checkbox__input" id="checkbox_departamento_nacimiento" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_departamento_nacimiento" name="datos_filtro" type="checkbox" value="participantes.dep_nacimiento">
                                 <span class="mdl-checkbox__label">
                                     Departamento Nacimiento
                                 </span>
@@ -203,7 +203,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_ciudad_nacimiento">
-                            <input class="mdl-checkbox__input" id="checkbox_ciudad_nacimiento" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_ciudad_nacimiento" name="datos_filtro" type="checkbox" value="participantes.ciud_nacimiento">
                                 <span class="mdl-checkbox__label">
                                     Ciudad Nacimiento
                                 </span>
@@ -216,7 +216,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_vereda_nacimiento">
-                            <input class="mdl-checkbox__input" id="checkbox_vereda_nacimiento" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_vereda_nacimiento" name="datos_filtro" type="checkbox" value="vereda_nacimiento">
                                 <span class="mdl-checkbox__label">
                                     Vereda/Corregimineto/Inspección
                                 </span>
@@ -239,6 +239,12 @@
                                 Rango de edad
                             </h6>
                         </b>
+                        <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_edad">
+                            <input class="mdl-checkbox__input" id="checkbox_edad" name="datos_filtro" type="checkbox" value="edad">
+                                <span class="mdl-checkbox__label">
+                                   Edad
+                            </input>
+                        </label>
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-alle">
@@ -251,7 +257,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-6">
-                            <input class="mdl-checkbox__input" id="checkbox-6" name="edad" type="checkbox" value="18a28">
+                            <input class="mdl-checkbox__input" id="checkbox-6" name="edad" type="checkbox" value="8a28">
                                 <span class="mdl-checkbox__label">
                                     8 a 28
                                 </span>
@@ -306,6 +312,12 @@
                                 Género
                             </h6>
                         </b>
+                        <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_genero">
+                            <input class="mdl-checkbox__input" id="checkbox_genero" name="datos_filtro" type="checkbox" value="genero">
+                                <span class="mdl-checkbox__label">
+                                   Género
+                            </input>
+                        </label>
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-11">
@@ -351,7 +363,7 @@
                 <ul class="identificacion">
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_capacidad">
-                            <input class="mdl-checkbox__input" id="checkbox_capacidad" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_capacidad" name="datos_filtro" type="checkbox" value="participantes.cap_dife">
                                 <span class="mdl-checkbox__label">
                                     Capacidades Diferentes
                                 </span>
@@ -364,7 +376,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_Etnias">
-                            <input class="mdl-checkbox__input" id="checkbox_Etnias" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_Etnias" name="datos_filtro" type="checkbox">
                                 <span class="mdl-checkbox__label">
                                     Etnias
                                 </span>
@@ -395,14 +407,8 @@
                         </select>
                     </li>
                     <li>
-                        <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_otra_etnia">
-                            <input class="mdl-checkbox__input" id="checkbox_otra_etnia" name="tipo_doc" type="checkbox">
-                                <span class="mdl-checkbox__label">
-                                    Otra Etnia
-                                </span>
-                            </input>
-                        </label>
-                        <input class="" id="txt_et_otro" type="text">
+                        <h6> </h6>
+                        <input class="" id="txt_et_otro" type="text" placeholder="Otra Etnia">
                         </input>
                     </li>
                 </ul>
@@ -417,6 +423,13 @@
                                 Zona
                             </h6>
                         </b>
+                        <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_zona">
+                            <input class="mdl-checkbox__input" id="checkbox_zona" name="datos_filtro" type="checkbox" value="participantes.zona">
+                                <span class="mdl-checkbox__label">
+                                   Zona
+                            </input>
+                        </label>
+                        
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-14">
@@ -453,7 +466,7 @@
                 <ul class="treinta">
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_departamento">
-                            <input class="mdl-checkbox__input" id="checkbox_departamento" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_departamento" name="datos_filtro" type="checkbox" value="departamento_ubi">
                                 <span class="mdl-checkbox__label">
                                     Departamento
                                 </span>
@@ -466,7 +479,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_municipio_ubicacion">
-                            <input class="mdl-checkbox__input" id="checkbox_municipio_ubicacion" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_municipio_ubicacion" name="datos_filtro" type="checkbox" value="municipio">
                                 <span class="mdl-checkbox__label">
                                     Municipio ubicación
                                 </span>
@@ -479,7 +492,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_vereda">
-                            <input class="mdl-checkbox__input" id="checkbox_vereda" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_vereda" name="datos_filtro" type="checkbox" value="vereda_ubi">
                                 <span class="mdl-checkbox__label">
                                     Vereda/Corregimineto/Inspección
                                 </span>
@@ -498,7 +511,7 @@
                 <ul class="identificacion">
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_celular">
-                            <input class="mdl-checkbox__input" id="checkbox_celular" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_celular" name="datos_filtro" type="checkbox" value="celular">
                                 <span class="mdl-checkbox__label">
                                     Celular
                                 </span>
@@ -509,7 +522,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_Email">
-                            <input class="mdl-checkbox__input" id="checkbox_Email" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_Email" name="datos_filtro" type="checkbox" value="email">
                                 <span class="mdl-checkbox__label">
                                     Email
                                 </span>
@@ -530,6 +543,14 @@
                                 Escolaridad
                             </h6>
                         </b>
+                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_escolar">
+                            <input class="mdl-checkbox__input" id="checkbox_escolar" name="datos_filtro" type="checkbox" value="participantes.escolaridad">
+                                <span class="mdl-checkbox__label">
+                                    Escolaridad
+                                </span>
+                            </input>
+                        </label>
+                       
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-17">
@@ -602,7 +623,7 @@
                 <ul class="identificacion">
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_nombre_titulo">
-                            <input class="mdl-checkbox__input" id="checkbox_nombre_titulo" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_nombre_titulo" name="datos_filtro" type="checkbox" value="titulo_obt">
                                 <span class="mdl-checkbox__label">
                                     Nombre del Titulo
                                 </span>
@@ -613,7 +634,7 @@
                     </li>
                     <li>
                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_cargo_poblador">
-                            <input class="mdl-checkbox__input" id="checkbox_cargo_poblador" name="tipo_doc" type="checkbox">
+                            <input class="mdl-checkbox__input" id="checkbox_cargo_poblador" name="datos_filtro" type="checkbox" value="participantes.cargo_poblador">
                                 <span class="mdl-checkbox__label">
                                     Cargo del Poblador
                                 </span>
@@ -622,10 +643,15 @@
                         <input class="" id="txtCargo" name="cargo_pobrador" type="text">
                         </input>
                     </li>
-                    <li style="display: none!important;">
-                        <label class="" for="sample3">
-                            Año ingreso PDPMC
+                    <li >
+                         <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_cargo_poblador">
+                            <input class="mdl-checkbox__input" id="checkbox_cargo_poblador" name="datos_filtro" type="checkbox" value="participantes.cargo_poblador">
+                                <span class="mdl-checkbox__label">
+                                    Ingreso PDPMC
+                                </spa>
+                            </input>
                         </label>
+                        
                         <select id="selAnioDeingreso" name="anio_ingreso_pdp" required="">
                             <option value="0">--Seleccione año de ingreso--</option>
                         </select>
@@ -648,26 +674,32 @@
                         </div>
                     </li>
                     <li>
-                        <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_organizacion">
-                            <input class="mdl-checkbox__input" id="checkbox_organizacion" name="tipo_doc" type="checkbox">
+                        <!--<label class="mdl-checkbox mdl-js-checkbox" for="checkbox_organizacion">
+                            <input class="mdl-checkbox__input" id="checkbox_organizacion" name="datos_filtro" type="checkbox" value="lineas.nombre_linea">
                                 <span class="mdl-checkbox__label">
                                     Organización "Proceso PDP"
                                 </span>
                             </input>
-                        </label>
+                        </label>-->
+                        <b>
+                            <h6>Organización "Proceso PDP"</h6>
+                        </b>
                         <input class="" list="lista_datos_orga" name="lineas.nombre_linea" type="text">
                             <datalist id="lista_datos_orga">
                             </datalist>
                         </input>
                     </li>
                     <li>
-                        <label class="mdl-checkbox mdl-js-checkbox" for="checkbox_proceso">
-                            <input class="mdl-checkbox__input" id="checkbox_proceso" name="tipo_doc" type="checkbox">
+                        <!--<label class="mdl-checkbox mdl-js-checkbox" for="checkbox_proceso">
+                            <input class="mdl-checkbox__input" id="checkbox_proceso" name="datos_filtro" type="checkbox" value="proceso.nombre_proceso">
                                 <span class="mdl-checkbox__label">
                                     Proceso PDP
                                 </span>
                             </input>
-                        </label>
+                        </label>-->
+                        <b>
+                            <h6>Proceso PDP</h6>
+                        </b>
                         <input class="" list="lista_datos_proceso" name="proceso.nombre_proceso" type="text">
                             <datalist id="lista_datos_proceso">
                             </datalist>
@@ -720,7 +752,7 @@
                         <div style="width: 1000px; text-align: center;">
                             <b>
                                 <h6>
-                                    Términos y condiciones de uso de fotos
+                                    Términos y condiciones de uso de la imagen
                                 </h6>
                             </b>
                             <div>

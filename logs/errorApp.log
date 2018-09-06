@@ -974,3 +974,10 @@ PHP Error[31-08-18 10:28:59] => {1}=>{SELECT
                             FROM participantes WHERE estado_registro = 'verificado' OR estado_registro = 'registrado' OR estado_registro = 'participando'}
 PHP Error[31-08-18 10:28:59] => {1}=>{SELECT 
                              * FROM detalle_participantes}
+PHP Error[06-09-18 16:17:43] => {1}=>{SELECT id FROM participantes WHERE estado_registro = 'por_registrar' }
+PHP Error[06-09-18 16:19:23] => {1}=>{SELECT * FROM users WHERE  id = 63}
+PHP Error[06-09-18 16:19:23] => {1}=>{SELECT * FROM lineas WHERE  id = 8}
+PHP Error[06-09-18 16:19:23] => {1}=>{SELECT * FROM proceso WHERE  id = 27}
+PHP Error[06-09-18 16:19:23] => {1}=>{SELECT * FROM eventos WHERE  id = 10}
+PHP Error[06-09-18 16:19:23] => {1}=>{SELECT * FROM eventos WHERE  id = 5}
+PHP Error[06-09-18 16:19:23] => {1}=>{SELECT * FROM eventos WHERE  id = 6}

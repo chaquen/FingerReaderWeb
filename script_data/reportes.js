@@ -143,7 +143,24 @@ function iniciar_reportes(){
 				datos.acepta_terminos_foto=["SI","NO"];
 			}
 		}
-					
+		var df=document.getElementsByName("datos_filtro");
+		if(df[0].checked==true){
+			datos.datos_filtro=["todos_los_datos"];
+		}else{
+			
+			var i=0;
+			for(var d in df){
+				if(df[d].checked==true){
+					datos.datos_filtro[i]=df[d].value;
+					i++;
+				}	
+
+			}
+		}
+		if(typeof(datos.datos_filtro)=="string"){
+			datos.datos_filtro=[datos.datos_filtro]
+		}
+		console.log(datos.datos_filtro);					
 		//nom_reporte=document.getElementById("selEventos").options[document.getElementById("selEventos").selectedIndex].innerHTML;	
 		
 		var opt=document.getElementById("selEventos").options;
@@ -1527,9 +1544,23 @@ function iniciar_reportes(){
 			}
 		}
 
-		//alert(eventos);
-		//alert(eventos.length);
+		var df=document.getElementsByName("datos_filtro");
+		if(df[0].checked==true){
+			datos.datos_filtro=["todos_los_datos"];
+		}else{
+			
+			var i=0;
+			for(var d in df){
+				if(df[d].checked==true){
+					datos.datos_filtro[i]=df[d].value;
+					i++;
+				}	
 
+			}
+		}
+		if(typeof(datos.datos_filtro)=="string"){
+			datos.datos_filtro=[datos.datos_filtro]
+		}
 		if(eventos.length==0){
 			
 			aprovado=false;
@@ -2659,71 +2690,156 @@ function dibujar_tabla2(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
+		if(datos[0].documento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Documento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		
+		if(datos[0].pri_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Primer Nombre";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		
+		if(datos[0].seg_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Segundo Nombre";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Documento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].pri_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Primer Apellido";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Primer Nombre";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].seg_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Segundo Apellido";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML="Segundo Nombre";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Primer Apellido";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		
 
-		var td=document.createElement("td");
-		td.innerHTML="Segundo Apellido";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].genero!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Genero";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].edad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Edad";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].dep_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Departamento de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].ciud_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Ciudad de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Genero";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].vereda_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Vereda de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].cap_dife!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Capacidades diferentes";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].etnia!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Etnia";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].zona!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Zona";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].departamento_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Departamento de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].municipio!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Ciudad de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Edad";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].vereda_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Vereda de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].celular!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Télefono";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].email!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Email";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].escolaridad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Escolaridad";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].cargo_poblador!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Cargo Poblador";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].anio_ingreso_pdp!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Activo desde";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].name!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Evento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].updated_at!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Fecha asistencia";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Ciudad de Nacimiento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Departamento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Télefono";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Activo desde";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Evento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Fecha asistencia";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+			
 
 		tbl.appendChild(tr);		
 	for(var f in datos){
@@ -2731,75 +2847,174 @@ function dibujar_tabla2(datos){
 		var tr=document.createElement("tr");
 		
 		var td=document.createElement("td");
-		td.innerHTML=(f+1);
+		td.innerHTML=(Number(f)+1);
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].documento;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].pri_nombre;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].seg_nombre;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].pri_apellido;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].seg_apellido;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].documento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].documento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
 		
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].genero;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].pri_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].pri_nombre;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].seg_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].seg_nombre;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].pri_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].pri_apellido;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].seg_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].seg_apellido;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].genero!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].genero;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].edad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].edad+" años";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].dep_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].dep_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].edad+" años";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].ciud_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].ciud_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].vereda_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].vereda_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].cap_dife!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].cap_dife;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].etnia!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].etnia;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].zona!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].zona;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].ciud_nacimiento;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].departamento_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].departamento_ubi;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].departamento_ubi;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].municipio!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].municipio;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].vereda_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].vereda_ubi;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].celular!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].celular;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].email!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].email;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].escolaridad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].escolaridad;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].cargo_poblador!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].cargo_poblador;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].anio_ingreso_pdp!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].anio_ingreso_pdp;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].name!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].name;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[f].updated_at!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].updated_at;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].celular;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].anio_ingreso_pdp;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].name;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].updated_at;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
+		
 		tbl.appendChild(tr);		
 
 	}
@@ -2818,70 +3033,156 @@ function dibujar_tabla3(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 		
-		var td=document.createElement("td");
-		td.innerHTML="Documento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML="Primer Nombre";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		
+		if(datos[0].documento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Documento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		
+		if(datos[0].pri_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Primer Nombre";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		
+		if(datos[0].seg_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Segundo Nombre";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Segundo Nombre";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].pri_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Primer Apellido";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Primer Apellido";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].seg_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Segundo Apellido";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML="Segundo Apellido";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		}
+		
+		if(datos[0].genero!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Genero";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].edad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Edad";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].dep_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Departamento de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].ciud_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Ciudad de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Genero";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].vereda_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Vereda de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].cap_dife!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Capacidades diferentes";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].etnia!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Etnia";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].zona!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Zona";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].departamento_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Departamento de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].municipio!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Ciudad de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Edad";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].vereda_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Vereda de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].celular!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Télefono";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].email!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Email";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].escolaridad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Escolaridad";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].cargo_poblador!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Cargo Poblador";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].anio_ingreso_pdp!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Activo desde";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].name!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Evento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].updated_at!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Fecha asistencia";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Ciudad de Nacimiento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Departamento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Télefono";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Activo desde";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);	
-
-		var td=document.createElement("td");
-		td.innerHTML="Evento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Fecha asistencia";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+			
 
 		tbl.appendChild(tr);		
 	for(var f in datos){
@@ -2889,75 +3190,174 @@ function dibujar_tabla3(datos){
 		var tr=document.createElement("tr");
 		
 		var td=document.createElement("td");
-		td.innerHTML=(f+1);
+		td.innerHTML=(Number(f)+1);
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].documento;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].pri_nombre;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].seg_nombre;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].pri_apellido;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].seg_apellido;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].documento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].documento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
 		
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].genero;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].pri_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].pri_nombre;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].seg_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].seg_nombre;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].pri_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].pri_apellido;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].seg_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].seg_apellido;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].genero!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].genero;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].edad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].edad+" años";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].dep_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].dep_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].edad+" años";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].ciud_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].ciud_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].vereda_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].vereda_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].cap_dife!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].cap_dife;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].etnia!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].etnia;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].zona!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].zona;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].ciud_nacimiento;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].departamento_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].departamento_ubi;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].departamento_ubi;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].municipio!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].municipio;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].vereda_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].vereda_ubi;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].celular!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].celular;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].email!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].email;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].escolaridad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].escolaridad;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].cargo_poblador!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].cargo_poblador;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].anio_ingreso_pdp!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].anio_ingreso_pdp;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].name!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].name;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[f].updated_at!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].updated_at;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].celular;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].anio_ingreso_pdp;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].name;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].updated_at;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
+		
 		tbl.appendChild(tr);		
 
 	}
@@ -3024,70 +3424,157 @@ function dibujar_tabla(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML="Documento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML="Primer Nombre";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].documento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Documento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		
+		if(datos[0].pri_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Primer Nombre";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		
+		if(datos[0].seg_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Segundo Nombre";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Segundo Nombre";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].pri_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Primer Apellido";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Primer Apellido";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].seg_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Segundo Apellido";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML="Segundo Apellido";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Genero";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		
 
-		var td=document.createElement("td");
-		td.innerHTML="Edad";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].genero!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Genero";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].edad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Edad";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].dep_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Departamento de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].ciud_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Ciudad de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Ciudad de Nacimiento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].vereda_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Vereda de Nacimiento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].cap_dife!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Capacidades diferentes";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].etnia!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Etnia";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].zona!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Zona";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].departamento_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Departamento de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].municipio!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Ciudad de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Departamento";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[0].vereda_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Vereda de Ubicación";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].celular!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Télefono";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].email!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Email";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].escolaridad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Escolaridad";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].cargo_poblador!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Cargo Poblador";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].anio_ingreso_pdp!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Activo desde";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[0].name!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Evento";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
+		}
+		if(datos[0].updated_at!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML="Fecha asistencia";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML="Télefono";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Activo desde";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Acepta terminos";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML="Acepta uso de foto";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+			
 
 		tbl.appendChild(tr);		
 	for(var f in datos){
@@ -3095,77 +3582,176 @@ function dibujar_tabla(datos){
 		var tr=document.createElement("tr");
 		tr.setAttribute("onclick","ver_asistencia_individual('"+datos[f].documento+"')");
 		
-
 		var td=document.createElement("td");
-		td.innerHTML=Number(f)+1;
+		td.innerHTML=(Number(f)+1);
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].documento;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].pri_nombre;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].seg_nombre;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].pri_apellido;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].seg_apellido;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].documento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].documento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+			
+		}
 		
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].genero;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].pri_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].pri_nombre;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].seg_nombre!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].seg_nombre;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].pri_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].pri_apellido;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].seg_apellido!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].seg_apellido;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].genero!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].genero;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].edad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].edad+" años";
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].dep_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].dep_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].edad+" años";
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].ciud_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].ciud_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].vereda_nacimiento!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].vereda_nacimiento;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].cap_dife!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].cap_dife;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].etnia!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].etnia;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].zona!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].zona;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].ciud_nacimiento;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].departamento_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].departamento_ubi;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].departamento_ubi;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		if(datos[f].municipio!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].municipio;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].vereda_ubi!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].vereda_ubi;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].celular!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].celular;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].email!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].email;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].escolaridad!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].escolaridad;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].cargo_poblador!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].cargo_poblador;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].anio_ingreso_pdp!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].anio_ingreso_pdp;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		
+		if(datos[f].name!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].name;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);	
+		}
+		if(datos[f].updated_at!=undefined){
+			var td=document.createElement("td");
+			td.innerHTML=datos[f].updated_at;
+			td.className="mdl-data-table__cell--non-numeric";
+			tr.appendChild(td);
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].celular;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
+		}
 
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].anio_ingreso_pdp;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].acepta_terminos;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
-		var td=document.createElement("td");
-		td.innerHTML=datos[f].acepta_terminos_foto;
-		td.className="mdl-data-table__cell--non-numeric";
-		tr.appendChild(td);
-
+		
 		tbl.appendChild(tr);		
 
 	}
