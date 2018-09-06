@@ -11,7 +11,7 @@ var globales={
 	_eventos:false,
 	_departamentos:false,
 	_municipios:false,
-	_dev:true,
+	_dev:false,
 	_URL_BE:"",
 	_URL_ONLINE:"",
 
