@@ -25,6 +25,7 @@ function iniciar_evento_participantes(){
        
         
         if(false!=datos){
+            document.getElementById("btnRegistrarParticiapantes").style.display="none";
              datos.estado_registro="registrado";
              console.log(datos);
              console.log(pos);
@@ -40,6 +41,7 @@ function iniciar_evento_participantes(){
                  }
              }else{
                  mostrarMensaje("Selecciona una etnia");
+                 document.getElementById("btnRegistrarParticiapantes").style.display="";
                 return false; 
              }
              if(datos.genero!="--Genero--"){
@@ -48,12 +50,14 @@ function iniciar_evento_participantes(){
                  }   
              }else{
                 mostrarMensaje("Debes seleccionar un genero");
+                document.getElementById("btnRegistrarParticiapantes").style.display="";
                 return false; 
              }
 
              if(datos.zona=="0"){
                 
                 mostrarMensaje("Debes seleccionar una zona");
+                document.getElementById("btnRegistrarParticiapantes").style.display="";
                 return false; 
                     
              }
@@ -64,10 +68,12 @@ function iniciar_evento_participantes(){
 
              if(datos.tipo_doc=="0"){
                 mostrarMensaje("Selecciona el tipo documento");
+                document.getElementById("btnRegistrarParticiapantes").style.display="";
                 return false;
              }
              if(procesos.length==0){
                 mostrarMensaje("Selecciona al menos un proceso");
+                document.getElementById("btnRegistrarParticiapantes").style.display="";
                 return false;  
              }else{
                 for(var p in procesos){
@@ -79,6 +85,7 @@ function iniciar_evento_participantes(){
                 if(datos.escolaridad!="Ninguno"){
                     if(document.getElementById("txtTitulo").value==""){
                          mostrarMensaje("Ingresa el titulo obtenido");
+                         document.getElementById("btnRegistrarParticiapantes").style.display="";
                         return false;  
                     }
                  }else{
@@ -89,11 +96,13 @@ function iniciar_evento_participantes(){
 
              }else{
                 mostrarMensaje("Selecciona la escolaridad");
+                document.getElementById("btnRegistrarParticiapantes").style.display="";
                 return false; 
              }
 
              if(datos.anio_ingreso_pdp=="0"){
                 mostrarMensaje("Selecciona el año de ingreso al pdp");
+                document.getElementById("btnRegistrarParticiapantes").style.display="";
                 return false; 
              }
 
@@ -105,19 +114,22 @@ function iniciar_evento_participantes(){
                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
-                            alert('El usuario se registro con exito');
-                            //  window.open('','_parent',''); 
-                            window.close(); 
-                            //location.href="menuEventos.html";
+                            
+                            document.getElementById("btnRegistrarParticiapantes").style.display="";
+                            //window.open('','_parent',''); 
+                            //window.close(); 
+                            location.href="menuEventos.html";
                             
                         }else{
                         	mostrarMensaje(rs);
+                            document.getElementById("btnRegistrarParticiapantes").style.display="";
                         }
                         
                     
                 },"formPobladores");
         }else{
                 mostrarMensaje("Por favor ingresa los campos requeridos");
+                document.getElementById("btnRegistrarParticiapantes").style.display="";
         }
     });
     

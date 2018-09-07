@@ -17,6 +17,7 @@ function iniciar_evento_actualizar_participantes(){
        
          
         if(false!=datos){
+            document.getElementById("btnActualizarParticiapantes").style.display="none";
              datos.estado_registro="registrado";
              console.log(datos);
              console.log(pos);
@@ -32,6 +33,7 @@ function iniciar_evento_actualizar_participantes(){
                  }
              }else{
                  mostrarMensaje("Selecciona una etnia");
+                 document.getElementById("btnActualizarParticiapantes").style.display="";
                 return false; 
              }
              
@@ -41,12 +43,14 @@ function iniciar_evento_actualizar_participantes(){
                  }   
              }else{
                 mostrarMensaje("Debes seleccionar un genero");
+                document.getElementById("btnActualizarParticiapantes").style.display="";
                 return false; 
              }
 
              if(datos.zona=="0"){
                 
                 mostrarMensaje("Debes seleccionar una zona");
+                document.getElementById("btnActualizarParticiapantes").style.display="";
                 return false; 
                     
              }
@@ -57,10 +61,12 @@ function iniciar_evento_actualizar_participantes(){
 
              if(datos.tipo_doc=="0"){
                 mostrarMensaje("Selecciona el tipo documento");
+                document.getElementById("btnActualizarParticiapantes").style.display="";
                 return false;
              }
              if(procesos.length==0){
                 mostrarMensaje("Selecciona al menos un proceso");
+                document.getElementById("btnActualizarParticiapantes").style.display="";
                 return false;  
              }else{
                 for(var p in procesos){ 
@@ -72,6 +78,7 @@ function iniciar_evento_actualizar_participantes(){
                 if(datos.escolaridad!="Ninguno"){
                     if(document.getElementById("txtTitulo").value==""){
                          mostrarMensaje("Ingresa el titulo obtenido");
+                         document.getElementById("btnActualizarParticiapantes").style.display="";
                         return false;  
                     }
                  }else{
@@ -81,11 +88,13 @@ function iniciar_evento_actualizar_participantes(){
 
              }else{
                 mostrarMensaje("Selecciona la escolaridad");
+                document.getElementById("btnActualizarParticiapantes").style.display="";
                 return false; 
              }
 
              if(datos.anio_ingreso_pdp=="0"){
                 mostrarMensaje("Selecciona el año de ingreso al pdp");
+                document.getElementById("btnActualizarParticiapantes").style.display="";
                 return false; 
              }
              if(datos.dep_nacimiento.split("-")[1]==undefined){
@@ -104,9 +113,11 @@ function iniciar_evento_actualizar_participantes(){
                 registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","actualizarParticipanteConEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
+
                             //  window.open('','_parent',''); 
-                            window.close(); 
-                            //location.href="menuEventos.html";
+                            //window.close(); 
+                            location.href="menuEventos.html";
+
                             
                         }
                         
