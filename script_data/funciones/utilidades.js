@@ -3,7 +3,9 @@
  * 
  * */
 var rgxEmail=/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?: |com.es|com|com.co|net.co|co|org|net|biz|info|mobi|cat|es|ar|futbol|rocks|)$/i;
-var rgxNumero=/^-?(\d+\.?\d*)$|(\d*\.?\d+)$/;
+var rgxNumero=/^\d*$/;
+//SOLO LETRAS NO MAYUSCULAS
+//var rgxSoloLetras=/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
 
 /**
  * url=//Ubicacion del archivo a consultar en la peticion HTTP

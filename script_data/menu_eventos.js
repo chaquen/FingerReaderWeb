@@ -51,12 +51,18 @@ function iniciar_menu_eventos(){
 		location.href="reportes.html";
 	});
 	
+	
+	agregarEvento("btnEliminarDB","click",function(){
+    	if(confirm("¿Estas seguro que quieres elimnar la BD?,\nRecuerda esto eliminara todos los datos que no haz sincronizado!")){
+    		registrarDatoOff(globales._URL_BE+"controlador/controlador_eliminar_db_local.php","eliminar_db_local",{},function(rs) {
+    			mostrarMensaje(rs);
+    			if(rs.respuesta){
+    				location.reload();
+    			}
+    		});
+    	}
+    });
 	consultar_db();
-	registrarDatoOff(globales._URL_BE+"controlador/controlador_eventos.php","preparar_eventos",{},function(rs){
-            if(rs.respuesta==false){
-                mostrarMensaje("Error al selecciona evento");
-            }
-    },"");
 	
 }
 
@@ -71,11 +77,13 @@ function consultar_db(){
 	                
 	                  $('#btnInstalar').fadeOut();
 			    	  $('#btnPreparar').fadeIn();
+			    	  $('#btnSincronizar').fadeIn();
+			    	  $('#btnEliminarDB').fadeIn();
 
 	                } else {
 	                   $('#btnPreparar').fadeOut();
-                            $('#btnInstalar').fadeOut();
-                            $('#btnOff').fadeIn();
+                       $('#btnInstalar').fadeOut();
+                       $('#btnOff').fadeIn();
 	                }
 	                if(rs.valores_consultados!=undefined){
 	                	document.getElementById("pMsn").innerHTML=rs.mensaje+", ultima fecha y hora de preparacion "+eval(rs.valores_consultados)[0].fecha+"\n ¿Quieres prepararlo de nuevo?";	
@@ -83,18 +91,26 @@ function consultar_db(){
 			    	
 			    	//document.getElementById("btnInstalar").style.display="none";
 			    	//document.getElementById("btnPreparar").style.display="block";
-			    	
+			    	registrarDatoOff(globales._URL_BE+"controlador/controlador_eventos.php","preparar_eventos",{},function(rs){
+				            if(rs.respuesta==false){
+				                mostrarMensaje("Error al selecciona evento");
+				            }
+				    },"");
 				}else{
 					  if(navigator.onLine) {
 	                //goOnline();
 	                
 	                  $('#btnInstalar').fadeIn();
 			    	  $('#btnPreparar').fadeOut();
+			    	  $('#btnSincronizar').fadeOut();
+			    	  $('#btnEliminarDB').fadeOut();
 
 	                } else {
 	                   $('#btnPreparar').fadeOut();
-                            $('#btnInstalar').fadeOut();
-                            $('#btnOff').fadeIn();
+                       $('#btnInstalar').fadeOut();
+                       $('#btnOff').fadeIn();
+                       $('#btnSincronizar').fadeOut();
+			    	   $('#btnEliminarDB').fadeOut();
 	                }
 					
 			    	//document.getElementById("btnInstalar").style.display="block";

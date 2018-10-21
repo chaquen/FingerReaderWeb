@@ -160,7 +160,7 @@ function iniciar_reportes(){
 		if(typeof(datos.datos_filtro)=="string"){
 			datos.datos_filtro=[datos.datos_filtro]
 		}
-		console.log(datos.datos_filtro);					
+		//console.log(datos.datos_filtro);					
 		//nom_reporte=document.getElementById("selEventos").options[document.getElementById("selEventos").selectedIndex].innerHTML;	
 		
 		var opt=document.getElementById("selEventos").options;
@@ -1547,6 +1547,14 @@ function iniciar_reportes(){
 		var df=document.getElementsByName("datos_filtro");
 		if(df[0].checked==true){
 			datos.datos_filtro=["todos_los_datos"];
+			var i=0;
+			for(var d in df){
+				if(df[d].checked==true || df[d].checked==false){
+					datos.datos_filtro[i]=df[d].value;
+					i++;
+				}	
+
+			}
 		}else{
 			
 			var i=0;
@@ -4182,7 +4190,7 @@ function dibujar_grafico_reporte_torta(){
 	//año ingreso
 	if(todo_anio_pie!=undefined){
 		var data_anio = google.visualization.arrayToDataTable( todo_anio_pie     );
-        console.log(todo_anio_pie);
+        //console.log(todo_anio_pie);
         //console.log(todo_anio_pie);
 		var options_anio = {
 			     
@@ -4446,6 +4454,7 @@ function dibujar_tabla_eventos(datos){
 		tr.appendChild(td);
 
 		tbl.appendChild(tr);		
+		var total_asistentes=0;
 	for(var f in datos){
 		//console.log(datos[f]);
 		var tr=document.createElement("tr");
@@ -4472,7 +4481,15 @@ function dibujar_tabla_eventos(datos){
 		td.className="mdl-data-table__cell--non-numeric";
 		tr.appendChild(td);
 
-		tbl.appendChild(tr);		}
+		tbl.appendChild(tr);
+		if(datos[f].cuantos_por_eventos!=null){
+			total_asistentes+=Number(datos[f].cuantos_por_eventos);		
+		}
+		
+
+	}
+
+	document.getElementById("h5TotalAsistentes").innerHTML=total_asistentes;
 
 }
 function dibujar_tabla_eventos_individual(datos){

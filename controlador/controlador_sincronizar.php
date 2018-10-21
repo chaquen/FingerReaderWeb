@@ -61,6 +61,8 @@ $da=json_decode($remote_server_output);
 			$objeto->eliminar_recurso("estado_registro = 'verificado'");
 			$objeto->eliminar_recurso("estado_registro = 'registrado'");
 			$objeto->eliminar_recurso("estado_registro = 'participando'");
+			//$eve=new Eventos();	
+			//$eve->registro_sincronizar($us->datos->id,$us->hora_cliente,"'sincronizacion'");
 			print_r($remote_server_output);	
 		}else{
 			echo json_encode(array("mensaje"=>"No hay registros para sincronizar","respuesta"=>true));

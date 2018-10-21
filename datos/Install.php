@@ -14,6 +14,8 @@ class Install {
     }
  	
     public function validar_db(){
+    	// Notificar solamente errores de ejecución
+		error_reporting(E_ERROR | E_PARSE);
     	$conectar = mysqli_connect( DB_HOST, DB_USUARIO, DB_CLAVE,DB_NOMBRE_DATABASE);
     	if (mysqli_connect_errno()){
 		  	//die("Connection error: " . mysqli_connect_errno());
@@ -86,5 +88,22 @@ class Install {
 
 
  		
- 	}   
+ 	} 
+
+ 	public function eliminar_db(){
+ 		$conectar = mysqli_connect( DB_HOST, DB_USUARIO, DB_CLAVE);
+
+		$var =DB_NOMBRE_DATABASE;
+		$consulta ="DROP DATABASE $var ";
+		$resultado=mysqli_query($conectar,$consulta);
+		
+		if($resultado){
+			
+			return array("mensaje"=>"Base de datos eliminada","respuesta"=>true);
+		}else{
+			return array("mensaje"=>"No seha podido elimnar la base de datos","respuesta"=>false);
+		}
+
+
+ 	}  
 }
